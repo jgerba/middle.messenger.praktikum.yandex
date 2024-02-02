@@ -5,5 +5,5 @@ export default defineConfig({
     build: {
         outDir: 'dist',
     },
-    plugins: [viteInspect(), handlebars()],
+    plugins: [handlebars()],
 });
