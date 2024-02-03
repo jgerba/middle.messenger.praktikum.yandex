@@ -1,22 +1,13 @@
 import './styles/style.scss';
 
-import Button from './components/button/index.js';
-import Input from './components/input/index.js';
-import Form from './pages/signIn/signInForm/index.js';
-import SignIn from './pages/signIn/index.js';
+import * as components from './components/index.js';
 
+import SignIn from './pages/signIn/index.js';
+import SignUp from './pages/signUp/index.js';
+
+import { handleTpls } from './utils/tplHelper.js';
+
+handleTpls(components);
 const rootEl = document.getElementById('app');
 
-// rootEl.innerHTML = Button({
-//     text: 123,
-//     class: 'btn2',
-//     submit: true,
-//     ['extra-btn']: true,
-// });
-// rootEl.innerHTML = Input({
-//     name: 123,
-//     // ['error-text']: 'error',
-//     notEmpty: false,
-// });
-// rootEl.innerHTML = SignIn({});
-rootEl.innerHTML = SignIn();
+rootEl.innerHTML = SignUp({});
