@@ -3,8 +3,8 @@ export default `
     <h1 class='header'>Sign in</h1>
 
     <div class="form__input-wrapper">
-        {{>Input name='login'}}
-        {{>Input name='password' type='password'}}
+        {{>Input name='login' text='Login'}}
+        {{>Input name='password' type='password' text='Password'}}
     </div>
 
     <div class="form__btns-wrapper">

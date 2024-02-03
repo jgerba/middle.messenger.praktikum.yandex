@@ -1,13 +1,15 @@
-@import './vars.scss';
-@import '../components/button/style.scss';
-@import '../components/input/style.scss';
-@import '../components/signInForm/style.scss';
-@import '../pages/signIn/style.scss';
-
 @font-face {
     font-family: 'Inter';
     src: url('../../static/Inter-Medium.woff2');
 }
+
+@import './vars.scss';
+@import '../components/button/style.scss';
+@import '../components/input/style.scss';
+@import '../components/signInForm/style.scss';
+@import '../components/signUpForm/style.scss';
+
+@import '../pages/signIn/style.scss';
 
 * {
     background-origin: content-box;
