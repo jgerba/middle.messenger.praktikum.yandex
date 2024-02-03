@@ -11,3 +11,13 @@
         background-color: $back-el-color;
     }
 }
+
+.extra-btn {
+    color: $highlight-color;
+    background-color: transparent;
+
+    &:hover {
+        color: $back-text-color;
+        background-color: transparent;
+    }
+}
