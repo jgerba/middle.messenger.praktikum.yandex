@@ -1,5 +1,6 @@
 @import './vars.scss';
-@import '../components/button/button.scss';
+@import '../components/button/style.scss';
+@import '../components/input/style.scss';
 
 * {
     background-origin: content-box;
@@ -7,6 +8,7 @@
     padding: 0px;
     margin: 0px;
 
+    font-size: 13px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -14,6 +16,10 @@ button {
     border: none;
     background: transparent;
     cursor: pointer;
+}
+
+input {
+    all: unset;
 }
 
 a:link,
