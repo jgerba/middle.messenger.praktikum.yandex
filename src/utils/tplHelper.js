@@ -11,3 +11,10 @@ export function renderTpl(tpl) {
         return templateFunc(props);
     };
 }
+
+export function handleTpls(components) {
+    Object.entries(components).forEach(([name, tpl]) => {
+        registerTpl(name, tpl);
+        renderTpl(tpl);
+    });
+}
