@@ -1,9 +1,13 @@
 import Handlebars from 'handlebars';
 
-export default function handleTpl(tpl) {
-    const compiledTpl = Handlebars.compile(tpl);
+export function registerTpl(name, tpl) {
+    Handlebars.registerPartial(name, tpl);
+}
+
+export function renderTpl(tpl) {
+    const templateFunc = Handlebars.compile(tpl);
 
     return function renderEl(props) {
-        return compiledTpl(props);
+        return templateFunc(props);
     };
 }

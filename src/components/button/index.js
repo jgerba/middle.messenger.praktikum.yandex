@@ -1,4 +1,5 @@
 import tpl from './button.js';
-import handleTpl from '../../utils/tplHelper.js';
+import { registerTpl, renderTpl } from '../../utils/tplHelper.js';
 
-export default handleTpl(tpl);
+registerTpl('Button', tpl);
+export default renderTpl(tpl);
