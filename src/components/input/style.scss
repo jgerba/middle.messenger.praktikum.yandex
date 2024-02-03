@@ -3,26 +3,33 @@
     flex-direction: column;
     gap: 7px;
 
-    &__label--small {
-        font-size: 9px;
-    }
-
-    &__input {
+    .input {
         border-bottom: 1px solid $highlight-color;
         color: $text-color;
     }
 
-    &__label,
-    &__input::placeholder {
+    .label,
+    .input::placeholder {
+        text-transform: capitalize;
         color: $back-text-color;
     }
 
-    &__input,
-    &__input::placeholder {
+    .input,
+    .input::placeholder {
         padding: 7px 0px;
     }
 
-    &__error {
+    .label {
+        &--small {
+            font-size: 9px;
+        }
+
+        &--hidden {
+            color: transparent;
+        }
+    }
+
+    .error {
         font-size: 8px;
         color: $warning-color;
     }

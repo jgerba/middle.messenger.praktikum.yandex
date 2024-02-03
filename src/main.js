@@ -2,7 +2,8 @@ import './styles/style.scss';
 
 import Button from './components/button/index.js';
 import Input from './components/input/index.js';
-import Card from './components/card/index.js';
+import Form from './pages/signIn/signInForm/index.js';
+import SignIn from './pages/signIn/index.js';
 
 const rootEl = document.getElementById('app');
 
@@ -14,7 +15,8 @@ const rootEl = document.getElementById('app');
 // });
 // rootEl.innerHTML = Input({
 //     name: 123,
-//     ['error-text']: 'error',
+//     // ['error-text']: 'error',
 //     notEmpty: false,
 // });
-rootEl.innerHTML = Card({ class: '123', ['el-class']: 'card-class' });
+// rootEl.innerHTML = SignIn({});
+rootEl.innerHTML = SignIn();
