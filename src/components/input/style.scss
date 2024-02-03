@@ -1,28 +1,28 @@
-.container {
+.input-wrapper {
     display: flex;
     flex-direction: column;
     gap: 7px;
 
-    .label-small {
+    &__label--small {
         font-size: 9px;
     }
 
-    .input {
+    &__input {
         border-bottom: 1px solid $highlight-color;
         color: $text-color;
     }
 
-    .label,
-    .input::placeholder {
+    &__label,
+    &__input::placeholder {
         color: $back-text-color;
     }
 
-    .input,
-    .input::placeholder {
+    &__input,
+    &__input::placeholder {
         padding: 7px 0px;
     }
 
-    .error {
+    &__error {
         font-size: 8px;
         color: $warning-color;
     }

@@ -1,11 +1,11 @@
-export default `<div class='container {{container-class}}'>
-    <label class='label {{#if notEmpty}} label-small {{/if}}' for='{{name}}'>{{name}}</label>
+export default `<div class='input-wrapper {{class}}'>
+    <label class='input-wrapper__label {{#if notEmpty}} input-wrapper__label--small {{/if}}' for='{{name}}'>{{name}}</label>
     <input
-        class='input {{input-class}}'
+        class='input-wrapper__input {{input-class}}'
         id='{{name}}'
         type='{{#if type}} {{type}} {{else}} text {{/if}} '
         name='{{name}}'
         placeholder='{{name}}'
     />
-    <p class='error'>{{error-text}}</p>
+    {{#if error-text}}<p class='input-wrapper__error'>{{error-text}}</p>{{/if}}
 </div>`;
