@@ -1,6 +1,4 @@
-import Handlebars from 'handlebars';
 import tpl from './button.js';
+import handleTpl from '../../utils/tplHelper.js';
 
-export default function Button(props) {
-    return Handlebars.compile(tpl)(props);
-}
+export default handleTpl(tpl);
