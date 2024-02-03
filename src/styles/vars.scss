@@ -6,19 +6,3 @@ $back-el-color: #efefef;
 $back-message-color: #f8f8f8;
 $borders-color: #eaeaea;
 $warning-color: #ff2f2f;
-
-* {
-    background-origin: content-box;
-
-    padding: 0px;
-    margin: 0px;
-
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-a:link,
-a:visited,
-a:hover,
-a:active {
-    text-decoration: none;
-}
