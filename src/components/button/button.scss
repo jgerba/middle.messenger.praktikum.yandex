@@ -1,7 +1,13 @@
 .btn {
-    height: 37px;
     width: 100%;
 
+    padding: 12px 70px;
+
     color: white;
-    background-color: $highlightColor;
+    background-color: $highlight-color;
+
+    &:hover {
+        color: $highlight-color;
+        background-color: $back-el-color;
+    }
 }
