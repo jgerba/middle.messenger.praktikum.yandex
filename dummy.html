@@ -1,22 +1,17 @@
-<section class="modal">
-  <div class='backdrop'></div>
-  <form class='modal__form'>
-    {{#if submitError}}
-    <p class="modal__submit-error"></p>
-    {{else}}
-    <h3 class='header'>{{header}}</h3>
-    {{/if}}
+<form class='form form--profile'>
+  <div class="form--profile__header-wrapper">
+    {{>UserPic}}
+  </div>
 
-    {{#if upload}}
-    {{>Button extra-btn=true text='Choose file on PC'}}
-    {{else}}
-    {{>Input name='login' text='Login'}}
-    {{/if}}
+  <div class="form--profile__field-wrapper">
+    {{>Input name='email' type='email' text='pochta@yandex.ru'}}
+    {{>Input name='login' text='ivanivanov'}}
+    {{>Input name='first_name' text='Иван'}}
+    {{>Input name='second_name' text='Иванов'}}
+    {{>Input name='phone' type='phone' text='+7 (909) 967 30 30'}}
+  </div>
 
-    {{>Button submit=true text={{btn-text}}}}
-
-    {{#if error}}
-    <p class="modal__error"></p>
-    {{/if}}
-  </form>
-</section>
+  <div class="form__btns-wrapper">
+    {{>Button submit=true text='Save profile'}}
+  </div>
+</form>

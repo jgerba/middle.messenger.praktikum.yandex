@@ -13,6 +13,8 @@ const location = window.location.pathname;
 const pagesContext = {
     // show upload avatar modal
     // '/profile': { showModal: true },
+    // show change pass form
+    // '/changeprofile': { changePass: true },
     // show login page
     // '/authpage': { login: true },
     // show 404 page

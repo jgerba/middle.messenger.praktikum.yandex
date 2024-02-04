@@ -2,21 +2,25 @@ export default `
 <form class='form form--profile'>
   <div class="form--profile__header-wrapper">
     {{>UserPic}}
-    <h1 class='header'>{{userName}}</h1>
   </div>
 
+  {{#if changePass}}
   <div class="form--profile__field-wrapper">
-    {{>ProfileField header='Email' text='pochta@yandex.ru'}}
-    {{>ProfileField header='Login' text='ivanivanov'}}
-    {{>ProfileField header='Name' text='Иван'}}
-    {{>ProfileField header='Surname' text='Иванов'}}
-    {{>ProfileField header='Nickname' text='Иван'}}
-    {{>ProfileField header='Phone' text='+7 (909) 967 30 30'}}
+    {{>Input name='oldPassword' type='password' text='Old password'}}
+    {{>Input name='newPassword' type='password' text='New password'}}
+    {{>Input name='password-confirm' type='password' text='Confirm password'}}
   </div>
+  {{else}}
+  <div class="form--profile__field-wrapper">
+    {{>Input name='email' type='email' text='pochta@yandex.ru'}}
+    {{>Input name='login' text='ivanivanov'}}
+    {{>Input name='first_name' text='Иван'}}
+    {{>Input name='second_name' text='Иванов'}}
+    {{>Input name='phone' type='phone' text='+7 (909) 967 30 30'}}
+  </div>
+  {{/if}}
 
   <div class="form__btns-wrapper">
-    {{>Button class='form--profile__btn' extra-btn=true text='Change profile'}}
-    {{>Button class='form--profile__btn' extra-btn=true text='Change password'}}
-    {{>Button class='form--profile__btn' warning-btn=true text='Log out'}}
+    {{>Button submit=true text='Save changes'}}
   </div>
 </form>`;
