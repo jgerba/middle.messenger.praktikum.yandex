@@ -9,7 +9,7 @@ export default `
     {{/if}}
 
     {{#if upload}}
-    <p class="modal__text">Choose file on PC</p>
+    {{>Input name='avatar' text='Choose file on PC' type='file' upload=true}}
     {{else}}
     {{>Input name='login' text='Login'}}
     {{/if}}
