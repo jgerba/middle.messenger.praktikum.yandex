@@ -6,10 +6,12 @@
 @import './vars.scss';
 @import '../components/button/style.scss';
 @import '../components/input/style.scss';
+@import '../components/returnButton/style.scss';
 @import '../components/forms/style.scss';
 @import '../components/forms/signUp/style.scss';
 
 @import '../pages/auth/style.scss';
+@import '../pages/settings/style.scss';
 
 * {
     background-origin: content-box;
