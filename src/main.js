@@ -9,4 +9,6 @@ handlePartials(components);
 const rootEl = document.getElementById('app');
 const pagesRoutes = handlePages(pages);
 
-rootEl.innerHTML = pagesRoutes[window.location.pathname]();
+window.location.pathname === '/'
+    ? (rootEl.innerHTML = '')
+    : (rootEl.innerHTML = pagesRoutes[window.location.pathname]());
