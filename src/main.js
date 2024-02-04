@@ -9,6 +9,19 @@ handlePartials(components);
 const rootEl = document.getElementById('app');
 const pagesRoutes = handlePages(pages);
 
-window.location.pathname === '/'
-    ? (rootEl.innerHTML = '')
-    : (rootEl.innerHTML = pagesRoutes[window.location.pathname]());
+const pagesContext = {
+    // show upload avatar modal
+    // '/settings': { showModal: true },
+    // show login page
+    // '/authpage': { login: true },
+    // show 404 page
+    // '/errorpage': { notFound: true },
+};
+
+if (window.location.pathname === '/') {
+    rootEl.innerHTML = 'dummy';
+} else {
+    rootEl.innerHTML = pagesRoutes[window.location.pathname](
+        pagesContext[window.location.pathname]
+    );
+}
