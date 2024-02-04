@@ -10,4 +10,4 @@ import { handleTemplates } from './utils/tplHelper.js';
 handleTemplates(components);
 const rootEl = document.getElementById('app');
 
-rootEl.innerHTML = Settings();
+rootEl.innerHTML = Settings({ showModal: true });

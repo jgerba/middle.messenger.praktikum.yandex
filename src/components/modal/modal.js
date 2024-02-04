@@ -1,22 +1,23 @@
+export default `
 <section class="modal">
-  <div class='backdrop'></div>
-  <form class='modal__form'>
+  <div class='modal__backdrop'></div>
+  <form class='form modal__form'>
     {{#if submitError}}
     <p class="modal__submit-error"></p>
     {{else}}
-    <h3 class='header'>{{header}}</h3>
+    <h3 class='modal__header'>{{header}}</h3>
     {{/if}}
 
     {{#if upload}}
-    {{>Button extra-btn=true text='Choose file on PC'}}
+    <p class="modal__text">Choose file on PC</p>
     {{else}}
     {{>Input name='login' text='Login'}}
     {{/if}}
 
-    {{>Button submit=true text={{btn-text}}}}
+    {{>Button submit=true text='Change'}}
 
     {{#if error}}
     <p class="modal__error"></p>
     {{/if}}
   </form>
-</section>
+</section>`;
