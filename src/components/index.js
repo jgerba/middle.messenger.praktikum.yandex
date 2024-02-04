@@ -3,6 +3,7 @@ export { default as Input } from './input/input.js';
 export { default as ReturnBtn } from './returnButton/returnButton.js';
 export { default as ProfileField } from './profileField/profileField.js';
 export { default as UserPic } from './userPic/userPic.js';
+export { default as ChatPreview } from './chatPreview/chatPreview.js';
 
 export { default as SignInForm } from './forms/signIn/signInForm.js';
 export { default as SignUpForm } from './forms/signUp/signUpForm.js';
