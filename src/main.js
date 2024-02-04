@@ -8,20 +8,23 @@ import { handlePartials, handlePages } from './utils/tplHelper.js';
 handlePartials(components);
 const rootEl = document.getElementById('app');
 const pagesRoutes = handlePages(pages);
+const location = window.location.pathname;
 
 const pagesContext = {
     // show upload avatar modal
-    // '/settings': { showModal: true },
+    // '/profile': { showModal: true },
     // show login page
     // '/authpage': { login: true },
     // show 404 page
     // '/errorpage': { notFound: true },
 };
 
-if (window.location.pathname === '/') {
+if (location === '/') {
     rootEl.innerHTML = 'dummy';
-} else {
-    rootEl.innerHTML = pagesRoutes[window.location.pathname](
-        pagesContext[window.location.pathname]
+} else if (pagesRoutes[location]) {
+    rootEl.innerHTML = pagesRoutes[location](
+        pagesContext[pagesRoutes[location]]
     );
+} else {
+    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
 }
