@@ -1,10 +1,10 @@
 import Handlebars from 'handlebars';
 
-export function registerTpl(name, tpl) {
+export function registerTemplate(name, tpl) {
     Handlebars.registerPartial(name, tpl);
 }
 
-export function renderTpl(tpl) {
+export function renderTemplate(tpl) {
     const templateFunc = Handlebars.compile(tpl);
 
     return function renderEl(props) {
@@ -12,9 +12,9 @@ export function renderTpl(tpl) {
     };
 }
 
-export function handleTpls(components) {
+export function handleTemplates(components) {
     Object.entries(components).forEach(([name, tpl]) => {
-        registerTpl(name, tpl);
-        renderTpl(tpl);
+        registerTemplate(name, tpl);
+        renderTemplate(tpl);
     });
 }
