@@ -12,9 +12,20 @@ export function renderTemplate(tpl) {
     };
 }
 
-export function handleTemplates(components) {
+export function handlePartials(components) {
     Object.entries(components).forEach(([name, tpl]) => {
         registerTemplate(name, tpl);
         renderTemplate(tpl);
     });
+}
+
+export function handlePages(pages) {
+    const pagesRoutes = {};
+
+    Object.entries(pages).forEach(([name, tpl]) => {
+        const renderedPage = renderTemplate(tpl);
+        pagesRoutes['/' + name] = renderedPage;
+    });
+
+    return pagesRoutes;
 }
