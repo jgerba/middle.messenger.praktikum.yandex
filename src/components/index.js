@@ -9,4 +9,5 @@ export { default as SignInForm } from './forms/signIn/signInForm.js';
 export { default as SignUpForm } from './forms/signUp/signUpForm.js';
 export { default as Profile } from './forms/profile/profile.js';
 export { default as ProfileForm } from './forms/profile/profileForm.js';
+export { default as SearchForm } from './forms/search/search.js';
 export { default as Modal } from './modal/modal.js';
