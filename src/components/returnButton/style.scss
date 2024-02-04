@@ -1,0 +1,32 @@
+.btn-return-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 100%;
+    left: 0px;
+
+    border-right: 1px solid $borders-color;
+    background-color: $back-color;
+}
+
+.btn-return {
+    position: relative;
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background-color: $highlight-color;
+
+    &:hover {
+        background-color: $back-el-color;
+    }
+
+    svg {
+        position: relative;
+        top: 2px;
+    }
+}
