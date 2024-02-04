@@ -1,7 +1,10 @@
-<form class='form form--signUp'>
-  <h1 class='header'>{{username}}</h1>
+<form class='form form--settings'>
+  <div class="form--settings__header-wrapper">
+    {{>UserPic}}
+    <h1 class='header'>{{userName}}</h1>
+  </div>
 
-  <div class="form__field-wrapper">
+  <div class="form--settings__field-wrapper">
     {{>SettingsField header='Email' text='pochta@yandex.ru'}}
     {{>SettingsField header='Login' text='ivanivanov'}}
     {{>SettingsField header='Name' text='Иван'}}
@@ -11,8 +14,8 @@
   </div>
 
   <div class="form__btns-wrapper">
-    {{>Button extra-btn=true text='Change profile'}}
-    {{>Button extra-btn=true text='Change password}}
-    {{>Button warning-btn=true text='Exit'}}
+    {{>Button class='form--settings__btn' extra-btn=true text='Change profile'}}
+    {{>Button class='form--settings__btn' extra-btn=true text='Change password'}}
+    {{>Button class='form--settings__btn' warning-btn=true text='Log out'}}
   </div>
 </form>

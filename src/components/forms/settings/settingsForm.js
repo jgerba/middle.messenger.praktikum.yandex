@@ -1,6 +1,6 @@
 export default `
 <form class='form form--settings'>
-  <div class="form--settings__header-wrapper>
+  <div class="form--settings__header-wrapper">
     {{>UserPic}}
     <h1 class='header'>{{userName}}</h1>
   </div>
