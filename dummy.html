@@ -1,6 +1,18 @@
-<div class='btn-return-wrapper'>
-  <button class='btn-return {{class}}'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
-      width="24">
-      <path fill="#ffffff" d="M360-240 120-480l240-240 56 56-144 144h568v80H272l144 144-56 56Z" />
-    </svg></button>
-</div>
+<form class='form form--signUp'>
+  <h1 class='header'>{{username}}</h1>
+
+  <div class="form__field-wrapper">
+    {{>SettingsField header='Email' text='pochta@yandex.ru'}}
+    {{>SettingsField header='Login' text='ivanivanov'}}
+    {{>SettingsField header='Name' text='Иван'}}
+    {{>SettingsField header='Surname' text='Иванов'}}
+    {{>SettingsField header='Nickname' text='Иван'}}
+    {{>SettingsField header='Phone' text='+7 (909) 967 30 30'}}
+  </div>
+
+  <div class="form__btns-wrapper">
+    {{>Button extra-btn=true text='Change profile'}}
+    {{>Button extra-btn=true text='Change password}}
+    {{>Button warning-btn=true text='Exit'}}
+  </div>
+</form>

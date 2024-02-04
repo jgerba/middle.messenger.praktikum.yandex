@@ -1,1 +1,1 @@
-export default `<main class='main'>{{>ReturnBtn}}</main>`;
+export default `<main class='main'>{{>ReturnBtn}}{{>SettingsForm userName='Иван'}}</main>`;

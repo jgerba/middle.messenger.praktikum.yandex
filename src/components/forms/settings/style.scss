@@ -1,0 +1,15 @@
+.form--settings {
+    width: 340px;
+    height: 615px;
+
+    &__btn {
+        text-align: start;
+        padding: 10px 0px;
+
+        border-bottom: 1px solid $borders-color;
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+}
