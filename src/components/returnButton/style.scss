@@ -21,12 +21,9 @@
 
     background-color: $highlight-color;
 
+    transform: rotateZ(180deg);
+
     &:hover {
         background-color: $back-text-color;
-    }
-
-    svg {
-        position: relative;
-        top: 2px;
     }
 }
