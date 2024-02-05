@@ -5,6 +5,8 @@ export { default as ProfileField } from './profileField/profileField.js';
 export { default as UserPic } from './userPic/userPic.js';
 export { default as ChatPreview } from './chatPreview/chatPreview.js';
 export { default as ProfileLink } from './profileLink/profileLink.js';
+export { default as Dropdown } from './dropdown/dropdown.js';
+export { default as DropdownBtn } from './dropdown/dropdownBtn/dropdownBtn.js';
 
 export { default as SignInForm } from './forms/signIn/signInForm.js';
 export { default as SignUpForm } from './forms/signUp/signUpForm.js';
