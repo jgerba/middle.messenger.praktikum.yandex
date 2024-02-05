@@ -1,0 +1,41 @@
+.message-form {
+    display: flex;
+    position: relative;
+
+    width: 80%;
+
+    padding: 11px 0px;
+
+    .message-form__input {
+        height: 32px;
+        width: 90%;
+
+        margin-right: auto;
+        margin-left: auto;
+
+        border-radius: 30px;
+
+        & label {
+            position: absolute;
+            z-index: -1;
+        }
+
+        & input {
+            padding-left: 20px;
+
+            &::placeholder {
+                text-align: start;
+            }
+        }
+    }
+
+    &__dropdown-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    &__send-btn {
+        width: 28px;
+        height: 28px;
+    }
+}
