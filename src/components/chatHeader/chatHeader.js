@@ -8,5 +8,5 @@ export default `
   <button class="chat-header__dropdown-btn">
     <img class="chat-header__icon" src='../../../static/svg/dots.svg' alt="dropdown button">
   </button>
-  {{>Dropdown chatDrop=true}}
+  {{>Dropdown header=true}}
 </header>`;

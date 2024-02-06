@@ -1,7 +1,5 @@
 .dropdown {
     position: absolute;
-    left: -10px;
-    top: -123px;
 
     padding: 15px;
     border-radius: 12px;
@@ -17,6 +15,11 @@
 }
 
 .header-drop {
-    left: 1093px;
+    right: -10px;
     top: 65px;
+}
+
+.message-drop {
+    left: -10px;
+    top: -123px;
 }

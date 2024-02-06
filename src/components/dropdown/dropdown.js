@@ -1,5 +1,5 @@
 export default `
-<article class='dropdown {{#if chatDrop}}header-drop{{/if}}'>
+<article class='dropdown {{#if header}}header-drop{{else}}message-drop{{/if}}'>
   {{#if chatDrop}}
   {{>DropdownBtn src='../../../static/svg/add.svg' alt='add icon' text='Add user'}}
   {{>DropdownBtn src='../../../static/svg/remove.svg' alt='remove icon' text='Remove user'}}
