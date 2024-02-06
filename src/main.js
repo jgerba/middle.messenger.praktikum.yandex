@@ -20,7 +20,7 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-window.addEventListener('locationchange', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const location = window.location.pathname;
 
     if (location === '/') {
