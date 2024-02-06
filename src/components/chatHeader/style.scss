@@ -1,0 +1,29 @@
+.chat-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: 10px 0px;
+
+    border-bottom: 1px solid $borders-color;
+
+    &__title-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__avatar {
+        width: 34px;
+        height: 34px;
+
+        border-radius: 50px;
+        background-color: $back-el-color;
+    }
+
+    &__icon {
+        position: relative;
+        top: 2px;
+    }
+}
