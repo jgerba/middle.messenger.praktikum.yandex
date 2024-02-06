@@ -6,8 +6,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build",
-        "start": "tsc && vite build && node server.js"
+        "build": "vite build",
+        "start": "vite build && node server.js"
     },
     "devDependencies": {
         "express": "^4.18.2",
