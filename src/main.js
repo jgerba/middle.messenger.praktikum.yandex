@@ -5,9 +5,14 @@ import * as pages from './pages/index.js';
 
 import { handlePartials, handlePages } from './utils/tplHelper.js';
 
+// register & render partials
 handlePartials(components);
-const rootEl = document.getElementById('app');
+
+// compile pages & adjust pages routes
 const pagesRoutes = handlePages(pages);
+
+const rootEl = document.getElementById('app');
+const location = window.location.pathname;
 
 const pagesContext = {
     // show upload avatar modal
@@ -20,16 +25,12 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const location = window.location.pathname;
-
-    if (location === '/') {
-        rootEl.innerHTML = pagesRoutes['/chatpage']({ login: true });
-    } else if (pagesRoutes[location]) {
-        rootEl.innerHTML = pagesRoutes[location](
-            pagesContext[pagesRoutes[location]]
-        );
-    } else {
-        rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
-    }
-});
+if (location === '/') {
+    rootEl.innerHTML = pagesRoutes['/authpage']({});
+} else if (pagesRoutes[location]) {
+    rootEl.innerHTML = pagesRoutes[location](
+        pagesContext[pagesRoutes[location]]
+    );
+} else {
+    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+}
