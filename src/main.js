@@ -22,7 +22,7 @@ const pagesContext = {
 };
 
 if (location === '/') {
-    rootEl.innerHTML = 'dummy';
+    rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
 } else if (pagesRoutes[location]) {
     rootEl.innerHTML = pagesRoutes[location](
         pagesContext[pagesRoutes[location]]
