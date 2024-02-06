@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const location = window.location.pathname;
 
     if (location === '/') {
-        rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
+        rootEl.innerHTML = pagesRoutes['/changeprofile']({ login: true });
     } else if (pagesRoutes[location]) {
         rootEl.innerHTML = pagesRoutes[location](
             pagesContext[pagesRoutes[location]]
