@@ -24,19 +24,20 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-window.addEventListener('DOMContentLoaded', function () {
-    const location = window.location.pathname;
+const location = window.location.pathname;
 
-    console.log(pagesRoutes);
-    console.log(location);
+// if (location === '/') {
+//     rootEl.innerHTML = pagesRoutes['/authpage']();
+// } else if (pagesRoutes[location]) {
+//     rootEl.innerHTML = pagesRoutes[location](
+//         pagesContext[pagesRoutes[location]]
+//     );
+// } else {
+//     rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+// }
 
-    if (location === '/') {
-        rootEl.innerHTML = pagesRoutes['/authpage']();
-    } else if (pagesRoutes[location]) {
-        rootEl.innerHTML = pagesRoutes[location](
-            pagesContext[pagesRoutes[location]]
-        );
-    } else {
-        rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
-    }
-});
+if (location === '/') {
+    rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
+} else {
+    rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
+}
