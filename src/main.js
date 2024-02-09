@@ -25,6 +25,8 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
+console.log('test');
+
 if (location === '/') {
     rootEl.innerHTML = pagesRoutes['/authpage']({});
 } else if (pagesRoutes[location]) {
