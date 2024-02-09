@@ -28,6 +28,8 @@ const location = window.location.pathname;
 
 if (location === '/') {
     rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
-} else {
+} else if (pagesRoutes[location]) {
     rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
+} else {
+    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
 }
