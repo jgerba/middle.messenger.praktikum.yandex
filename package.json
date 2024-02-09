@@ -2,7 +2,9 @@
     "name": "middle.messanger.praktikum.yandex",
     "private": true,
     "version": "0.1.0",
-    "engine": "21.2.0",
+    "engine": {
+        "node": "21.2.0"
+    },
     "type": "module",
     "scripts": {
         "dev": "vite",
