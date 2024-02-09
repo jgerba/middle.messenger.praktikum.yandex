@@ -13,6 +13,7 @@ const pagesRoutes = handlePages(pages);
 
 const rootEl = document.getElementById('app');
 
+// context to test pages
 const pagesContext = {
     // show upload avatar modal
     // '/profile': { showModal: true },
