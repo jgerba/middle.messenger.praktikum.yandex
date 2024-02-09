@@ -24,10 +24,11 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-console.log(pagesRoutes);
-
 window.addEventListener('DOMContentLoaded', function () {
     const location = window.location.pathname;
+
+    console.log(pagesRoutes);
+    console.log(location);
 
     if (location === '/') {
         rootEl.innerHTML = pagesRoutes['/authpage']();
