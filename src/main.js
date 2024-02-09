@@ -12,7 +12,6 @@ handlePartials(components);
 const pagesRoutes = handlePages(pages);
 
 const rootEl = document.getElementById('app');
-const location = window.location.pathname;
 
 const pagesContext = {
     // show upload avatar modal
@@ -25,14 +24,16 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-console.log('test');
+window.addEventListener('locationchange', function () {
+    const location = window.location.pathname;
 
-if (location === '/') {
-    rootEl.innerHTML = pagesRoutes['/authpage']({});
-} else if (pagesRoutes[location]) {
-    rootEl.innerHTML = pagesRoutes[location](
-        pagesContext[pagesRoutes[location]]
-    );
-} else {
-    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
-}
+    if (location === '/') {
+        rootEl.innerHTML = pagesRoutes['/authpage']();
+    } else if (pagesRoutes[location]) {
+        rootEl.innerHTML = pagesRoutes[location](
+            pagesContext[pagesRoutes[location]]
+        );
+    } else {
+        rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+    }
+});
