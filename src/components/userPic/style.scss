@@ -1,0 +1,31 @@
+.userpic {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    background-color: $back-el-color;
+
+    &__text {
+        display: none;
+        text-align: center;
+        color: $white-color;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+
+        & svg {
+            display: none;
+        }
+
+        .userpic__text {
+            display: block;
+        }
+    }
+}

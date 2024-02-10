@@ -1,0 +1,29 @@
+.btn {
+    width: 100%;
+
+    padding: 12px 70px;
+
+    border-radius: 8px;
+
+    color: $white-color;
+    background-color: $highlight-color;
+
+    &:hover {
+        color: $highlight-color;
+        background-color: $back-el-color;
+    }
+
+    &--extra,
+    &--warning {
+        color: $highlight-color;
+        background-color: transparent;
+
+        &:hover {
+            color: $back-text-color;
+        }
+    }
+
+    &--warning {
+        color: $warning-color;
+    }
+}
