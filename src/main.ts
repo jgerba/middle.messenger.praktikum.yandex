@@ -11,10 +11,10 @@ handlePartials(components);
 // compile pages & adjust pages routes
 const pagesRoutes = handlePages(pages);
 
-const rootEl = document.getElementById('app');
+const rootEl: HTMLElement | null = document.getElementById('app');
 
 // context to test pages
-const pagesContext = {
+const pagesContext: { [key: string]: { [key: string]: [value: boolean] } } = {
     // show upload avatar modal
     // '/profile': { showModal: true },
     // show change pass form
@@ -25,12 +25,14 @@ const pagesContext = {
     // '/errorpage': { notFound: true },
 };
 
-const location = window.location.pathname;
+const location: string = window.location.pathname;
 
-if (location === '/') {
-    rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
-} else if (pagesRoutes[location]) {
-    rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
-} else {
-    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+if (rootEl) {
+    if (location === '/') {
+        rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
+    } else if (pagesRoutes[location]) {
+        rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
+    } else {
+        rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+    }
 }
