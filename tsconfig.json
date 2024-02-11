@@ -18,7 +18,7 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "sourceMap": true,
         "strictNullChecks": false,
         "noFallthroughCasesInSwitch": true
