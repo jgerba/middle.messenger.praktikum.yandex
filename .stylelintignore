@@ -1,0 +1,14 @@
+dist
+node_modules
+src/**/**/*.ts
+static/**/*.woff2
+static/**/*.svg
+src/**/**/*.hbs
+netlify.toml
+package-lock.json
+package.json
+README.md
+server.js
+tsconfig.json
+vite.config.js
+src/index.html
