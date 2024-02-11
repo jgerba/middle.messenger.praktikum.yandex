@@ -14,7 +14,7 @@ const pagesRoutes = handlePages(pages);
 const rootEl: HTMLElement | null = document.getElementById('app');
 
 // context to test pages
-const pagesContext: { [key: string]: { [key: string]: [value: boolean] } } = {
+const pagesContext: { [key: string]: { [key: string]: boolean } } = {
     // show upload avatar modal
     // '/profile': { showModal: true },
     // show change pass form
