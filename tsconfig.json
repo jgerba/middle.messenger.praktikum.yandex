@@ -20,7 +20,7 @@
         "noUnusedParameters": true,
         "noImplicitAny": true,
         "sourceMap": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true
     },
     "include": ["src"]

@@ -11,7 +11,7 @@ handlePartials(components);
 // compile pages & adjust pages routes
 const pagesRoutes = handlePages(pages);
 
-const rootEl = document.getElementById('app') as HTMLElement;
+const rootEl = document.getElementById('app') as HTMLDivElement;
 
 // context to test pages
 const pagesContext: { [key: string]: { [key: string]: boolean } } = {
