@@ -15,24 +15,24 @@ const rootEl = document.getElementById('app') as HTMLDivElement;
 
 // context to test pages
 const pagesContext: { [key: string]: { [key: string]: boolean } } = {
-    // show upload avatar modal
-    // '/profile': { showModal: true },
-    // show change pass form
-    // '/changeprofile': { changePass: true },
-    // show login page
-    // '/authpage': { login: true },
-    // show 404 page
-    // '/errorpage': { notFound: true },
+  // show upload avatar modal
+  // '/profile': { showModal: true },
+  // show change pass form
+  // '/changeprofile': { changePass: true },
+  // show login page
+  // '/authpage': { login: true },
+  // show 404 page
+  // '/errorpage': { notFound: true },
 };
 
 const location: string = window.location.pathname;
 
 if (rootEl) {
-    if (location === '/') {
-        rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
-    } else if (pagesRoutes[location]) {
-        rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
-    } else {
-        rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
-    }
+  if (location === '/') {
+    rootEl.innerHTML = pagesRoutes['/authpage']({ login: true });
+  } else if (pagesRoutes[location]) {
+    rootEl.innerHTML = pagesRoutes[location](pagesContext[location]);
+  } else {
+    rootEl.innerHTML = pagesRoutes['/errorpage']({ notFound: true });
+  }
 }
