@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ee4e4dd0-7ae5-4d49-943a-6921da50215c/deploy-status)](https://app.netlify.com/sites/jugermessenger/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3182eb1c-219a-4f0a-aef6-91bf21039bf5/deploy-status)](https://app.netlify.com/sites/jugermessenger/deploys)
 
 # Мессенджер
 
