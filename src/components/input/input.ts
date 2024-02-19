@@ -11,25 +11,7 @@ export default class Input extends Block {
 
     render(): DocumentFragment {
         // remove events data from props
-        const propsToRender = (({
-            className,
-            isFocused,
-            upload,
-            name,
-            text,
-            search,
-            type,
-            errorText,
-        }) => ({
-            className,
-            isFocused,
-            upload,
-            name,
-            text,
-            search,
-            type,
-            errorText,
-        }))(this.props);
+        const propsToRender = (({ events, ...rest }) => rest)(this.props);
 
         return this.compile(tpl, propsToRender);
     }
