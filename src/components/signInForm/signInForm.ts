@@ -11,9 +11,7 @@ export default class SignInForm extends Block {
 
     render(): DocumentFragment {
         // remove events data from props
-        const propsToRender = (({ notFound }) => ({
-            notFound,
-        }))(this.props);
+        const propsToRender = (({ events, ...rest }) => rest)(this.props);
 
         return this.compile(tpl, propsToRender);
     }

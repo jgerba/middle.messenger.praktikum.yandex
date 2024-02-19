@@ -29,10 +29,10 @@ const signUpBtn = new Button({
 });
 
 const signInForm = new SignInForm({
-    NameInput: nameInput,
-    PassInput: passInput,
-    SubmitBtn: submitBtn,
-    SignUpBtn: signUpBtn,
+    nameInput,
+    passInput,
+    submitBtn,
+    signUpBtn,
 });
 
 export default signInForm;
