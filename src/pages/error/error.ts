@@ -10,9 +10,7 @@ export default class ErrorPage extends Block {
     }
 
     render(): DocumentFragment {
-        const propsToRender = (({ notFound }) => ({
-            notFound,
-        }))(this.props);
+        const propsToRender = (({ events, ...rest }) => rest)(this.props);
 
         return this.compile(tpl, propsToRender);
     }
