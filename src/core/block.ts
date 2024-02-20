@@ -26,8 +26,6 @@ export default class Block {
     };
 
     constructor(tagName = 'div', props = {}) {
-        // const { props } = this._getPropsAndChildren(propsAndChildren);
-
         this._element = null;
         this._meta = {
             tagName,
@@ -42,25 +40,6 @@ export default class Block {
         this._registerEvents(this.eventBus);
         this.eventBus.emit(Block.EVENTS.INIT);
     }
-
-    // _getPropsAndChildren(propsAndChildren: ChildrenType): {
-    //     props: Record<string, string>;
-    //     children: ChildrenType;
-    // } {
-    //     const props: Record<string, string> = {};
-    //     const children: ChildrenType = {};
-
-    //     Object.entries(propsAndChildren).forEach(([key, value]) => {
-    //         // need to add children array checking
-    //         if (value instanceof Block) {
-    //             children[key] = value;
-    //         } else {
-    //             props[key] = value;
-    //         }
-    //     });
-
-    //     return { props, children };
-    // }
 
     _makePropsProxy(props: ChildrenType): ChildrenType {
         const self = this;
@@ -125,22 +104,21 @@ export default class Block {
         return new DocumentFragment();
     }
 
-    compile(
-        template: string,
-        props: PropsType | ChildrenType
-    ): DocumentFragment {
+    compile(tpl: string, props: PropsType | ChildrenType): DocumentFragment {
         const hasChildren = Object.keys(this.children).length > 0;
 
-        let propsCopy = { ...props };
+        let propsCopy = { ...props, ...this.children };
 
         if (hasChildren) {
             propsCopy = setStubs(this.children, propsCopy);
         }
 
         const fragment = document.createElement('template');
-        fragment.innerHTML = Handlebars.compile(template)(propsCopy);
+        fragment.innerHTML = Handlebars.compile(tpl)(propsCopy);
 
         if (hasChildren) {
+            console.log(tpl);
+
             replaceStubs(fragment, this.children);
         }
 

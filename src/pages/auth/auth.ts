@@ -1,7 +1,7 @@
 import tpl from './auth.hbs?raw';
 import Block from '../../core/block.js';
 import SignInForm from '../../components/signInForm/signInForm.ts';
-import signUpForm from '../../components/signUpForm/index.ts';
+import SignUpForm from '../../components/signUpForm/signUpForm.ts';
 
 import { PropsType } from '../../core/block.js';
 import { ChildrenType } from '../../core/block.js';
@@ -22,16 +22,8 @@ export default class AuthPage extends Block {
 
     initChildren() {
         this.children = {
-            signInForm: new SignInForm({
-                events: {
-                    click: (event: Event) => {
-                        console.log(
-                            this.children.signInForm.children.signUpBtn
-                        );
-                    },
-                },
-            }),
-            signUpForm: signUpForm,
+            signInForm: new SignInForm({}),
+            signUpForm: new SignUpForm({}),
         };
     }
 }
