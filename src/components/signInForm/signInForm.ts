@@ -4,10 +4,9 @@ import Button from '../button/button.ts';
 import Input from '../input/input.ts';
 
 import { PropsType } from '../../core/block.js';
-import { ChildrenType } from '../../core/block.js';
 
 export default class SignInForm extends Block {
-    constructor(props: PropsType | ChildrenType) {
+    constructor(props: PropsType) {
         super('main', props);
     }
 
@@ -41,8 +40,8 @@ export default class SignInForm extends Block {
             ['extra-btn']: true,
             text: 'Sign up',
             events: {
-                click: (event: Event) => {
-                    console.log(event);
+                click: () => {
+                    (this.props.signFormCallback as CallableFunction)();
                 },
             },
         });

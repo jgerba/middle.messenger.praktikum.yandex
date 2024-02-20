@@ -2,10 +2,9 @@ import tpl from './input.hbs?raw';
 import Block from '../../core/block.js';
 
 import { PropsType } from '../../core/block.js';
-import { ChildrenType } from '../../core/block.js';
 
 export default class Input extends Block {
-    constructor(props: PropsType | ChildrenType) {
+    constructor(props: PropsType) {
         super('main', props);
     }
 
