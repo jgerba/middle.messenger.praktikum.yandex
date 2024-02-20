@@ -15,7 +15,7 @@ export default class Block {
     children: ChildrenType;
     eventBus: EventBus;
     _id: string;
-    _meta: { tagName: string; propsAndChildren: PropsType };
+    _meta: { tagName: string; props: PropsType };
     _element: HTMLElement | null;
 
     static EVENTS = {
@@ -25,17 +25,17 @@ export default class Block {
         FLOW_RENDER: 'flow:render',
     };
 
-    constructor(tagName = 'div', propsAndChildren = {}) {
-        const { props, children } = this._getPropsAndChildren(propsAndChildren);
+    constructor(tagName = 'div', props = {}) {
+        // const { props } = this._getPropsAndChildren(propsAndChildren);
 
         this._element = null;
         this._meta = {
             tagName,
-            propsAndChildren,
+            props,
         };
         this._id = makeId();
 
-        this.children = children;
+        this.children = {};
         this.props = this._makePropsProxy({ ...props, _id: this._id });
 
         this.eventBus = new EventBus();
@@ -43,31 +43,31 @@ export default class Block {
         this.eventBus.emit(Block.EVENTS.INIT);
     }
 
-    _getPropsAndChildren(propsAndChildren: ChildrenType): {
-        props: Record<string, string>;
-        children: ChildrenType;
-    } {
-        const props: Record<string, string> = {};
-        const children: ChildrenType = {};
+    // _getPropsAndChildren(propsAndChildren: ChildrenType): {
+    //     props: Record<string, string>;
+    //     children: ChildrenType;
+    // } {
+    //     const props: Record<string, string> = {};
+    //     const children: ChildrenType = {};
 
-        Object.entries(propsAndChildren).forEach(([key, value]) => {
-            // need to add children array checking
-            if (value instanceof Block) {
-                children[key] = value;
-            } else {
-                props[key] = value;
-            }
-        });
+    //     Object.entries(propsAndChildren).forEach(([key, value]) => {
+    //         // need to add children array checking
+    //         if (value instanceof Block) {
+    //             children[key] = value;
+    //         } else {
+    //             props[key] = value;
+    //         }
+    //     });
 
-        return { props, children };
-    }
+    //     return { props, children };
+    // }
 
     _makePropsProxy(props: ChildrenType): ChildrenType {
         const self = this;
 
         return new Proxy<ChildrenType>(props, {
             set(target: ChildrenType, prop: string, value: unknown): boolean {
-                const oldProps = self._meta.propsAndChildren;
+                const oldProps = self._meta.props;
                 target[prop] = value; // new props
 
                 self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
@@ -103,15 +103,22 @@ export default class Block {
     }
 
     _render() {
+        const hasEvents =
+            this.props.events && Object.keys(this.props.events).length > 0;
+
         const block = this.render();
 
         this._element!.innerHTML = '';
-        this._removeEvents();
+        if (hasEvents) {
+            this._removeEvents();
+        }
 
         this._element!.appendChild(block);
         this._element = this._element!.firstElementChild as HTMLElement;
 
-        this._addEvents();
+        if (hasEvents) {
+            this._addEvents();
+        }
     }
 
     render() {
@@ -122,17 +129,18 @@ export default class Block {
         template: string,
         props: PropsType | ChildrenType
     ): DocumentFragment {
-        const isParentEl = Object.keys(this.children).length !== 0;
+        const hasChildren = Object.keys(this.children).length > 0;
+
         let propsCopy = { ...props };
 
-        if (isParentEl) {
+        if (hasChildren) {
             propsCopy = setStubs(this.children, propsCopy);
         }
 
         const fragment = document.createElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsCopy);
 
-        if (isParentEl) {
+        if (hasChildren) {
             replaceStubs(fragment, this.children);
         }
 
@@ -140,34 +148,23 @@ export default class Block {
     }
 
     _addEvents() {
-        const { events = {} } = this.props as PropsType & {
-            events: Record<string, () => void>;
-        };
-
-        if (Object.keys(events).length === 0) {
-            return;
-        }
-
-        Object.entries(events).forEach(([event, callback]) =>
+        Object.entries(this.props.events).forEach(([event, callback]) =>
             this._element!.addEventListener(event, callback)
         );
     }
 
     _removeEvents() {
-        const { events = {} } = this.props as PropsType & {
-            events: Record<string, () => void>;
-        };
-        if (Object.keys(events).length > 0) {
-            return;
-        }
-
-        Object.entries(events).forEach(([event, callback]) =>
+        Object.entries(this.props.events).forEach(([event, callback]) =>
             this._element!.removeEventListener(event, callback)
         );
     }
 
     _componentDidMount() {
         this.componentDidMount();
+
+        Object.values(this.children).forEach(child => {
+            child.dispatchComponentDidMount();
+        });
     }
 
     componentDidMount() {}
