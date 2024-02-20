@@ -6,8 +6,9 @@ import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
 export type PropsType = Record<
     string,
-    string | Record<string, Function> | boolean
->;
+    string | Record<string, Function> | boolean | Function | HTMLElement
+> & { rootEl?: HTMLElement };
+
 export type ChildrenType = Record<string, Block | Block[] | any>;
 
 export default class Block {
@@ -17,6 +18,7 @@ export default class Block {
     _id: string;
     _meta: { tagName: string; props: PropsType };
     _element: HTMLElement | null;
+    rootEl?: HTMLElement;
 
     static EVENTS = {
         INIT: 'init',
@@ -25,8 +27,9 @@ export default class Block {
         FLOW_RENDER: 'flow:render',
     };
 
-    constructor(tagName = 'div', props = {}) {
-        this._element = null;
+    constructor(tagName: string, props: PropsType) {
+        this._element;
+        this.rootEl = props.rootEl;
         this._meta = {
             tagName,
             props,
@@ -92,8 +95,16 @@ export default class Block {
             this._removeEvents();
         }
 
-        this._element!.appendChild(block);
-        this._element = this._element!.firstElementChild as HTMLElement;
+        // to avoid this._element nesting & duplicating on rerendering after changing children (???)
+        if (this.rootEl) {
+            this.rootEl.innerHTML = '';
+            console.log(this.rootEl.innerHTML);
+
+            this.rootEl.appendChild(block);
+        } else {
+            this._element!.appendChild(block);
+            this._element = this._element!.firstElementChild as HTMLElement;
+        }
 
         if (hasEvents) {
             this._addEvents();
@@ -117,8 +128,6 @@ export default class Block {
         fragment.innerHTML = Handlebars.compile(tpl)(propsCopy);
 
         if (hasChildren) {
-            console.log(tpl);
-
             replaceStubs(fragment, this.children);
         }
 
