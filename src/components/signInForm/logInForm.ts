@@ -1,11 +1,11 @@
-import tpl from './signInForm.hbs?raw';
+import tpl from './logInForm.hbs?raw';
 import Block from '../../core/block.ts';
 import Button from '../button/button.ts';
 import Input from '../input/input.ts';
 
 import { PropsType } from '../../core/block.js';
 
-export default class SignInForm extends Block {
+export default class LogInForm extends Block {
     constructor(props: PropsType) {
         super('main', props);
     }

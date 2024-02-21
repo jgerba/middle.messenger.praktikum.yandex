@@ -1,11 +1,11 @@
-import tpl from './signUpForm.hbs?raw';
+import tpl from './createUserForm.hbs?raw';
 import Block from '../../core/block.ts';
 import Button from '../button/button.ts';
 import Input from '../input/input.ts';
 
 import { PropsType } from '../../core/block.js';
 
-export default class SignUpForm extends Block {
+export default class CreateUserForm extends Block {
     constructor(props: PropsType) {
         super('main', props);
     }

@@ -1,7 +1,7 @@
 import tpl from './auth.hbs?raw';
 import Block from '../../core/block.js';
-import SignInForm from '../../components/signInForm/signInForm.ts';
-import SignUpForm from '../../components/signUpForm/signUpForm.ts';
+import LogInForm from '../../components/signInForm/logInForm.ts';
+import CreateUserForm from '../../components/signUpForm/createUserForm.ts';
 
 import { PropsType } from '../../core/block.js';
 
@@ -23,11 +23,11 @@ export default class AuthPage extends Block {
 
     initChildren() {
         this.children = {
-            signForm: this.props.isLogIn
-                ? new SignInForm({
+            authForm: this.props.isLogIn
+                ? new LogInForm({
                       signFormCallback: this.signFormHandler.bind(this),
                   })
-                : new SignUpForm({
+                : new CreateUserForm({
                       signFormCallback: this.signFormHandler.bind(this),
                   }),
         };
