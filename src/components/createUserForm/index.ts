@@ -49,7 +49,8 @@ export default new CreateUserForm({
     }),
     logInBtn: new Button({
         text: 'Log in',
-        attr: { class: 'btn btn--extra' },
+        attr: { class: 'btn btn--extra', type: 'button' },
     }),
-    attr: { class: 'form form--signUp' },
+    attr: { class: 'form form--signUp hidden' },
 });
+
