@@ -73,6 +73,10 @@ export default class Block {
         const self = this;
 
         return new Proxy<ChildrenType>(props, {
+            get(target: ChildrenType, prop: string) {
+                const value = target[prop];
+                return typeof value === 'function' ? value.bind(target) : value;
+            },
             set(target: ChildrenType, prop: string, value: unknown): boolean {
                 const oldProps = { ...target };
 
