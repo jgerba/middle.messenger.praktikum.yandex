@@ -45,22 +45,47 @@ export default class Input extends Block {
         ) as HTMLInputElement;
 
         const regExp = new RegExp(this.props.regExpString as string);
-        const isValid = regExp.test(inputEl.value);
+        let isValid = regExp.test(inputEl.value);
+        let passesAreEqual: boolean = true;
 
-        this.handleError(isValid);
+        if (inputEl.type === 'password') {
+            passesAreEqual = this.confirmPasswords();
+            if (isValid && !passesAreEqual) isValid = false;
+        }
+        this.handleError(isValid, passesAreEqual);
 
         return isValid;
     }
 
-    handleError(isValid: boolean) {
+    confirmPasswords(): boolean {
+        const formEl = this.element?.closest('form');
+
+        const passInputs = formEl?.querySelectorAll(
+            'input[type=password]'
+        ) as NodeList;
+
+        if (passInputs.length < 2) return true;
+
+        return (
+            (passInputs![0] as HTMLInputElement).value ===
+            (passInputs![1] as HTMLInputElement).value
+        );
+    }
+
+    handleError(isValid: boolean, passesAreEqual: boolean) {
         const errorEl = this.element!.querySelector('.error') as HTMLElement;
 
         if (isValid) {
             errorEl.classList.add('hidden');
-        } else {
-            errorEl.classList.remove('hidden');
-            errorEl.innerText = `Wrong ${this.props.name}`;
+            return;
         }
+
+        errorEl.classList.remove('hidden');
+        let errorMessage = `Wrong ${(this.props.text as string).toLowerCase()}`;
+
+        if (!passesAreEqual) {
+            errorMessage = 'Passwords are not equal!';
+        }
+        errorEl.innerText = errorMessage;
     }
 }
-
