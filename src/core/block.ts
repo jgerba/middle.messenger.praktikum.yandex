@@ -6,8 +6,13 @@ import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
 export type PropsType = Record<
     string,
-    string | Record<string, Function> | boolean | Function | HTMLElement
-> & { rootEl?: HTMLElement };
+    | string
+    | Record<string, Function>
+    | Record<string, string>
+    | boolean
+    | Function
+    | HTMLElement
+>;
 
 export type ChildrenType = Record<string, Block | Block[] | any>;
 
@@ -18,7 +23,6 @@ export default class Block {
     _id: string;
     _meta: { tagName: string; props: PropsType };
     _element: HTMLElement | null;
-    rootEl?: HTMLElement;
 
     static EVENTS = {
         INIT: 'init',
@@ -27,21 +31,42 @@ export default class Block {
         FLOW_RENDER: 'flow:render',
     };
 
-    constructor(tagName: string, props: PropsType) {
+    constructor(tagName: string, propsAndChildren: PropsType | ChildrenType) {
+        const { props, children } = this._getPropsAndChildren(propsAndChildren);
+
         this._element;
-        this.rootEl = props.rootEl;
         this._meta = {
             tagName,
             props,
         };
         this._id = makeId();
 
-        this.children = {};
         this.props = this._makePropsProxy({ ...props, _id: this._id });
+        this.children = children; // need to make proxy
 
         this.eventBus = new EventBus();
         this._registerEvents(this.eventBus);
         this.eventBus.emit(Block.EVENTS.INIT);
+    }
+
+    _getPropsAndChildren(propsAndChildren: ChildrenType): {
+        props: Record<string, string>;
+        children: ChildrenType;
+    } {
+        const props: Record<string, string> = {};
+        const children: ChildrenType = {};
+
+        Object.entries(propsAndChildren).forEach(([key, value]) => {
+            // need to add children array checking
+
+            if (value instanceof Block) {
+                children[key] = value;
+            } else {
+                props[key] = value;
+            }
+        });
+
+        return { props, children };
     }
 
     _makePropsProxy(props: ChildrenType): ChildrenType {
@@ -49,7 +74,8 @@ export default class Block {
 
         return new Proxy<ChildrenType>(props, {
             set(target: ChildrenType, prop: string, value: unknown): boolean {
-                const oldProps = self._meta.props;
+                const oldProps = { ...target };
+
                 target[prop] = value; // new props
 
                 self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
@@ -63,8 +89,8 @@ export default class Block {
 
     _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDM, this._mount.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDU, this._update.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
@@ -89,23 +115,17 @@ export default class Block {
             this.props.events && Object.keys(this.props.events).length > 0;
 
         const block = this.render();
-
         this._element!.innerHTML = '';
+
         if (hasEvents) {
             this._removeEvents();
         }
 
-        // to avoid this._element nesting & duplicating on rerendering after changing children (???)
-        if (this.rootEl) {
-            this.rootEl.innerHTML = '';
-            console.log(this.rootEl.innerHTML);
+        this._element!.appendChild(block);
 
-            this.rootEl.appendChild(block);
-        } else {
-            this._element!.appendChild(block);
-            this._element = this._element!.firstElementChild as HTMLElement;
+        if (this.props.attr && Object.keys(this.props.attr).length > 0) {
+            this.setAttributes();
         }
-
         if (hasEvents) {
             this._addEvents();
         }
@@ -146,32 +166,30 @@ export default class Block {
         );
     }
 
-    _componentDidMount() {
-        this.componentDidMount();
+    setAttributes() {
+        Object.entries(this.props.attr).forEach(([attr, value]) => {
+            this._element!.setAttribute(attr, value);
+        });
+    }
+
+    _mount() {
+        this.mount();
 
         Object.values(this.children).forEach(child => {
             child.dispatchComponentDidMount();
         });
     }
 
-    componentDidMount() {}
+    mount() {}
 
-    dispatchComponentDidMount() {
-        this.componentDidMount();
-
-        Object.values(this.children).forEach(child => {
-            child.dispatchComponentDidMount();
-        });
-    }
-
-    _componentDidUpdate(oldProps: {}, newProps: {}) {
-        const update = this.componentDidUpdate(oldProps, newProps);
+    _update(oldProps: {}, newProps: {}) {
+        const update = this.update(oldProps, newProps);
         if (update) {
             this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    componentDidUpdate(oldProps: {}, newProps: {}) {
+    update(oldProps: {}, newProps: {}) {
         return oldProps !== newProps;
     }
 
