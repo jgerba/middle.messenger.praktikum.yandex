@@ -1,6 +1,15 @@
 <main class='main'>
   {{>ReturnBtn}}
 
+  {{#if notForm}}
+  <div class="form--profile__header-wrapper">
+    {{>UserPic}}
+    <h1 class='header'>{{userName}}</h1>
+  </div>
+
+  {{Profile}}
+ {{/if}}
+
   {{#if changePass}}
   {{>ProfileForm changePass=true }}
   {{else}}
