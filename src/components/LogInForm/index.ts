@@ -25,4 +25,3 @@ export default new LogInForm({
     }),
     attr: { class: 'form' },
 });
-
