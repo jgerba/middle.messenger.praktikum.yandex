@@ -4,6 +4,8 @@ import Block, { PropsType } from '../../core/block.js';
 export default class Input extends Block {
     constructor(props: PropsType) {
         super('div', props);
+
+        this.initElems();
     }
 
     render(): DocumentFragment {
@@ -12,4 +14,19 @@ export default class Input extends Block {
 
         return this.compile(tpl, propsToRender);
     }
+
+    initElems() {
+        const input = this.element!.querySelector('input');
+
+        input?.addEventListener('focus', this.toggleLabel.bind(this));
+        input?.addEventListener('blur', this.toggleLabel.bind(this));
+    }
+
+    toggleLabel() {
+        const label = this.element!.querySelector('label');
+
+        label?.classList.toggle('label--small');
+        label?.classList.toggle('label--hidden');
+    }
 }
+

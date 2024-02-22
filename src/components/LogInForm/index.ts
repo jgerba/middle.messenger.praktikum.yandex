@@ -6,7 +6,7 @@ export default new LogInForm({
     nameInput: new Input({
         name: 'login',
         text: 'Login',
-        attr: { class: 'input-wrapper' },
+        attr: { class: 'input-wrapper ' },
     }),
     passInput: new Input({
         name: 'password',
@@ -25,3 +25,4 @@ export default new LogInForm({
     }),
     attr: { class: 'form' },
 });
+

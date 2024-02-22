@@ -115,6 +115,8 @@ export default class Block {
     }
 
     _render() {
+        // console.log('render ' + this._meta.tagName);
+
         const hasEvents =
             this.props.events && Object.keys(this.props.events).length > 0;
 
@@ -215,3 +217,4 @@ export default class Block {
         el!.style.display = 'none';
     }
 }
+
