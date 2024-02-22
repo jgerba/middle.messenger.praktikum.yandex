@@ -44,6 +44,9 @@ export default class Input extends Block {
             'input'
         ) as HTMLInputElement;
 
+        // old pass enter in profile settings
+        if (inputEl.name === 'oldPassword') return true;
+
         const regExp = new RegExp(this.props.regExpString as string);
         let isValid = regExp.test(inputEl.value);
         let passesAreEqual: boolean = true;

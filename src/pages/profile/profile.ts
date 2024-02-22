@@ -1,4 +1,4 @@
-import tpl from './auth.hbs?raw';
+import tpl from './profile.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ProfilePage extends Block {

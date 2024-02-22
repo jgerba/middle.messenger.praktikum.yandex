@@ -45,4 +45,3 @@ export default class AuthForm extends Block {
         return isValid;
     }
 }
-
