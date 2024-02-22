@@ -5,7 +5,7 @@ export default class AuthPage extends Block {
     constructor(props: PropsType | ChildrenType) {
         super('main', props);
 
-        this.changeFormInit();
+        this.addEvents();
     }
 
     render(): DocumentFragment {
@@ -15,7 +15,7 @@ export default class AuthPage extends Block {
         return this.compile(tpl, propsToRender);
     }
 
-    changeFormInit() {
+    addEvents() {
         const changeFormBtns = this.element!.querySelectorAll('.btn--extra');
 
         changeFormBtns.forEach(btn =>
@@ -28,4 +28,3 @@ export default class AuthPage extends Block {
         forms.forEach(form => form.classList.toggle('hidden'));
     }
 }
-

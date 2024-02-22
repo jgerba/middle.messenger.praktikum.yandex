@@ -5,7 +5,7 @@ export default class Input extends Block {
     constructor(props: PropsType) {
         super('div', props);
 
-        this.initElems();
+        this.addEvents();
     }
 
     render(): DocumentFragment {
@@ -15,18 +15,53 @@ export default class Input extends Block {
         return this.compile(tpl, propsToRender);
     }
 
-    initElems() {
-        const input = this.element!.querySelector('input');
+    addEvents() {
+        const inputEl = this.element!.querySelector(
+            'input'
+        ) as HTMLInputElement;
 
-        input?.addEventListener('focus', this.toggleLabel.bind(this));
-        input?.addEventListener('blur', this.toggleLabel.bind(this));
+        inputEl?.addEventListener('focusin', () => this.toggleLabel.bind(this));
+        inputEl?.addEventListener('focusout', () =>
+            this.toggleLabel.bind(this)
+        );
+
+        if (this.props.regExpString) {
+            inputEl?.addEventListener('blur', () => {
+                const isValid = this.validateInput();
+                this.addAttribute(isValid);
+            });
+        }
     }
 
     toggleLabel() {
-        const label = this.element!.querySelector('label');
+        const labelEl = this.element!.querySelector(
+            'label'
+        ) as HTMLLabelElement;
 
-        label?.classList.toggle('label--small');
-        label?.classList.toggle('label--hidden');
+        labelEl.classList.toggle('label--small');
+        labelEl.classList.toggle('label--hidden');
+    }
+
+    validateInput(): boolean {
+        const inputEl = this.element!.querySelector(
+            'input'
+        ) as HTMLInputElement;
+
+        const regExp = new RegExp(this.props.regExpString as string);
+        const isValid = regExp.test(inputEl.value);
+
+        const errorEl = this.element!.querySelector('.error') as HTMLElement;
+        if (isValid) {
+            errorEl.classList.add('hidden');
+        } else {
+            errorEl.classList.remove('hidden');
+            errorEl.innerText = `Wrong ${this.props.name}`;
+        }
+
+        return isValid;
+    }
+
+    addAttribute(isValid: boolean) {
+        this.element!.setAttribute('isValid', isValid.toString());
     }
 }
-

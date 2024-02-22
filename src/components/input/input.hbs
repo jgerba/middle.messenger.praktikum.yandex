@@ -11,4 +11,4 @@
   <label class='label label--hidden {{#if upload}}upload-label{{/if}}' for='{{name}}-id'>{{text}}</label>
   <input class='input {{#if search}}search-input{{/if}} {{#if upload}}upload-input{{/if}}{{className}}' id='{{name}}-id' type='{{#if type}}{{type}}{{else}}text{{/if}}'
     name='{{name}}' placeholder='{{text}}'/>
-  {{#if errorText}}<p class='error'>{{errorText}}</p>{{/if}}
+  <p class='error hidden'></p>

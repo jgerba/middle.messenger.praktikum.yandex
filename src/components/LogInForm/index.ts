@@ -6,12 +6,14 @@ export default new LogInForm({
     nameInput: new Input({
         name: 'login',
         text: 'Login',
+        regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
         attr: { class: 'input-wrapper ' },
     }),
     passInput: new Input({
         name: 'password',
         text: 'Password',
         type: 'password',
+        regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
         attr: { class: 'input-wrapper' },
     }),
 

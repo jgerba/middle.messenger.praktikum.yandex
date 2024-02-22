@@ -42,7 +42,7 @@ export default class Block {
         this._id = makeId();
 
         this.props = this._makePropsProxy({ ...props, _id: this._id });
-        this.children = children; // need to make proxy
+        this.children = this._makePropsProxy(children); // need to make proxy
 
         this.eventBus = new EventBus();
         this._registerEvents(this.eventBus);
@@ -75,6 +75,7 @@ export default class Block {
         return new Proxy<ChildrenType>(props, {
             get(target: ChildrenType, prop: string) {
                 const value = target[prop];
+
                 return typeof value === 'function' ? value.bind(target) : value;
             },
             set(target: ChildrenType, prop: string, value: unknown): boolean {
@@ -93,8 +94,8 @@ export default class Block {
 
     _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_CDM, this._mount.bind(this));
-        eventBus.on(Block.EVENTS.FLOW_CDU, this._update.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
@@ -115,7 +116,7 @@ export default class Block {
     }
 
     _render() {
-        // console.log('render ' + this._meta.tagName);
+        console.log('render ' + this._meta.tagName);
 
         const hasEvents =
             this.props.events && Object.keys(this.props.events).length > 0;
@@ -178,24 +179,33 @@ export default class Block {
         });
     }
 
-    _mount() {
-        this.mount();
+    _componentDidMount() {
+        this.componentDidMount();
+    }
+
+    componentDidMount() {}
+
+    dispatchComponentDidMount() {
+        this.eventBus.emit(Block.EVENTS.FLOW_CDM);
 
         Object.values(this.children).forEach(child => {
             child.dispatchComponentDidMount();
         });
     }
 
-    mount() {}
+    _componentDidUpdate(oldProps: {}, newProps: {}) {
+        console.log('update' + this._meta.tagName);
 
-    _update(oldProps: {}, newProps: {}) {
-        const update = this.update(oldProps, newProps);
+        const update = this.componentDidUpdate(oldProps, newProps);
+
+        console.log(update);
+
         if (update) {
             this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    update(oldProps: {}, newProps: {}) {
+    componentDidUpdate(oldProps: {}, newProps: {}) {
         return oldProps !== newProps;
     }
 
@@ -217,4 +227,3 @@ export default class Block {
         el!.style.display = 'none';
     }
 }
-
