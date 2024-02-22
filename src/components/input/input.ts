@@ -26,10 +26,7 @@ export default class Input extends Block {
         );
 
         if (this.props.regExpString) {
-            inputEl?.addEventListener('blur', () => {
-                const isValid = this.validateInput();
-                this.addAttribute(isValid);
-            });
+            inputEl?.addEventListener('blur', () => this.validateInput());
         }
     }
 
@@ -50,18 +47,20 @@ export default class Input extends Block {
         const regExp = new RegExp(this.props.regExpString as string);
         const isValid = regExp.test(inputEl.value);
 
+        this.handleError(isValid);
+
+        return isValid;
+    }
+
+    handleError(isValid: boolean) {
         const errorEl = this.element!.querySelector('.error') as HTMLElement;
+
         if (isValid) {
             errorEl.classList.add('hidden');
         } else {
             errorEl.classList.remove('hidden');
             errorEl.innerText = `Wrong ${this.props.name}`;
         }
-
-        return isValid;
-    }
-
-    addAttribute(isValid: boolean) {
-        this.element!.setAttribute('isValid', isValid.toString());
     }
 }
+

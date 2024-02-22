@@ -45,10 +45,12 @@ export default class LogInForm extends Block {
 
         Object.values(this.children).forEach(child => {
             if (child.element.querySelector('input')) {
-                isValid = child.validateInput();
+                const inputIsValid = child.validateInput();
+                if (!inputIsValid) isValid = inputIsValid;
             }
         });
 
         return isValid;
     }
 }
+
