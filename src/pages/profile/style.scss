@@ -1,0 +1,18 @@
+.main--profile {
+    flex-direction: column;
+    justify-content: center;
+
+    &__header-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 21px;
+    }
+
+    .header {
+        align-self: center;
+        justify-self: flex-start;
+
+        font-size: 20px;
+    }
+}

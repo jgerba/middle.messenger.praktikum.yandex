@@ -32,5 +32,5 @@ export default new PasswordForm({
         text: 'Save changes',
         attr: { class: 'btn', type: 'submit' },
     }),
-    attr: { class: 'form form--profile' },
+    attr: { class: 'form form--profile hidden' },
 });

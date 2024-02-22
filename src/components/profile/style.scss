@@ -2,18 +2,9 @@
     position: relative;
 
     width: 340px;
-    height: 615px;
-    top: -160px;
+    height: 355px;
 
     box-shadow: none;
-
-    &__header-wrapper {
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 21px;
-    }
 
     &__btn {
         text-align: start;

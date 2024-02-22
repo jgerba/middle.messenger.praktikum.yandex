@@ -1,22 +1,13 @@
-<main class='main'>
-  {{>ReturnBtn}}
+{{{returnBtn}}}
 
-  <div class="form--profile__header-wrapper">
-    {{>UserPic}}
-     {{#if notForm}}
- <h1 class='header'>{{userName}}</h1>
-  </div>
+<div class='main--profile__header-wrapper'>
+    {{{userPic}}}
+    <h1 class='header'>{{userName}}</h1>
+</div>
 
-  {{Profile}}
- {{/if}}
+{{{profile}}}
 
-  {{#if changePass}}
-  {{>ProfileForm changePass=true }}
-  {{else}}
-  {{>ProfileForm}}
-  {{/if}}
+{{{profileForm}}}
+{{{passwordForm}}}
 
-  {{#if showModal}}
-  {{>Modal header='Upload a file' upload=true btn-text='Upload'}}
-  {{/if}}
-</main>
+{{!-- {{>Modal header='Upload a file' upload=true btn-text='Upload'}} --}}
