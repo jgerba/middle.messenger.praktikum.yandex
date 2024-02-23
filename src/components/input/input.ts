@@ -20,10 +20,16 @@ export default class Input extends Block {
             'input'
         ) as HTMLInputElement;
 
-        inputEl?.addEventListener('focusin', () => this.toggleLabel.bind(this));
-        inputEl?.addEventListener('focusout', () =>
-            this.toggleLabel.bind(this)
-        );
+        // listeners to toggle label visibility in login forms
+        // removed from send message input
+        if (inputEl.name !== 'message') {
+            inputEl?.addEventListener('focusin', () =>
+                this.toggleLabel.bind(this)
+            );
+            inputEl?.addEventListener('focusout', () =>
+                this.toggleLabel.bind(this)
+            );
+        }
 
         if (this.props.regExpString) {
             inputEl?.addEventListener('blur', () => this.validateInput());
@@ -44,11 +50,25 @@ export default class Input extends Block {
             'input'
         ) as HTMLInputElement;
 
-        // old pass enter in profile settings
-        if (inputEl.name === 'oldPassword') return true;
+        let isValid;
+
+        // old pass enter in profile settings | message send
+        if (
+            inputEl.name === 'oldPassword' ||
+            (inputEl.name === 'message' && inputEl.value.trim())
+        ) {
+            isValid = true;
+            return isValid;
+        }
+
+        if (inputEl.name === 'message' && !inputEl.value.trim()) {
+            isValid = false;
+            this.handleError(isValid);
+            return isValid;
+        }
 
         const regExp = new RegExp(this.props.regExpString as string);
-        let isValid = regExp.test(inputEl.value);
+        isValid = regExp.test(inputEl.value);
         let passesAreEqual: boolean = true;
 
         if (inputEl.type === 'password') {
@@ -75,7 +95,7 @@ export default class Input extends Block {
         );
     }
 
-    handleError(isValid: boolean, passesAreEqual: boolean) {
+    handleError(isValid: boolean, passesAreEqual: boolean = true) {
         const errorEl = this.element!.querySelector('.error') as HTMLElement;
 
         if (isValid) {

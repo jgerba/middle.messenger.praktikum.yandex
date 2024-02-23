@@ -1,5 +1,5 @@
 import DropdownBtn from '../dropdownBtn/dropdownBtn';
-import MessageDropdown from './messageDropdown';
+import MessageDropdown from './messageDropdown.ts';
 import photoVideoSvg from './svg/foto-video.svg';
 import fileSvg from './svg/file.svg';
 import locationSvg from './svg/location.svg';
