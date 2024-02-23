@@ -9,17 +9,16 @@ const rootEl = document.getElementById('app') as HTMLElement;
 const location = window.location.pathname;
 
 const pages: { [key: string]: HTMLElement } = {
-    '/': authPage.getContent() as HTMLElement,
-    '/chatpage': chatPage.getContent() as HTMLElement,
-    '/profile': profilePage.getContent() as HTMLElement,
-    '/error': new errorPage({}).getContent() as HTMLElement,
+  '/': authPage.getContent() as HTMLElement,
+  '/chatpage': chatPage.getContent() as HTMLElement,
+  '/profile': profilePage.getContent() as HTMLElement,
+  '/error': new errorPage({}).getContent() as HTMLElement,
 };
 
 if (pages[location]) {
-    rootEl.append(pages[location]);
+  rootEl.append(pages[location]);
 } else {
-    rootEl.append(
-        new errorPage({ notFound: true }).getContent() as HTMLElement
-    );
+  rootEl.append(
+        new errorPage({ notFound: true }).getContent() as HTMLElement,
+  );
 }
-

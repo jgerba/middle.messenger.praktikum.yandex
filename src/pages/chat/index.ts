@@ -4,8 +4,8 @@ import searchForm from '../../components/searchForm';
 import ChatPage from './chat';
 
 export default new ChatPage({
-    searchForm,
-    chatHeader,
-    messageForm,
-    attr: { class: 'main chat' },
+  searchForm,
+  chatHeader,
+  messageForm,
+  attr: { class: 'main chat' },
 });

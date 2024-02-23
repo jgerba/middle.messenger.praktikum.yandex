@@ -1,47 +1,45 @@
 import Block, { PropsType, ChildrenType } from './block';
 
 export default class AuthForm extends Block {
-    constructor(tagName: string, props: PropsType | ChildrenType) {
-        super(tagName, props);
+  constructor(tagName: string, props: PropsType | ChildrenType) {
+    super(tagName, props);
 
-        this.addEvents();
+    this.addEvents();
+  }
+
+  addEvents() {
+    this.element?.addEventListener('submit', (event) => this.submitForm(event));
+  }
+
+  submitForm(event: SubmitEvent) {
+    event.preventDefault();
+    const formIsValid = this.validateForm();
+
+    if (!formIsValid) {
+      console.log('Wrong input values!');
+      return;
     }
 
-    addEvents() {
-        this.element?.addEventListener('submit', event =>
-            this.submitForm(event)
-        );
-    }
+    const formObject: Record<string, string> = {};
 
-    submitForm(event: SubmitEvent) {
-        event.preventDefault();
-        const formIsValid = this.validateForm();
+    const inputs = this.element!.querySelectorAll('input');
+    inputs.forEach((input) => {
+      formObject[input.name] = input.value;
+    });
 
-        if (!formIsValid) {
-            console.log('Wrong input values!');
-            return;
-        }
+    console.log(formObject);
+  }
 
-        const formObject: Record<string, string> = {};
+  validateForm(): boolean {
+    let isValid: boolean = true;
 
-        const inputs = this.element!.querySelectorAll('input');
-        inputs.forEach(input => {
-            formObject[input.name] = input.value;
-        });
+    Object.values(this.children).forEach((child) => {
+      if (child.element.querySelector('input')) {
+        const inputIsValid = child.validateInput();
+        if (!inputIsValid) isValid = inputIsValid;
+      }
+    });
 
-        console.log(formObject);
-    }
-
-    validateForm(): boolean {
-        let isValid: boolean = true;
-
-        Object.values(this.children).forEach(child => {
-            if (child.element.querySelector('input')) {
-                const inputIsValid = child.validateInput();
-                if (!inputIsValid) isValid = inputIsValid;
-            }
-        });
-
-        return isValid;
-    }
+    return isValid;
+  }
 }
