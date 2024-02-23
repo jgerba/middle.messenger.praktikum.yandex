@@ -1,6 +1,6 @@
 import Button from '../button/button.ts';
 import Input from '../input/input.ts';
-import LogInForm from './logInForm.ts';
+import LogInForm from './authForm.ts';
 
 // to rename
 

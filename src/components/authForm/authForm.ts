@@ -1,4 +1,4 @@
-import tpl from './logInForm.hbs?raw';
+import tpl from './authForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../core/block.ts';
 import AuthForm from '../../core/authForm.ts';
 
