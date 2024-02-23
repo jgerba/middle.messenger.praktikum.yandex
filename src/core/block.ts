@@ -116,7 +116,7 @@ export default class Block {
     }
 
     _render() {
-        console.log('render ' + this._meta.tagName);
+        // console.log('render ' + this._meta.tagName);
 
         const hasEvents =
             this.props.events && Object.keys(this.props.events).length > 0;
@@ -194,11 +194,9 @@ export default class Block {
     }
 
     _componentDidUpdate(oldProps: {}, newProps: {}) {
-        console.log('update' + this._meta.tagName);
+        // console.log('update' + this._meta.tagName);
 
         const update = this.componentDidUpdate(oldProps, newProps);
-
-        console.log(update);
 
         if (update) {
             this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
@@ -227,3 +225,4 @@ export default class Block {
         el!.style.display = 'none';
     }
 }
+
