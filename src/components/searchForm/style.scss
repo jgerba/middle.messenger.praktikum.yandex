@@ -1,21 +1,22 @@
 .search-form {
-    position: relative;
+  position: relative;
+  top: 25px;
 
-    .search-input {
-        width: 290px;
-        height: 32px;
-        border-bottom: none;
-        border-radius: 5px;
-        background-color: $back-el-color;
+  .search-input {
+    width: 290px;
+    height: 32px;
+    border-bottom: none;
+    border-radius: 5px;
+    background-color: $back-el-color;
 
-        &::placeholder {
-            text-align: center;
-        }
+    &::placeholder {
+      text-align: center;
     }
+  }
 
-    &__icon {
-        position: absolute;
-        left: 95px;
-        top: 7px;
-    }
+  &__icon {
+    position: absolute;
+    left: 95px;
+    top: 7px;
+  }
 }
