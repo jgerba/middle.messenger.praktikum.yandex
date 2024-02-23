@@ -16,6 +16,7 @@ export type PropsType = Record<
 
 /* eslint no-use-before-define:0 */
 /* eslint @typescript-eslint/no-explicit-any:0 */
+// Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 export type ChildrenType = Record<string, Block | Block[] | any>;
 
 export default class Block {
