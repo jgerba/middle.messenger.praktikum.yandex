@@ -1,4 +1,5 @@
 export default class EventBus {
+  /* eslint @typescript-eslint/ban-types:0 */
   listeners: { [eventName: string]: Function[] };
 
   constructor() {
@@ -33,3 +34,4 @@ export default class EventBus {
     });
   }
 }
+

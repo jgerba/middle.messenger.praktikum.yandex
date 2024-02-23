@@ -14,23 +14,26 @@ export default class ProfilePage extends Block {
 
   render(): DocumentFragment {
     // remove events data from props
-    const propsToRender = (({ attr, ...rest }) => rest)(this.props);
+    // iife - destructure props from argument, return rest (no unused vars)
+    // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
-    return this.compile(tpl, propsToRender);
+    return this.compile(tpl, this.props);
   }
 
   addEvents() {
     this.initElems();
 
-    this.btns.forEach((item) => item.addEventListener('click', (event) => this.changePage(event)));
+    this.btns.forEach((item) =>
+      item.addEventListener('click', (event) => this.changePage(event)),
+    );
   }
 
   initElems() {
     this.btns = [
-            this.element!.querySelector('button[title="Change profile"]')!,
-            this.element!.querySelector('button[title="Change password"]')!,
-            this.element!.querySelector('button[title="Log out"]')!,
-            this.element!.querySelector('button[title="Step back"]')!,
+      this.element!.querySelector('button[title="Change profile"]')!,
+      this.element!.querySelector('button[title="Change password"]')!,
+      this.element!.querySelector('button[title="Log out"]')!,
+      this.element!.querySelector('button[title="Step back"]')!,
     ];
 
     this.forms = [
@@ -45,6 +48,8 @@ export default class ProfilePage extends Block {
     let { title } = clickBtn;
 
     if (title === 'Log out') {
+      /* eslint no-console: 0 */
+
       console.log('Logging out...');
       return;
     }
@@ -68,3 +73,4 @@ export default class ProfilePage extends Block {
     });
   }
 }
+

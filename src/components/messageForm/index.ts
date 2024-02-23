@@ -1,6 +1,6 @@
-import Input from '../input/input';
-import messageDropdown from '../messageDropdown';
-import MessageForm from './messageForm';
+import Input from '../input/input.ts';
+import messageDropdown from '../messageDropdown/index.ts';
+import MessageForm from './messageForm.ts';
 import scrapSvg from './svg/scrap.svg';
 import sendSvg from './svg/send.svg';
 
@@ -17,3 +17,4 @@ export default new MessageForm({
   sendIcon: sendSvg,
   attr: { class: 'message-form' },
 });
+

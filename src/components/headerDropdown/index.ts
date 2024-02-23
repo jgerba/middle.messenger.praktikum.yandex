@@ -1,5 +1,5 @@
-import DropdownBtn from '../dropdownBtn/dropdownBtn';
-import HeaderDropdown from './headerDropdown';
+import DropdownBtn from '../dropdownBtn/dropdownBtn.ts';
+import HeaderDropdown from './headerDropdown.ts';
 import addSvg from './svg/add.svg';
 import removeSvg from './svg/remove.svg';
 

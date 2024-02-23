@@ -1,9 +1,9 @@
-import passwordForm from '../../components/passwordForm/index';
-import profile from '../../components/profile/index';
-import profileForm from '../../components/profileForm/index';
-import ReturnButton from '../../components/returnButton/returnButton';
-import UserPic from '../../components/userPic/userPic';
-import ProfilePage from './profile';
+import passwordForm from '../../components/passwordForm/index.ts';
+import profile from '../../components/profile/index.ts';
+import profileForm from '../../components/profileForm/index.ts';
+import ReturnButton from '../../components/returnButton/returnButton.ts';
+import UserPic from '../../components/userPic/userPic.ts';
+import ProfilePage from './profile.ts';
 
 export default new ProfilePage({
   returnBtn: new ReturnButton({
@@ -20,3 +20,4 @@ export default new ProfilePage({
   userName: 'UserName',
   attr: { class: 'main main--profile' },
 });
+

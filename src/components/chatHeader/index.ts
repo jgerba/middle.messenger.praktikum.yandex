@@ -7,3 +7,4 @@ export default new ChatHeader({
   dotsSvg,
   attr: { class: 'chat-header' },
 });
+

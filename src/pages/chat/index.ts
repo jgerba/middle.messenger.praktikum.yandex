@@ -1,7 +1,7 @@
-import chatHeader from '../../components/chatHeader';
-import messageForm from '../../components/messageForm';
-import searchForm from '../../components/searchForm';
-import ChatPage from './chat';
+import chatHeader from '../../components/chatHeader/index.ts';
+import messageForm from '../../components/messageForm/index.ts';
+import searchForm from '../../components/searchForm/index.ts';
+import ChatPage from './chat.ts';
 
 export default new ChatPage({
   searchForm,
@@ -9,3 +9,4 @@ export default new ChatPage({
   messageForm,
   attr: { class: 'main chat' },
 });
+

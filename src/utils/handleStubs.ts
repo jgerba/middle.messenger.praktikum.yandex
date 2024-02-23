@@ -1,5 +1,7 @@
 import { type ChildrenType, type PropsType } from '../core/block.ts';
 
+/* eslint no-param-reassign: "error" */
+
 export function setStubs(
   children: ChildrenType,
   props: PropsType | ChildrenType,
@@ -35,3 +37,4 @@ export function replaceStubs(
     }
   });
 }
+

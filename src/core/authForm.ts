@@ -1,4 +1,4 @@
-import Block, { PropsType, ChildrenType } from './block';
+import Block, { PropsType, ChildrenType } from './block.ts';
 
 export default class AuthForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
@@ -16,6 +16,8 @@ export default class AuthForm extends Block {
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
+      /* eslint no-console: 0 */
+
       console.log('Wrong input values!');
       return;
     }
@@ -43,3 +45,4 @@ export default class AuthForm extends Block {
     return isValid;
   }
 }
+

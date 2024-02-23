@@ -10,15 +10,14 @@ export default class Input extends Block {
 
   render(): DocumentFragment {
     // remove events data from props
-    const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
+    // iife - destructure props from argument, return rest (no unused vars)
+    // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
-    return this.compile(tpl, propsToRender);
+    return this.compile(tpl, this.props);
   }
 
   addEvents() {
-    const inputEl = this.element!.querySelector(
-      'input',
-    ) as HTMLInputElement;
+    const inputEl = this.element!.querySelector('input') as HTMLInputElement;
 
     // listeners to toggle label visibility in login forms
     // removed from send message input
@@ -33,25 +32,21 @@ export default class Input extends Block {
   }
 
   toggleLabel() {
-    const labelEl = this.element!.querySelector(
-      'label',
-    ) as HTMLLabelElement;
+    const labelEl = this.element!.querySelector('label') as HTMLLabelElement;
 
     labelEl.classList.toggle('label--small');
     labelEl.classList.toggle('label--hidden');
   }
 
   validateInput(): boolean {
-    const inputEl = this.element!.querySelector(
-      'input',
-    ) as HTMLInputElement;
+    const inputEl = this.element!.querySelector('input') as HTMLInputElement;
 
     let isValid;
 
     // old pass enter in profile settings | message send
     if (
       inputEl.name === 'oldPassword'
-            || (inputEl.name === 'message' && inputEl.value.trim())
+      || (inputEl.name === 'message' && inputEl.value.trim())
     ) {
       isValid = true;
       return isValid;
@@ -87,7 +82,7 @@ export default class Input extends Block {
 
     return (
       (passInputs![0] as HTMLInputElement).value
-            === (passInputs![1] as HTMLInputElement).value
+      === (passInputs![1] as HTMLInputElement).value
     );
   }
 

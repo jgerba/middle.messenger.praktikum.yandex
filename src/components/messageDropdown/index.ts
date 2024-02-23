@@ -1,4 +1,4 @@
-import DropdownBtn from '../dropdownBtn/dropdownBtn';
+import DropdownBtn from '../dropdownBtn/dropdownBtn.ts';
 import MessageDropdown from './messageDropdown.ts';
 import photoVideoSvg from './svg/foto-video.svg';
 import fileSvg from './svg/file.svg';
@@ -26,3 +26,4 @@ export default new MessageDropdown({
 
   attr: { class: 'dropdown message-drop hidden' },
 });
+

@@ -5,15 +5,17 @@ import EventBus from './event-bus.ts';
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
 export type PropsType = Record<
-    string,
-    | string
-    | Record<string, Function>
-    | Record<string, string>
-    | boolean
-    | Function
-    | HTMLElement
+  string,
+  | string
+  | Record<string, () => void>
+  | Record<string, string>
+  | boolean
+  | (() => void)
+  | HTMLElement
 >;
 
+/* eslint no-use-before-define:0 */
+/* eslint @typescript-eslint/no-explicit-any:0 */
 export type ChildrenType = Record<string, Block | Block[] | any>;
 
 export default class Block {
@@ -39,7 +41,7 @@ export default class Block {
   constructor(tagName: string, propsAndChildren: PropsType | ChildrenType) {
     const { props, children } = this._getPropsAndChildren(propsAndChildren);
 
-    this._element;
+    this._element = null;
     this._meta = {
       tagName,
       props,
@@ -54,10 +56,11 @@ export default class Block {
     this.eventBus.emit(Block.EVENTS.INIT);
   }
 
+  /* eslint class-methods-use-this:0 */
   _getPropsAndChildren(propsAndChildren: ChildrenType): {
-        props: Record<string, string>;
-        children: ChildrenType;
-    } {
+    props: Record<string, string>;
+    children: ChildrenType;
+  } {
     const props: Record<string, string> = {};
     const children: ChildrenType = {};
 
@@ -75,6 +78,8 @@ export default class Block {
   }
 
   _makePropsProxy(props: ChildrenType): ChildrenType {
+    /* eslint @typescript-eslint/no-this-alias:0 */
+
     const self = this;
 
     return new Proxy<ChildrenType>(props, {
@@ -84,6 +89,8 @@ export default class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: ChildrenType, prop: string, value: unknown): boolean {
+        /* eslint no-param-reassign:0 */
+
         const oldProps = { ...target };
 
         target[prop] = value; // new props
@@ -122,24 +129,26 @@ export default class Block {
 
   _render() {
     // console.log('render ' + this._meta.tagName);
+    /* eslint operator-linebreak:0 */
 
-    const hasEvents = this.props.events && Object.keys(this.props.events).length > 0;
+    const hasEvents =
+      this.props.events && Object.keys(this.props.events).length > 0;
 
     const block = this.render();
-        this._element!.innerHTML = '';
+    this._element!.innerHTML = '';
 
-        if (hasEvents) {
-          this._removeEvents();
-        }
+    if (hasEvents) {
+      this._removeEvents();
+    }
 
-        this._element!.appendChild(block);
+    this._element!.appendChild(block);
 
-        if (this.props.attr && Object.keys(this.props.attr).length > 0) {
-          this.setAttributes();
-        }
-        if (hasEvents) {
-          this._addEvents();
-        }
+    if (this.props.attr && Object.keys(this.props.attr).length > 0) {
+      this.setAttributes();
+    }
+    if (hasEvents) {
+      this._addEvents();
+    }
   }
 
   render() {
@@ -166,16 +175,20 @@ export default class Block {
   }
 
   _addEvents() {
-    Object.entries(this.props.events).forEach(([event, callback]) => this._element!.addEventListener(event, callback));
+    Object.entries(this.props.events).forEach(([event, callback]) =>
+      this._element!.addEventListener(event, callback),
+    );
   }
 
   _removeEvents() {
-    Object.entries(this.props.events).forEach(([event, callback]) => this._element!.removeEventListener(event, callback));
+    Object.entries(this.props.events).forEach(([event, callback]) =>
+      this._element!.removeEventListener(event, callback),
+    );
   }
 
   setAttributes() {
     Object.entries(this.props.attr).forEach(([attr, value]) => {
-            this._element!.setAttribute(attr, value);
+      this._element!.setAttribute(attr, value);
     });
   }
 
@@ -193,7 +206,10 @@ export default class Block {
     });
   }
 
-  _componentDidUpdate(oldProps: {}, newProps: {}) {
+  _componentDidUpdate(
+    oldProps: PropsType | ChildrenType,
+    newProps: PropsType | ChildrenType,
+  ) {
     // console.log('update' + this._meta.tagName);
 
     const update = this.componentDidUpdate(oldProps, newProps);
@@ -203,7 +219,10 @@ export default class Block {
     }
   }
 
-  componentDidUpdate(oldProps: {}, newProps: {}) {
+  componentDidUpdate(
+    oldProps: PropsType | ChildrenType,
+    newProps: PropsType | ChildrenType,
+  ) {
     return oldProps !== newProps;
   }
 
@@ -217,11 +236,12 @@ export default class Block {
 
   show() {
     const el = this.getContent();
-        el!.style.display = 'block';
+    el!.style.display = 'block';
   }
 
   hide() {
     const el = this.getContent();
-        el!.style.display = 'none';
+    el!.style.display = 'none';
   }
 }
+

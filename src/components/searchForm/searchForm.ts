@@ -10,9 +10,10 @@ export default class SearchForm extends Block {
 
   render(): DocumentFragment {
     // remove events data from props
-    const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
+    // iife - destructure props from argument, return rest (no unused vars)
+    // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
-    return this.compile(tpl, propsToRender);
+    return this.compile(tpl, this.props);
   }
 
   addEvents() {
@@ -27,14 +28,20 @@ export default class SearchForm extends Block {
       this.handleIcon.bind(this, searchInput),
     );
 
-    this.element?.addEventListener('submit', (event) => this.submitSearch(event, searchInput));
+    this.element?.addEventListener('submit', (event) =>
+      this.submitSearch(event, searchInput),
+    );
   }
 
   submitSearch(event: Event, searchInput: HTMLInputElement) {
+    /* eslint class-methods-use-this: 0 */
+
     event.preventDefault();
     const searchString = searchInput.value.trim();
 
     if (!searchString) {
+      /* eslint no-console: 0 */
+
       console.log('Empty search string');
       return;
     }
@@ -51,3 +58,4 @@ export default class SearchForm extends Block {
     icon?.classList.toggle('hidden');
   }
 }
+
