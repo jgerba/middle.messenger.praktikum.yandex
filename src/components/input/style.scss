@@ -43,17 +43,4 @@
         opacity: 0;
         z-index: -1;
     }
-
-    .search-input {
-        width: 290px;
-        height: 32px;
-
-        border-bottom: none;
-        border-radius: 5px;
-        background-color: $back-el-color;
-
-        &::placeholder {
-            text-align: center;
-        }
-    }
 }
