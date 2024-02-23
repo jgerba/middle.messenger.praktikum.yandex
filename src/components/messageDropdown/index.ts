@@ -24,5 +24,5 @@ export default new MessageDropdown({
         attr: { class: 'dropdown-btn' },
     }),
 
-    attr: { class: 'dropdown message-drop' },
+    attr: { class: 'dropdown message-drop hidden' },
 });
