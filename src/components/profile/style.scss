@@ -1,15 +1,12 @@
 .form--profile {
     position: relative;
-
     width: 340px;
     height: 355px;
-
     box-shadow: none;
 
     &__btn {
         text-align: start;
-        padding: 10px 0px;
-
+        padding: 10px 0;
         border-bottom: 1px solid $borders-color;
 
         &:last-of-type {

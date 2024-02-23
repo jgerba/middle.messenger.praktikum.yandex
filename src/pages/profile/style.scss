@@ -10,9 +10,7 @@
     }
 
     .header {
-        align-self: center;
-        justify-self: flex-start;
-
+        place-self: center flex-start;
         font-size: 20px;
     }
 }

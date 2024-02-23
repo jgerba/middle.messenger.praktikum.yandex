@@ -1,24 +1,21 @@
-@import './formsCommonStyles.scss';
-@import './pagesCommonStyle.scss';
-
-@import '../components/button/style.scss';
-@import '../components/input/style.scss';
-@import '../components/returnButton/style.scss';
-@import '../components/profileField/style.scss';
-@import '../components/userPic/style.scss';
-@import '../components/chatPreview/style.scss';
-@import '../components/messageDropdown/style.scss';
-@import '../components/dropdownBtn/style.scss';
-@import '../components/message/style.scss';
-@import '../components/chatHeader/style.scss';
-@import '../components/createUserForm/style.scss';
-
-@import '../components/profile/style.scss';
-@import '../components/searchForm/style.scss';
-@import '../components/messageForm/style.scss';
-@import '../components/modal/style.scss';
-
-@import '../pages/error/style.scss';
-@import '../pages/chat/style.scss';
-@import '../pages/profile/style.scss';
+@import './formsCommonStyles';
+@import './pagesCommonStyle';
+@import '../components/button/style';
+@import '../components/input/style';
+@import '../components/returnButton/style';
+@import '../components/profileField/style';
+@import '../components/userPic/style';
+@import '../components/chatPreview/style';
+@import '../components/messageDropdown/style';
+@import '../components/dropdownBtn/style';
+@import '../components/message/style';
+@import '../components/chatHeader/style';
+@import '../components/createUserForm/style';
+@import '../components/profile/style';
+@import '../components/searchForm/style';
+@import '../components/messageForm/style';
+@import '../components/modal/style';
+@import '../pages/error/style';
+@import '../pages/chat/style';
+@import '../pages/profile/style';
 

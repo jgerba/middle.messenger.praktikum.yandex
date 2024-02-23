@@ -1,6 +1,7 @@
 dist
 node_modules
 src/**/**/*.ts
+src/**/**/*.svg
 static/**/*.woff2
 static/**/*.svg
 src/**/**/*.hbs

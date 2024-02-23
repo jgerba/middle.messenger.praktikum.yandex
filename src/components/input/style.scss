@@ -1,6 +1,5 @@
 .input-wrapper {
     position: relative;
-
     display: flex;
     flex-direction: column;
     gap: 7px;
@@ -16,7 +15,7 @@
 
     .input,
     .input::placeholder {
-        padding: 7px 0px;
+        padding: 7px 0;
     }
 
     .label {
@@ -31,9 +30,7 @@
 
     .error {
         position: absolute;
-
         top: 60px;
-
         font-size: 8px;
         color: $warning-color;
     }

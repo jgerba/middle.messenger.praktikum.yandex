@@ -1,28 +1,22 @@
 .message {
     position: relative;
     align-self: flex-start;
-
     width: 402px;
-
     padding: 11px;
-
     font-size: 12px;
     border-radius: 12px;
     background-color: $back-message-color;
 
     &__time {
         position: absolute;
-
         right: 6px;
         bottom: 6px;
-
         font-size: 9px;
         color: $back-text-color;
     }
 
     &__is-read-icon {
         position: absolute;
-
         right: 33px;
         bottom: 8px;
     }
@@ -30,7 +24,6 @@
 
 .personal-message {
     align-self: flex-end;
-
     background-color: $personal-message-color;
 
     .message__time {
