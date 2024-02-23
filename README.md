@@ -13,7 +13,10 @@ https://www.figma.com/file/jX0PPV9INgyvigFhhqxuAb/Chat_external_link-(Copy)?type
 - `npm install` — установка стабильной версии,
 - `npm run dev` — запуск версии для разработчика,
 - `npm run build` — сборка проекта,
-- `npm run start` — сборка проекта и запуск локального сервера.
+- `npm run start` — сборка проекта и запуск локального сервера,
+- `npm run lint` — проверка проекта при помощи Eslint и Stylelint,
+- `npm run lint:js` — проверка проекта при помощи Eslint,
+- `npm run lint:css` — проверка проекта при помощи Stylelint.
 
 ###
 
