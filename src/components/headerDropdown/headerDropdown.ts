@@ -1,7 +1,7 @@
-import tpl from './messageDropdown.hbs?raw';
+import tpl from './headerDropdown.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 
-export default class MessageDropdown extends Block {
+export default class HeaderDropdown extends Block {
     constructor(props: PropsType | ChildrenType) {
         super('article', props);
     }

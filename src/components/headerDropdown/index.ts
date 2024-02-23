@@ -1,28 +1,21 @@
 import DropdownBtn from '../dropdownBtn/dropdownBtn';
-import MessageDropdown from './messageDropdown';
-import photoVideoSvg from './svg/foto-video.svg';
-import fileSvg from './svg/file.svg';
-import locationSvg from './svg/location.svg';
+import HeaderDropdown from './headerDropdown';
+import addSvg from './svg/add.svg';
+import removeSvg from './svg/remove.svg';
 
-export default new MessageDropdown({
-    photoVideoBtn: new DropdownBtn({
-        alt: 'Upload photo and video',
-        text: 'Photo and video',
-        src: photoVideoSvg,
+export default new HeaderDropdown({
+    addUserBtn: new DropdownBtn({
+        alt: 'Add user',
+        text: 'Add user',
+        src: addSvg,
         attr: { class: 'dropdown-btn' },
     }),
-    fileBtn: new DropdownBtn({
-        alt: 'Upload file',
-        text: 'File',
-        src: fileSvg,
-        attr: { class: 'dropdown-btn' },
-    }),
-    locationBtn: new DropdownBtn({
-        alt: 'Add location',
-        text: 'Location',
-        src: locationSvg,
+    removeUserBtn: new DropdownBtn({
+        alt: 'Remove user',
+        text: 'Remove user',
+        src: removeSvg,
         attr: { class: 'dropdown-btn' },
     }),
 
-    attr: { class: 'dropdown message-drop' },
+    attr: { class: 'dropdown header-drop hidden' },
 });
