@@ -9,7 +9,10 @@
   "scripts": {
     "dev": "tsc && vite",
     "build": "tsc && vite build",
-    "start": "tsc && vite build && node server.js"
+    "start": "tsc && vite build && node server.js",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:css": "stylelint \"**/*.(scss|css)\""
   },
   "devDependencies": {
     "@types/uuid": "^9.0.8",
