@@ -2,8 +2,8 @@ import tpl from './profile.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ProfilePage extends Block {
-    btns: Record<string, HTMLElement>;
-    forms: Record<string, ChildrenType>;
+    btns: { [key: string]: HTMLElement }[];
+    forms: { [key: string]: HTMLElement }[];
 
     constructor(props: PropsType | ChildrenType) {
         super('main', props);
@@ -27,22 +27,34 @@ export default class ProfilePage extends Block {
     }
 
     initElems() {
-        this.btns = {
-            profileBtn: this.element!.querySelector(
-                'button[title="Change profile"]'
-            )!,
-            passwordBtn: this.element!.querySelector(
-                'button[title="Change password"]'
-            )!,
-            logOutBtn: this.element!.querySelector('button[title="Log out"]')!,
-            backBtn: this.element!.querySelector('button[title="Step back"]')!,
-        };
+        this.btns = [
+            {
+                profileBtn: this.element!.querySelector(
+                    'button[title="Change profile"]'
+                )!,
+            },
+            {
+                passwordBtn: this.element!.querySelector(
+                    'button[title="Change password"]'
+                )!,
+            },
+            {
+                logOutBtn: this.element!.querySelector(
+                    'button[title="Log out"]'
+                )!,
+            },
+            {
+                backBtn: this.element!.querySelector(
+                    'button[title="Step back"]'
+                )!,
+            },
+        ];
 
-        this.forms = {
-            profile: this.children.profile.element,
-            profileForm: this.children.profileForm.element,
-            passwordForm: this.children.passwordForm.element,
-        };
+        this.forms = [
+            { profile: this.children.profile.element },
+            { profileForm: this.children.profileForm.element },
+            { passwordForm: this.children.passwordForm.element },
+        ];
 
         console.log(this.forms);
     }
