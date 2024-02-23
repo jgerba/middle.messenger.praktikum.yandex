@@ -37,7 +37,7 @@ https://jugermessenger.netlify.app/
 
 </details>
 
-модуль чата (макет страницы chatpage)
+модуль чата
 https://jugermessenger.netlify.app/chatpage
 
 <details>
