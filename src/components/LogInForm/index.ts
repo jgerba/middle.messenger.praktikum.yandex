@@ -2,6 +2,8 @@ import Button from '../button/button.ts';
 import Input from '../input/input.ts';
 import LogInForm from './logInForm.ts';
 
+// to rename
+
 export default new LogInForm({
   nameInput: new Input({
     name: 'login',
