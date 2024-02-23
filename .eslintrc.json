@@ -26,6 +26,7 @@
     "no-multiple-empty-lines": 0,
     "function-paren-newline": 0,
     "implicit-arrow-linebreak": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "import/no-extraneous-dependencies": 0
   }
 }
