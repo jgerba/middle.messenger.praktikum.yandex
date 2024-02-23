@@ -31,15 +31,28 @@ export default new Profile({
 
     changeProfileBtn: new Button({
         text: 'Change profile',
-        attr: { class: 'btn btn--extra form--profile__btn', type: 'button' },
+        attr: {
+            class: 'btn btn--extra form--profile__btn',
+            type: 'button',
+            title: 'Change profile',
+        },
     }),
     changePassBtn: new Button({
         text: 'Change password',
-        attr: { class: 'btn btn--extra form--profile__btn', type: 'button' },
+        attr: {
+            class: 'btn btn--extra form--profile__btn',
+            type: 'button',
+            title: 'Change password',
+        },
     }),
     logOutBtn: new Button({
-        text: 'Change password',
-        attr: { class: 'btn btn--warning form--profile__btn', type: 'button' },
+        text: 'Log Out',
+        attr: {
+            class: 'btn btn--warning form--profile__btn',
+            type: 'button',
+            title: 'Log out',
+        },
     }),
     attr: { class: 'form form--profile' },
 });
+
