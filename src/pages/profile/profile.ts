@@ -2,8 +2,8 @@ import tpl from './profile.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ProfilePage extends Block {
-    btns: { [key: string]: HTMLElement }[];
-    forms: { [key: string]: HTMLElement }[];
+    btns: HTMLElement[];
+    forms: HTMLElement[];
 
     constructor(props: PropsType | ChildrenType) {
         super('main', props);
@@ -21,47 +21,51 @@ export default class ProfilePage extends Block {
     addEvents() {
         this.initElems();
 
-        changeFormBtns.forEach(btn =>
-            btn.addEventListener('click', this.changeForm.bind(this))
+        this.btns.forEach(item =>
+            item.addEventListener('click', event => this.changePage(event))
         );
     }
 
     initElems() {
         this.btns = [
-            {
-                profileBtn: this.element!.querySelector(
-                    'button[title="Change profile"]'
-                )!,
-            },
-            {
-                passwordBtn: this.element!.querySelector(
-                    'button[title="Change password"]'
-                )!,
-            },
-            {
-                logOutBtn: this.element!.querySelector(
-                    'button[title="Log out"]'
-                )!,
-            },
-            {
-                backBtn: this.element!.querySelector(
-                    'button[title="Step back"]'
-                )!,
-            },
+            this.element!.querySelector('button[title="Change profile"]')!,
+            this.element!.querySelector('button[title="Change password"]')!,
+            this.element!.querySelector('button[title="Log out"]')!,
+            this.element!.querySelector('button[title="Step back"]')!,
         ];
 
         this.forms = [
-            { profile: this.children.profile.element },
-            { profileForm: this.children.profileForm.element },
-            { passwordForm: this.children.passwordForm.element },
+            this.children.profile.element,
+            this.children.profileForm.element,
+            this.children.passwordForm.element,
         ];
-
-        console.log(this.forms);
     }
 
-    changeForm() {
-        const forms = this.element!.querySelectorAll('form');
-        forms.forEach(form => form.classList.toggle('hidden'));
+    changePage(event: Event) {
+        const clickBtn = event.currentTarget as HTMLElement;
+        let title = clickBtn.title;
+
+        if (title === 'Log out') {
+            console.log('Logging out...');
+            return;
+        }
+        if (title === 'Step back') {
+            // case when already in profile form
+            if (!this.forms[0].classList.contains('hidden')) {
+                console.log('Redirecting to chat page...');
+                return;
+            }
+
+            title = 'Profile';
+        }
+
+        this.forms.forEach(form => {
+            if (form.title === title) {
+                form.classList.remove('hidden');
+                return;
+            }
+
+            form.classList.add('hidden');
+        });
     }
 }
-

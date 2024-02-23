@@ -53,6 +53,5 @@ export default new Profile({
             title: 'Log out',
         },
     }),
-    attr: { class: 'form form--profile' },
+    attr: { class: 'form form--profile', title: 'Profile' },
 });
-

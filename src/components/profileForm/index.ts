@@ -51,5 +51,5 @@ export default new ProfileForm({
         text: 'Save changes',
         attr: { class: 'btn', type: 'submit' },
     }),
-    attr: { class: 'form form--profile hidden' },
+    attr: { class: 'form form--profile hidden', title: 'Change profile' },
 });
