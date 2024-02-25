@@ -21,6 +21,8 @@ type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 class HTTPTransport {
   _api = 'someAPI';
 
+  /* eslint-disable arrow-body-style */
+
   get: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.GET });
   };
