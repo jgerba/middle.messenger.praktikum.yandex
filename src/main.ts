@@ -12,12 +12,19 @@ const pages: { [key: string]: HTMLElement } = {
   '/': authPage.getContent() as HTMLElement,
   '/chatpage': chatPage.getContent() as HTMLElement,
   '/profile': profilePage.getContent() as HTMLElement,
-  '/error': new ErrorPage({}).getContent() as HTMLElement,
+  '/error': new ErrorPage({
+    attr: { class: 'main main-error-page' },
+  }).getContent() as HTMLElement,
 };
 
 if (pages[location]) {
   rootEl.append(pages[location]);
 } else {
-  rootEl.append(new ErrorPage({ notFound: true }).getContent() as HTMLElement);
+  rootEl.append(
+    new ErrorPage({
+      notFound: true,
+      attr: { class: 'main main-error-page' },
+    }).getContent() as HTMLElement,
+  );
 }
 

@@ -7,7 +7,7 @@ export default class ProfilePage extends Block {
   forms: HTMLElement[];
 
   constructor(props: PropsType | ChildrenType) {
-    super('main', props);
+    super('div', props);
 
     this.addEvents();
   }

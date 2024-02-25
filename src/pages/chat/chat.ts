@@ -3,7 +3,7 @@ import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ChatPage extends Block {
   constructor(props: PropsType | ChildrenType) {
-    super('main', props);
+    super('div', props);
   }
 
   render(): DocumentFragment {

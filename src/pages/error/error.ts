@@ -3,7 +3,7 @@ import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ErrorPage extends Block {
   constructor(props: PropsType | ChildrenType) {
-    super('main', props);
+    super('div', props);
   }
 
   render(): DocumentFragment {
@@ -14,3 +14,4 @@ export default class ErrorPage extends Block {
     return this.compile(tpl, this.props);
   }
 }
+

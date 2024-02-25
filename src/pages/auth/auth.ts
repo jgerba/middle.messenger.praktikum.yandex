@@ -3,7 +3,7 @@ import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class AuthPage extends Block {
   constructor(props: PropsType | ChildrenType) {
-    super('main', props);
+    super('div', props);
 
     this.addEvents();
   }
@@ -19,7 +19,9 @@ export default class AuthPage extends Block {
   addEvents() {
     const changeFormBtns = this.element!.querySelectorAll('.btn--extra');
 
-    changeFormBtns.forEach((btn) => btn.addEventListener('click', this.changeForm.bind(this)));
+    changeFormBtns.forEach((btn) =>
+      btn.addEventListener('click', this.changeForm.bind(this)),
+    );
   }
 
   changeForm() {
@@ -27,3 +29,4 @@ export default class AuthPage extends Block {
     forms.forEach((form) => form.classList.toggle('hidden'));
   }
 }
+
