@@ -1,6 +1,6 @@
 import Block, { PropsType, ChildrenType } from './block.ts';
 
-export default class AuthForm extends Block {
+export default class ValidateForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
     const onSubmit = (event: SubmitEvent) => this.submitForm(event);
 
@@ -48,4 +48,3 @@ export default class AuthForm extends Block {
     return isValid;
   }
 }
-

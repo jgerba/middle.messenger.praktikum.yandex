@@ -17,7 +17,7 @@ export default class AuthPage extends Block {
   }
 
   initChangeFormBtns() {
-    const createUserBtn = this.children.authForm.children
+    const createUserBtn = this.children.logInForm.children
       .createUserBtn as ChildrenType;
     const loginBtn = this.children.createUserForm.children
       .logInBtn as ChildrenType;
@@ -32,4 +32,3 @@ export default class AuthPage extends Block {
     forms.forEach((form) => form.classList.toggle('hidden'));
   }
 }
-

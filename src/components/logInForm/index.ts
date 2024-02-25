@@ -1,6 +1,6 @@
 import Button from '../button/button.ts';
 import Input from '../input/input.ts';
-import LogInForm from './authForm.ts';
+import LogInForm from './logInForm.ts';
 
 // to rename
 
@@ -30,4 +30,3 @@ export default new LogInForm({
   }),
   attr: { class: 'form' },
 });
-

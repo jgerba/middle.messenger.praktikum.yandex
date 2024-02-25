@@ -1,8 +1,8 @@
 import tpl from './profileForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../core/block.ts';
-import AuthForm from '../../core/authForm.ts';
+import ValidateForm from '../../core/validateForm.ts';
 
-export default class ProfileForm extends AuthForm {
+export default class ProfileForm extends ValidateForm {
   constructor(props: PropsType | ChildrenType) {
     super('form', props);
   }

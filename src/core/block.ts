@@ -149,9 +149,8 @@ export default class Block {
     }
     if (hasEvents) {
       this._addEvents();
+      console.log(this.props.events, this.element);
     }
-
-    console.log(this.props.events);
   }
 
   render() {
@@ -252,4 +251,3 @@ export default class Block {
     el!.style.display = 'none';
   }
 }
-
