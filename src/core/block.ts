@@ -181,6 +181,11 @@ export default class Block {
     );
   }
 
+  addEvent(event: string, callback: () => void) {
+    (this.props.events as Record<string, () => void>)[event] = callback;
+    this._element!.addEventListener(event, callback);
+  }
+
   _removeEvents() {
     Object.entries(this.props.events).forEach(([event, callback]) =>
       this._element!.removeEventListener(event, callback),

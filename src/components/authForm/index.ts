@@ -26,6 +26,8 @@ export default new LogInForm({
   createUserBtn: new Button({
     text: 'Sign up',
     attr: { class: 'btn btn--extra', type: 'button' },
+    events: {},
   }),
   attr: { class: 'form' },
 });
+
