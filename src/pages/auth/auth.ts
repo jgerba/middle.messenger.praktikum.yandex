@@ -17,11 +17,13 @@ export default class AuthPage extends Block {
   }
 
   initChangeFormBtns() {
+    // get btns inside children forms
     const createUserBtn = this.children.logInForm.children
       .createUserBtn as ChildrenType;
     const loginBtn = this.children.createUserForm.children
       .logInBtn as ChildrenType;
 
+    // put listener inside btn's props.event & add event
     [createUserBtn, loginBtn].forEach((btn) => {
       btn.addEvent('click', this.changeForm.bind(this));
     });
