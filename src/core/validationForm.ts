@@ -33,7 +33,11 @@ export default class ValidationForm extends Block {
     let isValid: boolean = true;
 
     Object.values(this.children).forEach((child) => {
-      if (child.element.querySelector('input')) {
+      //remove none inputs & oldPass input
+      if (
+        child.element.querySelector('input') &&
+        child.props.name !== 'oldPassword'
+      ) {
         const inputIsValid = child.validateInput();
         if (!inputIsValid) isValid = inputIsValid;
       }
