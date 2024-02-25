@@ -1,6 +1,5 @@
 @import './vars';
 @import './imports';
-
 @font-face {
   font-family: Inter;
   src: url('../../static/fonts/Inter-Medium.woff2');
@@ -39,6 +38,8 @@ a:active {
   display: flex;
   justify-content: center;
   width: 100%;
+
+  /* stylelint */
   z-index: 10;
 }
 
