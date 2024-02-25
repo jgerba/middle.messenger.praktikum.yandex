@@ -2,17 +2,20 @@ import Block, { PropsType, ChildrenType } from './block.ts';
 
 export default class AuthForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
-    super(tagName, props);
+    const onSubmit = (event: SubmitEvent) => this.submitForm(event);
 
-    this.addEvents();
+    super(tagName, { ...props, events: { submit: onSubmit } });
+
+    // this.addEvents();
   }
 
-  addEvents() {
-    this.element?.addEventListener('submit', (event) => this.submitForm(event));
-  }
+  // addEvents() {
+  //   this.element?.addEventListener('submit', (event) => this.submitForm(event));
+  // }
 
   submitForm(event: SubmitEvent) {
     event.preventDefault();
+
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
@@ -45,3 +48,4 @@ export default class AuthForm extends Block {
     return isValid;
   }
 }
+
