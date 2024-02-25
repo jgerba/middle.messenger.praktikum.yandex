@@ -1,41 +1,17 @@
-import tpl from './input.hbs?raw';
-import Block, { PropsType } from '../../core/block.js';
+import { PropsType } from '../../core/block.js';
+import Input from './input.ts';
 
-export default class Input extends Block {
+export default class ValidationInput extends Input {
   constructor(props: PropsType) {
-    super('div', props);
+    const onBlur = () => this.validateInput.bind(this)();
 
-    this.addEvents();
-  }
-
-  render(): DocumentFragment {
-    // remove events data from props
-    // iife - destructure props from argument, return rest (no unused vars)
-    // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
-
-    return this.compile(tpl, this.props);
-  }
-
-  addEvents() {
-    const inputEl = this.element!.querySelector('input') as HTMLInputElement;
-
-    // listeners to toggle label visibility in login forms
-    // removed from send message input
-    if (inputEl.name !== 'message') {
-      inputEl?.addEventListener('focusin', () => this.toggleLabel.bind(this));
-      inputEl?.addEventListener('focusout', () => this.toggleLabel.bind(this));
-    }
-
-    if (this.props.regExpString) {
-      inputEl?.addEventListener('blur', () => this.validateInput());
-    }
-  }
-
-  toggleLabel() {
-    const labelEl = this.element!.querySelector('label') as HTMLLabelElement;
-
-    labelEl.classList.toggle('label--small');
-    labelEl.classList.toggle('label--hidden');
+    super({
+      ...props,
+      events: {
+        ...(props.events as { [key: string]: Function }),
+        blur: onBlur,
+      },
+    });
   }
 
   validateInput(): boolean {
@@ -45,8 +21,8 @@ export default class Input extends Block {
 
     // old pass enter in profile settings | message send
     if (
-      inputEl.name === 'oldPassword'
-      || (inputEl.name === 'message' && inputEl.value.trim())
+      inputEl.name === 'oldPassword' ||
+      (inputEl.name === 'message' && inputEl.value.trim())
     ) {
       isValid = true;
       return isValid;
@@ -81,8 +57,8 @@ export default class Input extends Block {
     if (passInputs.length < 2) return true;
 
     return (
-      (passInputs![0] as HTMLInputElement).value
-      === (passInputs![1] as HTMLInputElement).value
+      (passInputs![0] as HTMLInputElement).value ===
+      (passInputs![1] as HTMLInputElement).value
     );
   }
 
