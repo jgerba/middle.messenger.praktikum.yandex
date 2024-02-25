@@ -36,6 +36,7 @@ export default new Profile({
       type: 'button',
       title: 'Change profile',
     },
+    events: {},
   }),
   changePassBtn: new Button({
     text: 'Change password',
@@ -44,6 +45,7 @@ export default new Profile({
       type: 'button',
       title: 'Change password',
     },
+    events: {},
   }),
   logOutBtn: new Button({
     text: 'Log Out',
@@ -52,6 +54,7 @@ export default new Profile({
       type: 'button',
       title: 'Log out',
     },
+    events: {},
   }),
   attr: { class: 'form form--profile', title: 'Profile' },
 });

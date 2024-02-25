@@ -2,8 +2,7 @@ import tpl from './profile.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ProfilePage extends Block {
-  btns: HTMLElement[];
-
+  btns: ChildrenType[];
   forms: HTMLElement[];
 
   constructor(props: PropsType | ChildrenType) {
@@ -23,17 +22,18 @@ export default class ProfilePage extends Block {
   addEvents() {
     this.initElems();
 
-    this.btns.forEach((item) =>
-      item.addEventListener('click', (event) => this.changePage(event)),
+    // put listener inside btn's props.event & add event
+    this.btns.forEach((btn) =>
+      btn.addEvent('click', (event: MouseEvent) => this.changePage(event)),
     );
   }
 
   initElems() {
     this.btns = [
-      this.element!.querySelector('button[title="Change profile"]')!,
-      this.element!.querySelector('button[title="Change password"]')!,
-      this.element!.querySelector('button[title="Log out"]')!,
-      this.element!.querySelector('button[title="Step back"]')!,
+      this.children.profile.children.changeProfileBtn,
+      this.children.profile.children.changePassBtn,
+      this.children.profile.children.logOutBtn,
+      this.children.returnBtn,
     ];
 
     this.forms = [
@@ -43,7 +43,7 @@ export default class ProfilePage extends Block {
     ];
   }
 
-  changePage(event: Event) {
+  changePage(event: MouseEvent) {
     const clickBtn = event.currentTarget as HTMLElement;
     let { title } = clickBtn;
 
@@ -73,4 +73,3 @@ export default class ProfilePage extends Block {
     });
   }
 }
-

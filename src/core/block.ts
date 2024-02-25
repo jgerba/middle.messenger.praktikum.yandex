@@ -149,7 +149,6 @@ export default class Block {
     }
     if (hasEvents) {
       this._addEvents();
-      console.log(this.props.events, this.element);
     }
   }
 

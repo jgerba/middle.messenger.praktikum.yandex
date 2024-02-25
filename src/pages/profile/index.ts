@@ -7,7 +7,8 @@ import ProfilePage from './profile.ts';
 
 export default new ProfilePage({
   returnBtn: new ReturnButton({
-    attr: { class: 'btn-return-wrapper' },
+    attr: { class: 'btn-return-wrapper', title: 'Step back' },
+    events: {},
   }),
   userPic: new UserPic({
     attr: { class: 'userpic' },
@@ -20,4 +21,3 @@ export default new ProfilePage({
   userName: 'UserName',
   attr: { class: 'main main--profile' },
 });
-
