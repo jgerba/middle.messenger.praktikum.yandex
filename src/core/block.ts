@@ -7,7 +7,7 @@ import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 export type PropsType = Record<
   string,
   | string
-  | Record<string, () => void>
+  | Record<string, Function>
   | Record<string, string>
   | boolean
   | (() => void)
@@ -177,9 +177,13 @@ export default class Block {
   }
 
   _addEvents() {
-    Object.entries(this.props.events).forEach(([event, callback]) =>
-      this._element!.addEventListener(event, callback),
-    );
+    Object.entries(this.props.events).forEach(([event, callback]) => {
+      if (event === 'blur') {
+        this._element!.addEventListener(event, callback, { capture: true });
+        return;
+      }
+      this._element!.addEventListener(event, callback);
+    });
   }
 
   addEvent(event: string, callback: () => void) {
