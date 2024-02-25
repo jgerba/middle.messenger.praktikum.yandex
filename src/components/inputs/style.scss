@@ -1,50 +1,55 @@
 .input-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 
-    .input {
-        border-bottom: 1px solid $highlight-color;
+  height: 50px;
+
+  .input {
+    border-bottom: 1px solid $highlight-color;
+  }
+
+  .label,
+  .input::placeholder {
+    color: $back-text-color;
+  }
+
+  .input,
+  .input::placeholder {
+    padding: 7px 0;
+  }
+
+  .label {
+    position: absolute;
+    top: -10px;
+
+    &--small {
+      font-size: 9px;
     }
 
-    .label,
-    .input::placeholder {
-        color: $back-text-color;
+    &--hidden {
+      color: transparent;
     }
+  }
 
-    .input,
-    .input::placeholder {
-        padding: 7px 0;
-    }
+  .error {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    font-size: 8px;
+    color: $warning-color;
+  }
 
-    .label {
-        &--small {
-            font-size: 9px;
-        }
+  .upload-label {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $highlight-color;
+  }
 
-        &--hidden {
-            color: transparent;
-        }
-    }
-
-    .error {
-        position: absolute;
-        top: 60px;
-        font-size: 8px;
-        color: $warning-color;
-    }
-
-    .upload-label {
-        cursor: pointer;
-        text-decoration: underline;
-        color: $highlight-color;
-    }
-
-    .upload-input {
-        position: absolute;
-        opacity: 0;
-        z-index: -1;
-    }
+  .upload-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
 }
-
