@@ -1,10 +1,12 @@
 import tpl from './authForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../core/block.ts';
-import AuthForm from '../../core/authForm.ts';
+import ValidateForm from '../../core/validateForm.ts';
 
-export default class LogInForm extends AuthForm {
+export default class LogInForm extends ValidateForm {
   constructor(props: PropsType | ChildrenType) {
-    super('form', props);
+    const onSubmit = (event: SubmitEvent) => this.submitForm(event);
+
+    super('form', { ...props, events: { submit: onSubmit } });
   }
 
   render(): DocumentFragment {
