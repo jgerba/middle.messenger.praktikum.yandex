@@ -5,13 +5,7 @@ export default class ValidateForm extends Block {
     const onSubmit = (event: SubmitEvent) => this.submitForm(event);
 
     super(tagName, { ...props, events: { submit: onSubmit } });
-
-    // this.addEvents();
   }
-
-  // addEvents() {
-  //   this.element?.addEventListener('submit', (event) => this.submitForm(event));
-  // }
 
   submitForm(event: SubmitEvent) {
     event.preventDefault();

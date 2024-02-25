@@ -4,9 +4,7 @@ import ValidateForm from '../../core/validateForm.ts';
 
 export default class LogInForm extends ValidateForm {
   constructor(props: PropsType | ChildrenType) {
-    const onSubmit = (event: SubmitEvent) => this.submitForm(event);
-
-    super('form', { ...props, events: { submit: onSubmit } });
+    super('form', props);
   }
 
   render(): DocumentFragment {
