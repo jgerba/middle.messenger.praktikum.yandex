@@ -8,7 +8,7 @@ export default class ValidationInput extends Input {
     super({
       ...props,
       events: {
-        ...(props.events as { [key: string]: Function }),
+        ...(props.events as { [key: string]: () => void }),
         blur: onBlur,
       },
     });

@@ -22,7 +22,7 @@ export default class SearchForm extends Block {
   }
 
   submitSearch(event: SubmitEvent) {
-    // /* eslint class-methods-use-this: 0 */
+    /* eslint class-methods-use-this: 0 */
 
     event.preventDefault();
     const searchString = (event.target as HTMLFormElement).search.value.trim();

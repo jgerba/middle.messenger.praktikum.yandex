@@ -7,7 +7,8 @@ import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 export type PropsType = Record<
   string,
   | string
-  | Record<string, Function>
+  | Record<string, () => void>
+  | Record<string, () => boolean>
   | Record<string, string>
   | boolean
   | (() => void)
