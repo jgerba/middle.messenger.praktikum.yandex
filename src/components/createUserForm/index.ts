@@ -1,48 +1,48 @@
 import Button from '../button/button.ts';
-import Input from '../input/input.ts';
+import FormInput from '../inputs/formInput.ts';
 import CreateUserForm from './createUserForm.ts';
 
 export default new CreateUserForm({
-  emailInput: new Input({
+  emailInput: new FormInput({
     name: 'email',
     text: 'Email',
     type: 'email',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
     attr: { class: 'input-wrapper' },
   }),
-  loginInput: new Input({
+  loginInput: new FormInput({
     name: 'login',
     text: 'Login',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
-  nameInput: new Input({
+  nameInput: new FormInput({
     name: 'first_name',
     text: 'Name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  surnameInput: new Input({
+  surnameInput: new FormInput({
     name: 'second_name',
     text: 'Surname',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  phoneInput: new Input({
+  phoneInput: new FormInput({
     name: 'phone',
     text: 'Phone',
     type: 'phone',
     regExpString: '^\\+?\\d{10,15}$',
     attr: { class: 'input-wrapper' },
   }),
-  passInput: new Input({
+  passInput: new FormInput({
     name: 'password',
     text: 'Password',
     type: 'password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
-  confirmPassInput: new Input({
+  confirmPassInput: new FormInput({
     name: 'password-confirm',
     text: 'Confirm password',
     type: 'password',
@@ -61,4 +61,3 @@ export default new CreateUserForm({
   }),
   attr: { class: 'form form--signUp hidden' },
 });
-

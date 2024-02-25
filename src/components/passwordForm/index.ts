@@ -1,5 +1,6 @@
 import Button from '../button/button.ts';
-import Input from '../input/input.ts';
+import FormInput from '../inputs/formInput.ts';
+import Input from '../inputs/input.ts';
 import UserPic from '../userPic/userPic.ts';
 import PasswordForm from './passwordForm.ts';
 
@@ -13,14 +14,14 @@ export default new PasswordForm({
     type: 'password',
     attr: { class: 'input-wrapper' },
   }),
-  newPassInput: new Input({
+  newPassInput: new FormInput({
     name: 'password',
     text: 'New password',
     type: 'password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
-  confirmPassInput: new Input({
+  confirmPassInput: new FormInput({
     name: 'password-confirm',
     text: 'Confirm password',
     type: 'password',

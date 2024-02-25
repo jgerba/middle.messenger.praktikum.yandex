@@ -19,11 +19,7 @@ export default class ValidationInput extends Input {
 
     let isValid;
 
-    // old pass enter in profile settings | message send
-    if (
-      inputEl.name === 'oldPassword' ||
-      (inputEl.name === 'message' && inputEl.value.trim())
-    ) {
+    if (inputEl.name === 'message' && inputEl.value.trim()) {
       isValid = true;
       return isValid;
     }

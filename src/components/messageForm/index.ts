@@ -1,4 +1,4 @@
-import Input from '../input/input.ts';
+import ValidationInput from '../inputs/validationInput.ts';
 import messageDropdown from '../messageDropdown/index.ts';
 import MessageForm from './messageForm.ts';
 import scrapSvg from './svg/scrap.svg';
@@ -6,10 +6,10 @@ import sendSvg from './svg/send.svg';
 
 export default new MessageForm({
   dropdown: messageDropdown,
-  messageInput: new Input({
+  messageInput: new ValidationInput({
     name: 'message',
     text: 'Message',
-    search: true,
+    centeredInput: true,
     attr: { class: 'input-wrapper message-form__input' },
   }),
 
@@ -17,4 +17,3 @@ export default new MessageForm({
   sendIcon: sendSvg,
   attr: { class: 'message-form' },
 });
-

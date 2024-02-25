@@ -1,17 +1,15 @@
 import Button from '../button/button.ts';
-import Input from '../input/input.ts';
+import FormInput from '../inputs/formInput.ts';
 import LogInForm from './logInForm.ts';
 
-// to rename
-
 export default new LogInForm({
-  nameInput: new Input({
+  nameInput: new FormInput({
     name: 'login',
     text: 'Login',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper ' },
   }),
-  passInput: new Input({
+  passInput: new FormInput({
     name: 'password',
     text: 'Password',
     type: 'password',

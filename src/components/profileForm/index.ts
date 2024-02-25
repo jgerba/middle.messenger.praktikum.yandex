@@ -1,5 +1,5 @@
 import Button from '../button/button.ts';
-import Input from '../input/input.ts';
+import FormInput from '../inputs/formInput.ts';
 import UserPic from '../userPic/userPic.ts';
 import ProfileForm from './profileForm.ts';
 
@@ -8,38 +8,38 @@ export default new ProfileForm({
     attr: { class: 'userpic' },
   }),
 
-  emailInput: new Input({
+  emailInput: new FormInput({
     name: 'email',
     text: 'Email',
     type: 'email',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
     attr: { class: 'input-wrapper' },
   }),
-  loginInput: new Input({
+  loginInput: new FormInput({
     name: 'login',
     text: 'Login',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
-  nameInput: new Input({
+  nameInput: new FormInput({
     name: 'first_name',
     text: 'Name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  surnameInput: new Input({
+  surnameInput: new FormInput({
     name: 'second_name',
     text: 'Surname',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  displayNameInput: new Input({
+  displayNameInput: new FormInput({
     name: 'display_name',
     text: 'Username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
-  phoneInput: new Input({
+  phoneInput: new FormInput({
     name: 'phone',
     text: 'Phone',
     type: 'phone',
