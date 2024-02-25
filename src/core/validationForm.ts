@@ -1,6 +1,6 @@
 import Block, { PropsType, ChildrenType } from './block.ts';
 
-export default class ValidateForm extends Block {
+export default class ValidationForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
     const onSubmit = (event: SubmitEvent) => this.submitForm(event);
 
