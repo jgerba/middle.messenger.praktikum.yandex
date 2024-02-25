@@ -12,53 +12,38 @@ enum METHOD {
 /* eslint @typescript-eslint/no-explicit-any:0 */
 // Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 type Options = {
-  method: METHOD;
+  method?: METHOD;
   data?: any;
   headers?: Record<string, string>;
 };
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 class HTTPTransport {
   _api = 'someAPI';
 
-  get(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> {
+  get: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.GET });
-  }
+  };
 
-  post(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> {
+  post: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.POST });
-  }
+  };
 
-  put(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> {
+  put: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.PUT });
-  }
+  };
 
-  delete(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> {
+  delete: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.DELETE });
-  }
+  };
 
   /* eslint class-methods-use-this:0 */
-  request(
-    url: string,
-    options: Options = { method: METHOD.GET },
-  ): Promise<XMLHttpRequest> {
+  request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
     const { headers, method, data } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.open(method!, url);
 
       if (headers) {
         Object.entries(headers).forEach(([key, value]) => {
@@ -81,5 +66,5 @@ class HTTPTransport {
         xhr.send(JSON.stringify(data));
       }
     });
-  }
+  };
 }
