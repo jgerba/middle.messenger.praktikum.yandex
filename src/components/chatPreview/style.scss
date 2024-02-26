@@ -1,17 +1,13 @@
 .chat-preview {
     display: flex;
     justify-content: space-between;
-
     width: 290px;
-
-    padding: 12px 0px;
-
+    padding: 12px 0;
     border-top: 1px solid $borders-color;
 
     &__img {
         width: 47px;
         height: 47px;
-
         border-radius: 50%;
         background-color: $back-el-color;
     }
@@ -20,7 +16,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
         width: 193px;
         margin-left: 10px;
     }
@@ -45,10 +40,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
         width: 20px;
         height: 20px;
-
         border-radius: 50%;
         background-color: $highlight-color;
     }

@@ -3,11 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 64px;
     height: 100%;
-    left: 0px;
-
+    left: 0;
     border-right: 1px solid $borders-color;
     background-color: $back-color;
 }
@@ -16,11 +14,8 @@
     position: relative;
     width: 28px;
     height: 28px;
-
     border-radius: 50%;
-
     background-color: $highlight-color;
-
     transform: rotateZ(180deg);
 
     &:hover {

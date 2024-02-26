@@ -8,9 +8,11 @@ const publicDir = path.join(process.cwd(), '/dist');
 app.use(express.static(publicDir));
 
 app.get('/*', (req, res) => {
-    res.sendFile(publicDir + '/index.html');
+  res.sendFile(`${publicDir}/index.html`);
 });
 
 app.listen(port, () => {
-    console.log(`Server is up on port ${port}`);
+  /* eslint no-console: 0 */
+
+  console.log(`Server is up on port ${port}`);
 });
