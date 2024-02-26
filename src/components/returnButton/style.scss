@@ -11,11 +11,13 @@
 }
 
 .btn-return {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   background-color: $highlight-color;
-  transform: rotateZ(180deg);
 
   &:hover {
     background-color: $back-text-color;
