@@ -9,6 +9,7 @@ export default class ProfilePage extends Block {
   constructor(props: PropsType | ChildrenType) {
     super('div', props);
 
+    this.initElems();
     this.addEvents();
   }
 
@@ -21,8 +22,6 @@ export default class ProfilePage extends Block {
   }
 
   addEvents() {
-    this.initElems();
-
     // put listener inside btn's props.event & add event
     this.btns.forEach((btn) =>
       btn.addEvent('click', (event: MouseEvent) => this.changePage(event)),
