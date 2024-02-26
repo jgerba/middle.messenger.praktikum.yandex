@@ -3,7 +3,9 @@ import Block, { PropsType } from '../../core/block.js';
 
 export default class UserPic extends Block {
   constructor(props: PropsType) {
-    super('div', props);
+    const onClick = () => this.clickFileInput.bind(this)();
+
+    super('div', { ...props, events: { click: onClick } });
   }
 
   render(): DocumentFragment {
@@ -12,5 +14,10 @@ export default class UserPic extends Block {
     // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
     return this.compile(tpl, this.props);
+  }
+
+  clickFileInput() {
+    const fileInput = this.element!.querySelector('input') as HTMLInputElement;
+    fileInput.click();
   }
 }

@@ -2,7 +2,7 @@ import passwordForm from '../../components/passwordForm/index.ts';
 import profile from '../../components/profile/index.ts';
 import profileForm from '../../components/profileForm/index.ts';
 import ReturnButton from '../../components/returnButton/returnButton.ts';
-import UserPic from '../../components/userPic/userPic.ts';
+import userPic from '../../components/userPic/index.ts';
 import ProfilePage from './profile.ts';
 
 export default new ProfilePage({
@@ -10,9 +10,7 @@ export default new ProfilePage({
     attr: { class: 'btn-return-wrapper', title: 'Step back' },
     events: {},
   }),
-  userPic: new UserPic({
-    attr: { class: 'userpic' },
-  }),
+  userPic,
 
   profile,
   profileForm,
