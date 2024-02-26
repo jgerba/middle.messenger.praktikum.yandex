@@ -32,6 +32,10 @@ a:active {
   text-decoration: none;
 }
 
+.hidden {
+  display: none;
+}
+
 // temp style
 
 .nav {
@@ -53,8 +57,4 @@ a:active {
   & a {
     color: $highlight-color;
   }
-}
-
-.hidden {
-  display: none;
 }

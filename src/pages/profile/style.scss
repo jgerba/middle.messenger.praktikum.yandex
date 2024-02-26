@@ -1,16 +1,14 @@
 .main--profile {
+  flex-direction: column;
+
+  &__header-wrapper {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 21px;
+  }
 
-    &__header-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 21px;
-    }
-
-    .header {
-        place-self: center flex-start;
-        font-size: 20px;
-    }
+  .header {
+    place-self: center flex-start;
+    font-size: 20px;
+  }
 }

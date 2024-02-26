@@ -1,25 +1,23 @@
 .form--profile {
-    position: relative;
-    width: 340px;
-    height: 355px;
-    box-shadow: none;
+  width: 340px;
+  height: 355px;
+  box-shadow: none;
 
-    &__btn {
-        text-align: start;
-        padding: 10px 0;
-        border-bottom: 1px solid $borders-color;
+  &__btn {
+    text-align: start;
+    padding: 10px 0;
+    border-bottom: 1px solid $borders-color;
 
-        &:last-of-type {
-            border-bottom: none;
-        }
+    &:last-of-type {
+      border-bottom: none;
     }
+  }
 
-    &-password {
-        height: 270px;
-    }
+  &-password {
+    height: 270px;
+  }
 
-    &-change {
-        height: 400px;
-    }
+  &-change {
+    height: 400px;
+  }
 }
-

@@ -50,7 +50,7 @@ export default new Profile({
   logOutBtn: new Button({
     text: 'Log Out',
     attr: {
-      class: 'btn btn--warning form--profile__btn',
+      class: 'btn form--profile__btn btn--warning ',
       type: 'button',
       title: 'Log out',
     },

@@ -1,7 +1,4 @@
 .chat {
-  display: flex;
-  justify-content: space-between;
-
   &__left-panel {
     position: relative;
     display: flex;
@@ -10,9 +7,7 @@
     height: 100%;
     width: 25vw;
     min-width: 290px;
-    padding-top: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 20px 10px 0px;
     border-right: 1px solid $borders-color;
 
     .profile-link {
