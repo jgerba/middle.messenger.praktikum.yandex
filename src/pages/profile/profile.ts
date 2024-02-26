@@ -46,26 +46,31 @@ export default class ProfilePage extends Block {
 
   changePage(event: MouseEvent) {
     const clickBtn = event.currentTarget as HTMLElement;
-    let { title } = clickBtn;
+    let { title: btnTitle } = clickBtn;
+    const nameHeader = this.element!.querySelector('h1') as HTMLElement;
 
-    if (title === 'Log out') {
+    if (btnTitle === 'Log out') {
       /* eslint no-console: 0 */
 
       console.log('Logging out...');
       return;
     }
-    if (title === 'Step back') {
+    if (btnTitle === 'Step back') {
       // case when already in profile form
       if (!this.forms[0].classList.contains('hidden')) {
         console.log('Redirecting to chat page...');
         return;
       }
 
-      title = 'Profile';
+      btnTitle = 'Profile';
     }
 
     this.forms.forEach((form) => {
-      if (form.title === title) {
+      btnTitle === 'Profile'
+        ? nameHeader.classList.remove('hidden')
+        : nameHeader.classList.add('hidden');
+
+      if (form.title === btnTitle) {
         form.classList.remove('hidden');
         return;
       }
