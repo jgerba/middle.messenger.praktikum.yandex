@@ -147,7 +147,7 @@ export default class Block {
     this._element!.appendChild(block);
 
     if (this.props.attr && Object.keys(this.props.attr).length > 0) {
-      this.setAttributes();
+      this.addAttributes();
     }
     if (hasEvents) {
       this._addEvents();
@@ -198,7 +198,7 @@ export default class Block {
     );
   }
 
-  setAttributes() {
+  addAttributes() {
     Object.entries(this.props.attr).forEach(([attr, value]) => {
       this._element!.setAttribute(attr, value);
     });
