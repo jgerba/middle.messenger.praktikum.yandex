@@ -35,7 +35,7 @@ export default class ValidationInput extends Input {
     let passesAreEqual: boolean = true;
 
     if (inputEl.type === 'password') {
-      passesAreEqual = this.confirmPasswords();
+      passesAreEqual = this.matchPasswords();
       if (isValid && !passesAreEqual) isValid = false;
     }
     this.handleError(isValid, passesAreEqual);
@@ -43,20 +43,19 @@ export default class ValidationInput extends Input {
     return isValid;
   }
 
-  confirmPasswords(): boolean {
+  matchPasswords(): boolean {
     const formEl = this.element?.closest('form');
 
     const passInputs = formEl?.querySelectorAll(
-      'input[type=password]',
+      'input[type="password"]:not([name="oldPassword"])',
     ) as NodeList;
 
+    // only one pass field
     if (passInputs.length < 2) return true;
 
-    console.log(passInputs);
-
     return (
-      (passInputs![1] as HTMLInputElement).value ===
-      (passInputs![2] as HTMLInputElement).value
+      (passInputs![0] as HTMLInputElement).value ===
+      (passInputs![1] as HTMLInputElement).value
     );
   }
 

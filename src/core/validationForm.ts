@@ -36,7 +36,8 @@ export default class ValidationForm extends Block {
       // remove none inputs & oldPass input
       if (
         child.element.querySelector('input') &&
-        child.props.name !== 'oldPassword'
+        !child.element.querySelector('input[name="oldPassword"]') &&
+        child.props.attr.title !== 'User picture'
       ) {
         const inputIsValid = child.validateInput();
         if (!inputIsValid) isValid = inputIsValid;
