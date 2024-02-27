@@ -20,8 +20,7 @@
   "root": true,
   "rules": {
     "max-len": [2, 100],
-    "@typescript-eslint/no-unused-vars": 2,
-    "import/no-unresolved": "off",
+    "import/no-unresolved": 0,
     "no-underscore-dangle": 0,
     "no-multiple-empty-lines": 0,
     "function-paren-newline": 0,
@@ -30,7 +29,7 @@
     "import/no-extraneous-dependencies": 0,
     "operator-linebreak": 0,
     "no-unused-expressions": [
-      "error",
+      2,
       { "allowShortCircuit": true, "allowTernary": true }
     ]
   }
