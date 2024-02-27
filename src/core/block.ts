@@ -13,6 +13,7 @@ export type PropsType = Record<
   | boolean
   | (() => void)
   | HTMLElement
+  | number
 >;
 
 /* eslint no-use-before-define:0 */
