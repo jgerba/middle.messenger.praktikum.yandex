@@ -14,11 +14,11 @@ export default class ProfilePage extends Block {
   }
 
   render(): DocumentFragment {
-    // remove events data from props
-    // iife - destructure props from argument, return rest (no unused vars)
-    // const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
+    // remove events & attr data from props
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
-    return this.compile(tpl, this.props);
+    return this.compile(tpl, propsToRender);
   }
 
   addEvents() {

@@ -52,6 +52,8 @@ export default class ValidationInput extends Input {
 
     if (passInputs.length < 2) return true;
 
+    console.log(passInputs);
+
     return (
       (passInputs![1] as HTMLInputElement).value ===
       (passInputs![2] as HTMLInputElement).value
