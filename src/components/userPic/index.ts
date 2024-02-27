@@ -1,7 +1,7 @@
 import UserPic from './userPic.ts';
-import fallbackPic from './svg/pic_fallback.svg';
+import fallbackImg from './svg/fallback-img.svg';
 
 export default new UserPic({
-  fallbackPic,
+  img: fallbackImg,
   attr: { class: 'userpic', title: 'User picture' },
 });
