@@ -1,13 +1,8 @@
 import Button from '../button/button.ts';
 import FormInput from '../inputs/formInput.ts';
-import UserPic from '../userPic/userPic.ts';
 import ProfileForm from './profileForm.ts';
 
 export default new ProfileForm({
-  userPic: new UserPic({
-    attr: { class: 'userpic' },
-  }),
-
   emailInput: new FormInput({
     name: 'email',
     text: 'Email',

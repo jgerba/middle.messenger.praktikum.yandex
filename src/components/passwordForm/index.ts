@@ -1,13 +1,9 @@
 import Button from '../button/button.ts';
 import FormInput from '../inputs/formInput.ts';
 import Input from '../inputs/input.ts';
-import UserPic from '../userPic/userPic.ts';
 import PasswordForm from './passwordForm.ts';
 
 export default new PasswordForm({
-  userPic: new UserPic({
-    attr: { class: 'userpic' },
-  }),
   oldPassInput: new Input({
     name: 'oldPassword',
     text: 'Old password',
