@@ -1,4 +1,4 @@
-import tpl from './button.hbs?raw';
+import tpl from './message.hbs?raw';
 import Block, { PropsType } from '../../core/block.js';
 
 export default class Message extends Block {
