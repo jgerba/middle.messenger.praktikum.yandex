@@ -8,22 +8,21 @@ export default new MessageDropdown({
   photoVideoBtn: new DropdownBtn({
     alt: 'Upload photo and video',
     text: 'Photo and video',
-    src: photoVideoSvg,
+    icon: photoVideoSvg,
     attr: { class: 'dropdown-btn' },
   }),
   fileBtn: new DropdownBtn({
     alt: 'Upload file',
     text: 'File',
-    src: fileSvg,
+    icon: fileSvg,
     attr: { class: 'dropdown-btn' },
   }),
   locationBtn: new DropdownBtn({
     alt: 'Add location',
     text: 'Location',
-    src: locationSvg,
+    icon: locationSvg,
     attr: { class: 'dropdown-btn' },
   }),
 
   attr: { class: 'dropdown message-drop hidden' },
 });
-

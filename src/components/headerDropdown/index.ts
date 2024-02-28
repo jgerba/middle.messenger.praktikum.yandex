@@ -7,13 +7,13 @@ export default new HeaderDropdown({
   addUserBtn: new DropdownBtn({
     alt: 'Add user',
     text: 'Add user',
-    src: addSvg,
+    icon: addSvg,
     attr: { class: 'dropdown-btn' },
   }),
   removeUserBtn: new DropdownBtn({
     alt: 'Remove user',
     text: 'Remove user',
-    src: removeSvg,
+    icon: removeSvg,
     attr: { class: 'dropdown-btn' },
   }),
 

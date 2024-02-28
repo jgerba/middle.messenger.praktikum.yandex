@@ -1,7 +1,7 @@
 import SearchForm from './searchForm.ts';
-import searchSvg from './svg/search.svg';
+import searchIcon from './svg/search.svg';
 
 export default new SearchForm({
-  src: searchSvg,
+  searchIcon,
   attr: { class: 'search-form' },
 });

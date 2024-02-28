@@ -1,8 +1,8 @@
 import tpl from './chat.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 import ChatPreview from '../../components/chatPreview/chatPreview.ts';
-import fallbackImg from './svg/fallback-img.svg';
 import Message from '../../components/message/message.ts';
+import fallbackImg from './svg/fallback-img.svg';
 import isReadSvg from './svg/isRead.svg';
 
 /* eslint no-use-before-define:0 */
@@ -35,9 +35,9 @@ export default class ChatPage extends Block {
       previewSection.append(
         new ChatPreview({
           avatarImg: chat.avatarImg ? chat.avatarImg : fallbackImg,
-          chatHeader: chat.chatHeader,
-          chatText: chat.chatText,
-          chatTime: this.getTime(chat.timestamp as number),
+          headerText: chat.chatHeader,
+          text: chat.chatText,
+          time: this.getTime(chat.timestamp as number),
           isUnread: chat.isUnread,
           unreadNum: chat.unreadNum,
           attr: { class: 'chat-preview' },
