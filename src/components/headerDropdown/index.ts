@@ -8,13 +8,13 @@ export default new HeaderDropdown({
     alt: 'Add user',
     text: 'Add user',
     icon: addSvg,
-    attr: { class: 'dropdown-btn' },
+    attr: { class: 'dropdown-option' },
   }),
   removeUserBtn: new DropdownOption({
     alt: 'Remove user',
     text: 'Remove user',
     icon: removeSvg,
-    attr: { class: 'dropdown-btn' },
+    attr: { class: 'dropdown-option' },
   }),
 
   attr: { class: 'dropdown header-drop hidden' },
