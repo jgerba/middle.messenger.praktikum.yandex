@@ -4,11 +4,7 @@
   border-radius: 12px;
   box-shadow: 0 0 6px rgb(0 0 0 / 14%);
 
-  & .dropdown-btn:first-child {
-    margin-top: 0;
-  }
-
-  & .dropdown-btn:last-child {
+  & .dropdown-option:last-child {
     margin-bottom: 0;
   }
 }
