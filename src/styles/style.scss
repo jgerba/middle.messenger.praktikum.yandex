@@ -36,6 +36,10 @@ a:active {
   display: none;
 }
 
+.active {
+  filter: invert(100%);
+}
+
 // temp style
 
 .nav {

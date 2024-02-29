@@ -19,7 +19,6 @@
   },
   "root": true,
   "rules": {
-    "max-len": [2, 100],
     "import/no-unresolved": 0,
     "no-underscore-dangle": 0,
     "no-multiple-empty-lines": 0,
