@@ -1,9 +1,17 @@
+import DropdownBtn from '../dropdownBtn/dropdownBtn.ts';
 import DropdownOption from '../dropdownOption/dropdownOption.ts';
 import HeaderDropdown from './headerDropdown.ts';
 import addSvg from './svg/add.svg';
 import removeSvg from './svg/remove.svg';
+import btnIcon from './svg/dots.svg';
 
 export default new HeaderDropdown({
+  dropdownBtn: new DropdownBtn({
+    btnIcon,
+    attr: { class: 'chat-header__dropdown-btn' },
+    events: {},
+  }),
+
   addUserBtn: new DropdownOption({
     alt: 'Add user',
     text: 'Add user',
@@ -16,6 +24,4 @@ export default new HeaderDropdown({
     icon: removeSvg,
     attr: { class: 'dropdown-option' },
   }),
-
-  attr: { class: 'dropdown header-drop hidden' },
 });

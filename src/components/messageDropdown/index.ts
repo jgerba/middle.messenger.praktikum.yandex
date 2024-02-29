@@ -4,11 +4,11 @@ import DropdownOption from '../dropdownOption/dropdownOption.ts';
 import photoVideoSvg from './svg/foto-video.svg';
 import fileSvg from './svg/file.svg';
 import locationSvg from './svg/location.svg';
-import scrapIcon from './svg/scrap.svg';
+import btnIcon from './svg/scrap.svg';
 
 export default new MessageDropdown({
   dropdownBtn: new DropdownBtn({
-    scrapIcon,
+    btnIcon,
     attr: {
       class: 'message-form__dropdown-btn',
       title: 'Open dropdown',

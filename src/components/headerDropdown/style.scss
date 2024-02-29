@@ -1,24 +1,20 @@
 .dropdown {
-    position: absolute;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  position: absolute;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
 
-    & .dropdown-btn:first-child {
-        margin-top: 0;
-    }
-
-    & .dropdown-btn:last-child {
-        margin-bottom: 0;
-    }
+  & .dropdown-option:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .header-drop {
-    right: -10px;
-    top: 65px;
+  right: -10px;
+  top: 65px;
 }
 
 .message-drop {
-    left: -10px;
-    top: -123px;
+  left: -8px;
+  top: -128px;
 }
