@@ -21,6 +21,7 @@ export default class ValidationInput extends Input {
 
     if (inputEl.name === 'message' && inputEl.value.trim()) {
       isValid = true;
+      this.handleError(isValid);
       return isValid;
     }
 
