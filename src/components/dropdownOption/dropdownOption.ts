@@ -1,7 +1,7 @@
-import tpl from './dropdownBtn.hbs?raw';
+import tpl from './dropdownOption.hbs?raw';
 import Block, { PropsType } from '../../core/block.js';
 
-export default class DropdownBtn extends Block {
+export default class DropdownOption extends Block {
   constructor(props: PropsType) {
     super('div', props);
   }

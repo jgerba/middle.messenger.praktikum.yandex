@@ -1,23 +1,23 @@
-import DropdownBtn from '../dropdownBtn/dropdownBtn.ts';
+import DropdownOption from '../dropdownOption/dropdownOption.ts';
 import MessageDropdown from './messageDropdown.ts';
 import photoVideoSvg from './svg/foto-video.svg';
 import fileSvg from './svg/file.svg';
 import locationSvg from './svg/location.svg';
 
 export default new MessageDropdown({
-  photoVideoBtn: new DropdownBtn({
+  photoVideoBtn: new DropdownOption({
     alt: 'Upload photo and video',
     text: 'Photo and video',
     icon: photoVideoSvg,
     attr: { class: 'dropdown-btn' },
   }),
-  fileBtn: new DropdownBtn({
+  fileBtn: new DropdownOption({
     alt: 'Upload file',
     text: 'File',
     icon: fileSvg,
     attr: { class: 'dropdown-btn' },
   }),
-  locationBtn: new DropdownBtn({
+  locationBtn: new DropdownOption({
     alt: 'Add location',
     text: 'Location',
     icon: locationSvg,

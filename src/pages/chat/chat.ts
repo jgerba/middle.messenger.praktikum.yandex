@@ -68,8 +68,6 @@ export default class ChatPage extends Block {
   }
 
   getTime(timestamp: number): string {
-    console.log(timestamp);
-
     const date = new Date(timestamp);
     const hours = date.getHours();
     const mins = date.getMinutes();

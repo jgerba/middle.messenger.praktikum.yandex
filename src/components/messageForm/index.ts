@@ -5,7 +5,7 @@ import scrapSvg from './svg/scrap.svg';
 import sendSvg from './svg/send.svg';
 
 export default new MessageForm({
-  dropdown: messageDropdown,
+  messageDropdown,
   messageInput: new ValidationInput({
     name: 'message',
     text: 'Message',
