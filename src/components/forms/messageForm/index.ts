@@ -1,5 +1,5 @@
-import ValidationInput from '../inputs/validationInput.ts';
-import messageDropdown from '../dropdowns/messageDropdown/index.ts';
+import ValidationInput from '../../inputs/validationInput.ts';
+import messageDropdown from '../../dropdowns/messageDropdown/index.ts';
 import MessageForm from './messageForm.ts';
 import sendSvg from './svg/send.svg';
 

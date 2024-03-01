@@ -1,6 +1,6 @@
-import Button from '../button/button.ts';
-import FormInput from '../inputs/formInput.ts';
-import Input from '../inputs/input.ts';
+import Button from '../../button/button.ts';
+import FormInput from '../../inputs/formInput.ts';
+import Input from '../../inputs/input.ts';
 import PasswordForm from './passwordForm.ts';
 
 export default new PasswordForm({

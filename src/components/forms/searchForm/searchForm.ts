@@ -1,5 +1,5 @@
 import tpl from './searchForm.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 
 export default class SearchForm extends Block {
   constructor(props: PropsType | ChildrenType) {

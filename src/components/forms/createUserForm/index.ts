@@ -1,5 +1,5 @@
-import Button from '../button/button.ts';
-import FormInput from '../inputs/formInput.ts';
+import Button from '../../button/button.ts';
+import FormInput from '../../inputs/formInput.ts';
 import CreateUserForm from './createUserForm.ts';
 
 export default new CreateUserForm({

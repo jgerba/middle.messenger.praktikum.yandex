@@ -1,5 +1,7 @@
-@import './formsCommonStyles';
-@import './pagesCommonStyle';
+@import '../components/forms/style.scss';
+@import '../components/forms/createUserForm/style';
+@import '../components/forms/searchForm/style';
+@import '../components/forms/messageForm/style';
 @import '../components/button/style';
 @import '../components/inputs/style';
 @import '../components/returnButton/style';
@@ -10,11 +12,9 @@
 @import '../components/dropdownOption/style.scss';
 @import '../components/message/style';
 @import '../components/chatHeader/style';
-@import '../components/createUserForm/style';
 @import '../components/profile/style';
-@import '../components/searchForm/style';
-@import '../components/messageForm/style';
 @import '../components/modal/style';
+@import '../pages/style.scss';
 @import '../pages/error/style';
 @import '../pages/chat/style';
 @import '../pages/profile/style';

@@ -1,4 +1,4 @@
-import Block, { PropsType, ChildrenType } from './block.ts';
+import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 
 export default class ValidationForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
