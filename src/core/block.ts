@@ -187,8 +187,13 @@ export default class Block {
     });
   }
 
-  addEvent(event: string, callback: () => void) {
-    (this.props.events as Record<string, () => void>)[event] = callback;
+  addEvent(event: string, callback: (() => void) | ((event: Event) => void)) {
+    (
+      this.props.events as Record<
+        string,
+        (() => void) | ((event: Event) => void)
+      >
+    )[event] = callback;
     this._element!.addEventListener(event, callback);
   }
 

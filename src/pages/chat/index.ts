@@ -9,4 +9,3 @@ export default new ChatPage({
   messageForm,
   attr: { class: 'main chat' },
 });
-
