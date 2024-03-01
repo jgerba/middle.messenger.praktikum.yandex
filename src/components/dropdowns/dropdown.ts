@@ -6,10 +6,14 @@ export default class Dropdown extends Block {
   }
 
   initOpenDropBtn() {
-    this.addEvent('click', this.openDropdown.bind(this));
+    this.addEvent('click', (event: Event) =>
+      this.openDropdown.bind(this, event)(),
+    );
   }
 
-  openDropdown() {
+  openDropdown(event: Event) {
+    if ((event.target as HTMLElement).title !== 'Open dropdown') return;
+
     const dropdown = this.element!.querySelector('.dropdown')!;
     const icon = this.element!.querySelector('img')!;
 

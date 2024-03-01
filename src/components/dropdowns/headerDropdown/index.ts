@@ -10,12 +10,14 @@ export default new HeaderDropdown({
     text: 'Add user',
     icon: addSvg,
     attr: { class: 'dropdown-option' },
+    events: {},
   }),
   removeUserBtn: new DropdownOption({
     alt: 'Remove user',
     text: 'Remove user',
     icon: removeSvg,
     attr: { class: 'dropdown-option' },
+    events: {},
   }),
 
   btnIcon,
