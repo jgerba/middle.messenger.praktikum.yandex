@@ -2,15 +2,16 @@ import tpl from './headerDropdown.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import Dropdown from '../dropdown.ts';
 import Modal from '../../modals/userModal/userModal.ts';
-import FormInput from '../../inputs/formInput';
-import Button from '../../button/button';
+import FormInput from '../../inputs/formInput.ts';
+import Button from '../../button/button.ts';
 
 export default class HeaderDropdown extends Dropdown {
-  addModal: ChildrenType;
+  modalRoot: HTMLElement;
 
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
+    this.modalRoot = document.getElementById('modal')!;
     this.initOpenDropBtn();
     this.initOptions();
   }
@@ -27,25 +28,40 @@ export default class HeaderDropdown extends Dropdown {
     this.children.addUserBtn.addEvent('click', (event: Event) =>
       this.addUserHandler.bind(this, event)(),
     );
+    this.children.removeUserBtn.addEvent('click', (event: Event) =>
+      this.removeUserHandler.bind(this, event)(),
+    );
   }
 
   addUserHandler(event: Event) {
     event.stopPropagation();
-    const rootEl = document.getElementById('app') as HTMLElement;
-    this.addModal = this.createModal('Add');
 
-    rootEl.append(this.addModal.getContent() as HTMLElement);
-    this.addModal.show();
+    const addModal = this.createModal('Add');
+    const addModalEl: HTMLElement = addModal.getContent();
 
-    this.addModal.addEvent('click', (event: Event) =>
-      this.closeModal.bind(this, event)(),
+    this.modalRoot.append(addModalEl);
+
+    addModal.addEvent('click', (event: Event) =>
+      this.closeModal.bind(this, event, addModalEl)(),
     );
   }
 
-  closeModal(event: Event) {
+  removeUserHandler(event: Event) {
+    event.stopPropagation();
+
+    const removeModal = this.createModal('Remove');
+    const removeModalEl: HTMLElement = removeModal.getContent();
+
+    this.modalRoot.append(removeModalEl);
+
+    removeModal.addEvent('click', (event: Event) =>
+      this.closeModal.bind(this, event, removeModalEl)(),
+    );
+  }
+
+  closeModal(event: Event, el: HTMLElement) {
     if ((event.target as HTMLElement).title !== 'Backdrop') return;
-    this.addModal.removeEvent('click');
-    this.addModal.hide();
+    el.remove();
   }
 
   createModal(type: string): ChildrenType {
@@ -61,8 +77,9 @@ export default class HeaderDropdown extends Dropdown {
       }),
 
       modalType: type,
-      attr: { class: 'modal hidden' },
+      attr: { class: 'modal' },
       events: {},
     });
   }
 }
+
