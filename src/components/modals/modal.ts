@@ -15,12 +15,19 @@ export default class Modal extends Block {
   }
 
   clickHandle(event: Event) {
-    if ((event.target as HTMLElement).title === 'Add file')
+    if ((event.target as HTMLElement).title === 'Add file') {
       this.fileInputHandle();
-    if ((event.target as HTMLElement).title === 'Backdrop') this.closeModal();
+    }
+
+    if ((event.target as HTMLElement).title === 'Backdrop') {
+      this.closeModal();
+    }
   }
 
   fileInputHandle() {
+    /* eslint class-methods-use-this: 0 */
+    /* eslint no-console: 0 */
+
     console.log('input');
   }
 

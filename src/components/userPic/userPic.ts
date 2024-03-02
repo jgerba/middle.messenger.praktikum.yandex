@@ -20,6 +20,9 @@ export default class UserPic extends Block {
   }
 
   openModal() {
+    /* eslint class-methods-use-this: 0 */
+    /* eslint no-new: 0 */
+
     new Modal({
       fileInput: new Input({
         name: 'avatar',
