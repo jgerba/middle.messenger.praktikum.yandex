@@ -40,6 +40,7 @@
   }
 
   .upload-label {
+    align-self: center;
     cursor: pointer;
     text-decoration: underline;
     color: $highlight-color;
@@ -47,7 +48,10 @@
 
   .upload-input {
     position: absolute;
+    width: 1px;
+    height: 1px;
     opacity: 0;
     z-index: -1;
   }
 }
+

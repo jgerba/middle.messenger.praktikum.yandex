@@ -14,12 +14,6 @@
     color: $white-color;
   }
 
-  &__input {
-    width: 1px;
-    height: 1px;
-    z-index: -1;
-  }
-
   &:hover {
     background-color: rgb(0 0 0 / 50%);
 
@@ -32,3 +26,4 @@
     }
   }
 }
+

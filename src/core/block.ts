@@ -9,6 +9,7 @@ export type PropsType = Record<
   | string
   | Record<string, () => void>
   | Record<string, () => boolean>
+  | Record<string, (event: Event) => void>
   | Record<string, string>
   | boolean
   | (() => void)
