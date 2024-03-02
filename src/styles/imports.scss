@@ -1,4 +1,4 @@
-@import '../components/forms/style.scss';
+@import '../components/forms/style';
 @import '../components/forms/createUserForm/style';
 @import '../components/forms/searchForm/style';
 @import '../components/forms/messageForm/style';
@@ -8,13 +8,14 @@
 @import '../components/profileField/style';
 @import '../components/userPic/style';
 @import '../components/chatPreview/style';
-@import '../components/dropdowns/style.scss';
-@import '../components/dropdownOption/style.scss';
+@import '../components/dropdowns/style';
+@import '../components/dropdownOption/style';
 @import '../components/message/style';
 @import '../components/chatHeader/style';
 @import '../components/profile/style';
 @import '../components/modals/style';
-@import '../pages/style.scss';
+@import '../pages/style';
 @import '../pages/error/style';
 @import '../pages/chat/style';
 @import '../pages/profile/style';
+

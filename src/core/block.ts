@@ -20,6 +20,7 @@ export type PropsType = Record<
 /* eslint @typescript-eslint/no-explicit-any:0 */
 // Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 export type ChildrenType = Record<string, Block | Block[] | any>;
+export type CallbackType = () => void | ((event: Event) => void);
 
 export default class Block {
   props: PropsType;
@@ -187,13 +188,8 @@ export default class Block {
     });
   }
 
-  addEvent(event: string, callback: (() => void) | ((event: Event) => void)) {
-    (
-      this.props.events as Record<
-        string,
-        (() => void) | ((event: Event) => void)
-      >
-    )[event] = callback;
+  addEvent(event: string, callback: CallbackType) {
+    (this.props.events as Record<string, CallbackType>)[event] = callback;
     this._element!.addEventListener(event, callback);
   }
 
@@ -204,20 +200,9 @@ export default class Block {
   }
 
   removeEvent(event: string) {
-    const callback = (
-      this.props.events as Record<
-        string,
-        (() => void) | ((event: Event) => void)
-      >
-    )[event];
+    const callback = (this.props.events as Record<string, CallbackType>)[event];
 
     this._element!.removeEventListener(event, callback);
-    // delete (
-    //   this.props.events as Record<
-    //     string,
-    //     (() => void) | ((event: Event) => void)
-    //   >
-    // )[event];
   }
 
   addAttributes() {
@@ -278,3 +263,4 @@ export default class Block {
     el!.classList.add('hidden');
   }
 }
+

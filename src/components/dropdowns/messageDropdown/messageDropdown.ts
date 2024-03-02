@@ -19,23 +19,22 @@ export default class MessageDropdown extends Dropdown {
   }
 
   initOptions() {
-    this.children.photoVideoBtn.addEvent('click', (event: Event) =>
-      this.addMedia.bind(this, event)(),
-    );
-    this.children.fileBtn.addEvent('click', (event: Event) =>
-      this.addFile.bind(this, event)(),
-    );
-    this.children.locationBtn.addEvent('click', (event: Event) =>
-      this.addLocation.bind(this, event)(),
-    );
+    this.children.photoVideoBtn.addEvent('click', this.addMedia.bind(this));
+    this.children.fileBtn.addEvent('click', this.addFile.bind(this));
+    this.children.locationBtn.addEvent('click', this.addLocation.bind(this));
   }
+
+  /* eslint class-methods-use-this: 0 */
+  /* eslint no-console: 0 */
 
   addMedia() {
     console.log('Adding media...');
   }
+
   addFile() {
     console.log('Adding file...');
   }
+
   addLocation() {
     console.log('Adding location...');
   }

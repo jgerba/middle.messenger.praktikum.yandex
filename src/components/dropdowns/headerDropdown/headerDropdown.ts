@@ -33,8 +33,8 @@ export default class HeaderDropdown extends Dropdown {
     );
   }
 
-  addUserHandler(event: Event) {
-    event.stopPropagation();
+  addUserHandler(e: Event) {
+    e.stopPropagation();
 
     const addModal = this.createModal('Add');
     const addModalEl: HTMLElement = addModal.getContent();
@@ -46,8 +46,8 @@ export default class HeaderDropdown extends Dropdown {
     );
   }
 
-  removeUserHandler(event: Event) {
-    event.stopPropagation();
+  removeUserHandler(e: Event) {
+    e.stopPropagation();
 
     const removeModal = this.createModal('Remove');
     const removeModalEl: HTMLElement = removeModal.getContent();
@@ -59,6 +59,7 @@ export default class HeaderDropdown extends Dropdown {
     );
   }
 
+  /* eslint class-methods-use-this: 0 */
   closeModal(event: Event, el: HTMLElement) {
     if ((event.target as HTMLElement).title !== 'Backdrop') return;
     el.remove();
