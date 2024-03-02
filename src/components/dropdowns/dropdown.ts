@@ -3,6 +3,8 @@ import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 export default class Dropdown extends Block {
   constructor(props: PropsType | ChildrenType) {
     super('article', props);
+
+    this.initOpenDropBtn();
   }
 
   initOpenDropBtn() {

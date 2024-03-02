@@ -6,7 +6,6 @@ export default class MessageDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
-    this.initOpenDropBtn();
     this.initOptions();
   }
 
@@ -39,4 +38,3 @@ export default class MessageDropdown extends Dropdown {
     console.log('Adding location...');
   }
 }
-
