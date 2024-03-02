@@ -20,7 +20,7 @@ export type PropsType = Record<
 /* eslint @typescript-eslint/no-explicit-any:0 */
 // Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 export type ChildrenType = Record<string, Block | Block[] | any>;
-export type CallbackType = () => void | ((event: Event) => void);
+export type CallbackType = (() => void) | ((event: Event) => void);
 
 export default class Block {
   props: PropsType;
