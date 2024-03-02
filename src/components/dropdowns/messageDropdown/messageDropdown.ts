@@ -7,6 +7,7 @@ export default class MessageDropdown extends Dropdown {
     super(props);
 
     this.initOpenDropBtn();
+    this.initOptions();
   }
 
   render(): DocumentFragment {
@@ -16,4 +17,27 @@ export default class MessageDropdown extends Dropdown {
 
     return this.compile(tpl, propsToRender);
   }
+
+  initOptions() {
+    this.children.photoVideoBtn.addEvent('click', (event: Event) =>
+      this.addMedia.bind(this, event)(),
+    );
+    this.children.fileBtn.addEvent('click', (event: Event) =>
+      this.addFile.bind(this, event)(),
+    );
+    this.children.locationBtn.addEvent('click', (event: Event) =>
+      this.addLocation.bind(this, event)(),
+    );
+  }
+
+  addMedia() {
+    console.log('Adding media...');
+  }
+  addFile() {
+    console.log('Adding file...');
+  }
+  addLocation() {
+    console.log('Adding location...');
+  }
 }
+

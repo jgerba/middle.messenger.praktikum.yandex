@@ -11,20 +11,24 @@ export default new MessageDropdown({
     text: 'Photo and video',
     icon: photoVideoSvg,
     attr: { class: 'dropdown-option' },
+    events: {},
   }),
   fileBtn: new DropdownOption({
     alt: 'Upload file',
     text: 'File',
     icon: fileSvg,
     attr: { class: 'dropdown-option' },
+    events: {},
   }),
   locationBtn: new DropdownOption({
     alt: 'Add location',
     text: 'Location',
     icon: locationSvg,
     attr: { class: 'dropdown-option' },
+    events: {},
   }),
 
   btnIcon,
   events: {},
 });
+
