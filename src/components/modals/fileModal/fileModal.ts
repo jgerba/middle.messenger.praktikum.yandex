@@ -1,11 +1,10 @@
 import tpl from './fileModal.hbs?raw';
-import Block, { ChildrenType, PropsType } from '../../../core/block.js';
+import { ChildrenType, PropsType } from '../../../core/block.ts';
+import Modal from '../modal.ts';
 
-export default class Modal extends Block {
+export default class FileModal extends Modal {
   constructor(props: PropsType | ChildrenType) {
-    super('section', props);
-
-    this.initInput();
+    super(props);
   }
 
   render(): DocumentFragment {
@@ -15,19 +14,4 @@ export default class Modal extends Block {
 
     return this.compile(tpl, propsToRender);
   }
-
-  initInput() {
-    this.children.fileInput.addEvent('click', (event: Event) =>
-      this.handleInput.bind(this, event)(),
-    );
-  }
-
-  handleInput(event: Event) {
-    if ((event.target as HTMLElement).tagName !== 'LABEL') return;
-    console.log(111);
-
-    const input = this.element!.querySelector('input')!;
-    input.click();
-  }
 }
-

@@ -5,14 +5,10 @@ import Button from '../button/button.ts';
 import Input from '../inputs/input.ts';
 
 export default class UserPic extends Block {
-  modalRoot: HTMLElement;
-
   constructor(props: PropsType | ChildrenType) {
-    const onClick = () => this.clickHandle.bind(this)();
+    const onOpenModal = () => this.openModal.bind(this)();
 
-    super('div', { ...props, events: { click: onClick } });
-
-    this.modalRoot = document.getElementById('modal')!;
+    super('div', { ...props, events: { click: onOpenModal } });
   }
 
   render(): DocumentFragment {
@@ -23,13 +19,14 @@ export default class UserPic extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  clickHandle() {
-    const modal = new Modal({
+  openModal() {
+    new Modal({
       fileInput: new Input({
         name: 'avatar',
         text: 'Choose file on PC',
         upload: true,
-        attr: { class: 'input-wrapper ', type: 'file' },
+        type: 'file',
+        attr: { class: 'input-wrapper', title: 'Add file' },
         events: {},
       }),
       submitBtn: new Button({
@@ -40,19 +37,5 @@ export default class UserPic extends Block {
       attr: { class: 'modal' },
       events: {},
     });
-
-    const modalEl: HTMLElement = modal.getContent()!;
-
-    this.modalRoot.append(modalEl);
-
-    modal.addEvent('click', (event: Event) =>
-      this.closeModal.bind(this, event, modalEl)(),
-    );
-  }
-
-  closeModal(event: Event, el: HTMLElement) {
-    if ((event.target as HTMLElement).title !== 'Backdrop') return;
-    el.remove();
   }
 }
-

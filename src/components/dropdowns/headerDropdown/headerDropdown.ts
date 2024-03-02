@@ -6,12 +6,9 @@ import FormInput from '../../inputs/formInput.ts';
 import Button from '../../button/button.ts';
 
 export default class HeaderDropdown extends Dropdown {
-  modalRoot: HTMLElement;
-
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
-    this.modalRoot = document.getElementById('modal')!;
     this.initOpenDropBtn();
     this.initOptions();
   }
@@ -35,38 +32,16 @@ export default class HeaderDropdown extends Dropdown {
 
   addUserHandler(e: Event) {
     e.stopPropagation();
-
-    const addModal = this.createModal('Add');
-    const addModalEl: HTMLElement = addModal.getContent();
-
-    this.modalRoot.append(addModalEl);
-
-    addModal.addEvent('click', (event: Event) =>
-      this.closeModal.bind(this, event, addModalEl)(),
-    );
+    this.createModal('Add');
   }
 
   removeUserHandler(e: Event) {
     e.stopPropagation();
-
-    const removeModal = this.createModal('Remove');
-    const removeModalEl: HTMLElement = removeModal.getContent();
-
-    this.modalRoot.append(removeModalEl);
-
-    removeModal.addEvent('click', (event: Event) =>
-      this.closeModal.bind(this, event, removeModalEl)(),
-    );
+    this.createModal('Remove');
   }
 
-  /* eslint class-methods-use-this: 0 */
-  closeModal(event: Event, el: HTMLElement) {
-    if ((event.target as HTMLElement).title !== 'Backdrop') return;
-    el.remove();
-  }
-
-  createModal(type: string): ChildrenType {
-    return new Modal({
+  createModal(type: string) {
+    new Modal({
       userInput: new FormInput({
         name: 'login',
         text: 'Login',
@@ -83,4 +58,3 @@ export default class HeaderDropdown extends Dropdown {
     });
   }
 }
-

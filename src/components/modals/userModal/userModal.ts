@@ -1,9 +1,10 @@
 import tpl from './userModal.hbs?raw';
-import Block, { ChildrenType, PropsType } from '../../../core/block.js';
+import { ChildrenType, PropsType } from '../../../core/block.js';
+import Modal from '../modal.js';
 
-export default class Modal extends Block {
+export default class UserModal extends Modal {
   constructor(props: PropsType | ChildrenType) {
-    super('section', props);
+    super(props);
   }
 
   render(): DocumentFragment {
