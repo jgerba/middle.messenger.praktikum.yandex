@@ -203,6 +203,23 @@ export default class Block {
     );
   }
 
+  removeEvent(event: string) {
+    const callback = (
+      this.props.events as Record<
+        string,
+        (() => void) | ((event: Event) => void)
+      >
+    )[event];
+
+    this._element!.removeEventListener(event, callback);
+    // delete (
+    //   this.props.events as Record<
+    //     string,
+    //     (() => void) | ((event: Event) => void)
+    //   >
+    // )[event];
+  }
+
   addAttributes() {
     Object.entries(this.props.attr).forEach(([attr, value]) => {
       this._element!.setAttribute(attr, value);
@@ -253,11 +270,11 @@ export default class Block {
 
   show() {
     const el = this.getContent();
-    el!.style.display = 'block';
+    el!.classList.remove('hidden');
   }
 
   hide() {
     const el = this.getContent();
-    el!.style.display = 'none';
+    el!.classList.add('hidden');
   }
 }

@@ -1,9 +1,13 @@
 import tpl from './headerDropdown.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import Dropdown from '../dropdown.ts';
-import userModal from '../../modals/userModal/index.ts';
+import Modal from '../../modals/userModal/userModal.ts';
+import FormInput from '../../inputs/formInput';
+import Button from '../../button/button';
 
 export default class HeaderDropdown extends Dropdown {
+  addModal: ChildrenType;
+
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
@@ -28,17 +32,37 @@ export default class HeaderDropdown extends Dropdown {
   addUserHandler(event: Event) {
     event.stopPropagation();
     const rootEl = document.getElementById('app') as HTMLElement;
+    this.addModal = this.createModal('Add');
 
-    rootEl.append(userModal.getContent() as HTMLElement);
+    rootEl.append(this.addModal.getContent() as HTMLElement);
+    this.addModal.show();
 
-    userModal.addEvent('click', (event: Event) =>
+    this.addModal.addEvent('click', (event: Event) =>
       this.closeModal.bind(this, event)(),
     );
   }
 
   closeModal(event: Event) {
     if ((event.target as HTMLElement).title !== 'Backdrop') return;
-    userModal._removeEvents();
-    userModal.getContent()?.remove();
+    this.addModal.removeEvent('click');
+    this.addModal.hide();
+  }
+
+  createModal(type: string): ChildrenType {
+    return new Modal({
+      userInput: new FormInput({
+        name: 'login',
+        text: 'Login',
+        attr: { class: 'input-wrapper ' },
+      }),
+      addBtn: new Button({
+        text: type,
+        attr: { class: 'btn', type: 'submit' },
+      }),
+
+      modalType: type,
+      attr: { class: 'modal hidden' },
+      events: {},
+    });
   }
 }

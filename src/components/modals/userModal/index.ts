@@ -13,6 +13,7 @@ export default new Modal({
     attr: { class: 'btn', type: 'submit' },
   }),
 
-  attr: { class: 'modal' },
+  modalType: 'Add',
+  attr: { class: 'modal hidden' },
   events: {},
 });
