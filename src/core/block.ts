@@ -7,14 +7,10 @@ import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 export type PropsType = Record<
   string,
   | string
-  | Record<string, () => void>
-  | Record<string, () => boolean>
-  | Record<string, (event: Event) => void>
-  | Record<string, string>
-  | boolean
-  | (() => void)
-  | HTMLElement
   | number
+  | boolean
+  | Record<string, (event: Event) => void> // events props
+  | Record<string, string> // attr props
 >;
 
 /* eslint no-use-before-define:0 */

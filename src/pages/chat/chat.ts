@@ -115,3 +115,4 @@ const chatDummy: { [key: string]: string | boolean | number }[] = [
     isPersonal: true,
   },
 ];
+
