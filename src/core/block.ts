@@ -5,6 +5,7 @@ import EventBus from './event-bus.ts';
 /* eslint-disable-next-line import/no-cycle */
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
+// for handleStubs util
 import { IBlock } from './interfaces.ts';
 
 /* eslint no-use-before-define:0 */
@@ -84,26 +85,40 @@ export default class Block implements IBlock {
   _makePropsProxy<T extends object>(props: T): T {
     /* eslint @typescript-eslint/no-this-alias:0 */
 
+    // reference to the current Block instance for proxy
     const self = this;
 
+    // create new proxy obj. First arg - proxied obj, second - traps
     return new Proxy<T>(props, {
-      get(target: T, prop: string | symbol): unknown {
+      // intercept props accesses
+      get(target: T, prop: string): unknown {
+        // get prop in a safe way
         const value = Reflect.get(target, prop);
 
+        // if func - bind to the target obj
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set(target: T, prop: string | symbol, value: unknown): boolean {
-        const oldProps = { ...target };
+      // intercept props assignments
+      set(target: T, prop: string, value: unknown): boolean {
+        // shallow copy of the target
+        const oldProps = { ...target }; // mb add deep copy
+
+        // set prop in a safe way, return bool on success
         const success = Reflect.set(target, prop, value);
 
         if (success) {
+          // emit 'component-did-update' event
+          // "self" gives reference to current Block instance
+          // else "this" will give reference to proxy obj
           self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return success;
       },
 
+      // intercept attemots to del props
       deleteProperty() {
+        // throw an error to prevent del
         throw new Error('нет доступа');
       },
     });
@@ -134,7 +149,6 @@ export default class Block implements IBlock {
 
   _render() {
     // console.log('render ' + this._meta.tagName);
-    /* eslint operator-linebreak:0 */
 
     const hasEvents =
       this.props.events && Object.keys(this.props.events).length > 0;
@@ -223,13 +237,13 @@ export default class Block implements IBlock {
 
   componentDidMount() {}
 
-  // dispatchComponentDidMount() {
-  //   this.eventBus.emit(Block.EVENTS.FLOW_CDM);
+  dispatchComponentDidMount() {
+    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
 
-  //   Object.values(this.children).forEach((child) => {
-  //     child.dispatchComponentDidMount();
-  //   });
-  // }
+    Object.values(this.children).forEach((child: Block) => {
+      child.dispatchComponentDidMount();
+    });
+  }
 
   _componentDidUpdate(
     oldProps: PropsType | ChildrenType,
