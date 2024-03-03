@@ -38,6 +38,7 @@ export default class Block implements IBlock {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   };
 
@@ -128,6 +129,7 @@ export default class Block implements IBlock {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -231,12 +233,16 @@ export default class Block implements IBlock {
     });
   }
 
+  // logic after mounting
   _componentDidMount() {
     this.componentDidMount();
   }
 
+  // logic for subclasses
   componentDidMount() {}
 
+  // call after appending to a parent container in the DOM
+  // end of _render method?
   dispatchComponentDidMount() {
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
 
@@ -263,6 +269,37 @@ export default class Block implements IBlock {
     newProps: PropsType | ChildrenType,
   ) {
     return oldProps !== newProps;
+  }
+
+  // call in removeComponent func
+  dispatchComponentWillUnmount() {
+    this.eventBus.emit(Block.EVENTS.FLOW_CWU);
+
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((nestedChild) =>
+          nestedChild.dispatchComponentWillUnmount(),
+        );
+      } else {
+        child.dispatchComponentWillUnmount();
+      }
+    });
+  }
+
+  _componentWillUnmount() {
+    this.componentWillUnmount();
+    this._removeEvents();
+
+    // clear intervals or timeouts?
+    // cancel network requests?
+  }
+
+  // logic for subclasses
+  componentWillUnmount() {}
+
+  // remove child logic?
+  removeComponent(child: Block) {
+    child.dispatchComponentWillUnmount();
   }
 
   get element() {
