@@ -297,8 +297,13 @@ export default class Block implements IBlock {
   // logic for subclasses
   componentWillUnmount() {}
 
+  // call before removing?
+  removeComponent() {
+    this.dispatchComponentWillUnmount();
+  }
+
   // remove child logic?
-  removeComponent(child: Block) {
+  removeChildComponent(child: Block) {
     child.dispatchComponentWillUnmount();
   }
 

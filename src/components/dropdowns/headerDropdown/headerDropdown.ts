@@ -1,5 +1,6 @@
 import tpl from './headerDropdown.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
+
 import Dropdown from '../dropdown.ts';
 import Modal from '../../modals/userModal/userModal.ts';
 import FormInput from '../../inputs/formInput.ts';

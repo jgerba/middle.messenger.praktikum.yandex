@@ -19,12 +19,14 @@ export default class ValidationInput extends Input {
 
     let isValid;
 
+    // message form case
     if (inputEl.name === 'message' && inputEl.value.trim()) {
       isValid = true;
       this.handleError(isValid);
       return isValid;
     }
 
+    // message form case
     if (inputEl.name === 'message' && !inputEl.value.trim()) {
       isValid = false;
       this.handleError(isValid);
@@ -33,6 +35,8 @@ export default class ValidationInput extends Input {
 
     const regExp = new RegExp(this.props.regExpString as string);
     isValid = regExp.test(inputEl.value);
+
+    // compare pass & confirmPass (signup, change passes forms)
     let passesAreEqual: boolean = true;
 
     if (inputEl.type === 'password') {
@@ -44,14 +48,16 @@ export default class ValidationInput extends Input {
     return isValid;
   }
 
+  // check if 2 passes available and compare them
   matchPasswords(): boolean {
     const formEl = this.element?.closest('form');
 
     const passInputs = formEl?.querySelectorAll(
+      // "not" belongs to profile change passes form case
       'input[type="password"]:not([name="oldPassword"])',
     ) as NodeList;
 
-    // only one pass field
+    // only one pass field case
     if (passInputs.length < 2) return true;
 
     return (
@@ -60,6 +66,7 @@ export default class ValidationInput extends Input {
     );
   }
 
+  // show/hide error message
   handleError(isValid: boolean, passesAreEqual: boolean = true) {
     const errorEl = this.element!.querySelector('.error') as HTMLElement;
 
