@@ -2,7 +2,7 @@ import tpl from './profile.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 export default class ProfilePage extends Block {
-  btns: ChildrenType[];
+  btns: Block[];
 
   forms: HTMLElement[];
 
@@ -30,16 +30,16 @@ export default class ProfilePage extends Block {
 
   initElems() {
     this.btns = [
-      this.children.profile.children.changeProfileBtn,
-      this.children.profile.children.changePassBtn,
-      this.children.profile.children.logOutBtn,
-      this.children.returnBtn,
+      (this.children.profile as Block).children.changeProfileBtn as Block,
+      (this.children.profile as Block).children.changePassBtn as Block,
+      (this.children.profile as Block).children.logOutBtn as Block,
+      this.children.returnBtn as Block,
     ];
 
     this.forms = [
-      this.children.profile.element,
-      this.children.profileForm.element,
-      this.children.passwordForm.element,
+      (this.children.profile as Block).element!,
+      (this.children.profileForm as Block).element!,
+      (this.children.passwordForm as Block).element!,
     ];
   }
 

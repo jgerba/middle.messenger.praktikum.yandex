@@ -1,4 +1,4 @@
-import { type ChildrenType, type PropsType } from '../core/block.ts';
+import Block, { ChildrenType, PropsType } from '../core/block.ts';
 
 /* eslint no-param-reassign: "error" */
 
@@ -21,7 +21,7 @@ export function replaceStubs(
   fragment: HTMLTemplateElement,
   children: ChildrenType,
 ) {
-  function stubHandler(child: ChildrenType): void {
+  function stubHandler(child: Block): void {
     const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
     if (stub) {
@@ -37,4 +37,3 @@ export function replaceStubs(
     }
   });
 }
-

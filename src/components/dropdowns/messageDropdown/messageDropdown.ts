@@ -1,5 +1,5 @@
 import tpl from './messageDropdown.hbs?raw';
-import { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import Dropdown from '../dropdown.ts';
 
 export default class MessageDropdown extends Dropdown {
@@ -18,9 +18,15 @@ export default class MessageDropdown extends Dropdown {
   }
 
   initOptions() {
-    this.children.photoVideoBtn.addEvent('click', this.addMedia.bind(this));
-    this.children.fileBtn.addEvent('click', this.addFile.bind(this));
-    this.children.locationBtn.addEvent('click', this.addLocation.bind(this));
+    (this.children.photoVideoBtn as Block).addEvent(
+      'click',
+      this.addMedia.bind(this),
+    );
+    (this.children.fileBtn as Block).addEvent('click', this.addFile.bind(this));
+    (this.children.locationBtn as Block).addEvent(
+      'click',
+      this.addLocation.bind(this),
+    );
   }
 
   /* eslint class-methods-use-this: 0 */

@@ -1,5 +1,5 @@
 import tpl from './headerDropdown.hbs?raw';
-import { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import Dropdown from '../dropdown.ts';
 import Modal from '../../modals/userModal/userModal.ts';
 import FormInput from '../../inputs/formInput.ts';
@@ -21,10 +21,10 @@ export default class HeaderDropdown extends Dropdown {
   }
 
   initOptions() {
-    this.children.addUserBtn.addEvent('click', (event: Event) =>
+    (this.children.addUserBtn as Block).addEvent('click', (event: Event) =>
       this.addUserHandler.bind(this, event)(),
     );
-    this.children.removeUserBtn.addEvent('click', (event: Event) =>
+    (this.children.removeUserBtn as Block).addEvent('click', (event: Event) =>
       this.removeUserHandler.bind(this, event)(),
     );
   }

@@ -4,20 +4,21 @@ import EventBus from './event-bus.ts';
 
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
-export type PropsType = Record<
-  string,
+export type PropValue =
   | string
   | number
   | boolean
-  | Record<string, (event: Event) => void> // events props
-  | Record<string, string> // attr props
->;
+  | EventListener
+  | Record<string, string>
+  | Record<string, EventListener>
+  | Block;
+
+export type PropsType = Record<string, PropValue | PropValue[]>;
+export type ChildrenType = Record<string, Block | Block[]>;
 
 /* eslint no-use-before-define:0 */
 /* eslint @typescript-eslint/no-explicit-any:0 */
 // Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
-export type ChildrenType = Record<string, Block | Block[] | any>;
-export type CallbackType = (() => void) | ((event: Event) => void);
 
 export default class Block {
   props: PropsType;
@@ -58,19 +59,21 @@ export default class Block {
   }
 
   /* eslint class-methods-use-this:0 */
-  _getPropsAndChildren(propsAndChildren: ChildrenType): {
-    props: Record<string, string>;
+  _getPropsAndChildren(propsAndChildren: PropsType | ChildrenType): {
+    props: PropsType;
     children: ChildrenType;
   } {
-    const props: Record<string, string> = {};
+    const props: PropsType = {};
     const children: ChildrenType = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      // need to add children array checking
-
-      if (value instanceof Block) {
-        children[key] = value;
+      if (
+        value instanceof Block ||
+        (Array.isArray(value) && value.every((item) => item instanceof Block))
+      ) {
+        children[key] = value as Block;
       } else {
+        // Only assign to props if it's not a Block or Block[]
         props[key] = value;
       }
     });
@@ -78,26 +81,30 @@ export default class Block {
     return { props, children };
   }
 
-  _makePropsProxy(props: ChildrenType): ChildrenType {
-    /* eslint @typescript-eslint/no-this-alias:0 */
-
+  _makePropsProxy<T extends object>(props: T): T {
     const self = this;
 
-    return new Proxy<ChildrenType>(props, {
-      get(target: ChildrenType, prop: string) {
-        const value = target[prop];
-
+    return new Proxy<T>(props, {
+      get(target: T, prop: string | symbol): unknown {
+        // Directly using `target[prop]` might result in an error because `prop` can be a symbol.
+        // Reflect.get is a better choice as it handles all types of keys.
+        const value = Reflect.get(target, prop);
+        // Assuming all functions you're binding are meant to be bound to `target`.
+        // This checks if the value is a function and binds it; otherwise, it returns the value directly.
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: ChildrenType, prop: string, value: unknown): boolean {
-        /* eslint no-param-reassign:0 */
-
+      set(target: T, prop: string | symbol, value: unknown): boolean {
+        // Here we do a shallow copy to keep track of old properties for comparison.
+        // Note: This approach might need adjustments for deep copy scenarios.
         const oldProps = { ...target };
-
-        target[prop] = value; // new props
-
-        self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
-        return true;
+        // Reflect.set ensures the correct setting of property and returns a boolean indicating success.
+        const success = Reflect.set(target, prop, value);
+        if (success) {
+          // Emitting an event indicating that properties have been updated.
+          // The `emit` method should be capable of handling `unknown` for both `oldProps` and `newProps` safely.
+          self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+        }
+        return success;
       },
       deleteProperty() {
         throw new Error('нет доступа');
@@ -156,13 +163,16 @@ export default class Block {
     return new DocumentFragment();
   }
 
-  compile(tpl: string, props: PropsType | ChildrenType): DocumentFragment {
+  compile(tpl: string, props: PropsType): DocumentFragment {
     const hasChildren = Object.keys(this.children).length > 0;
 
     let propsCopy = { ...props, ...this.children };
 
     if (hasChildren) {
-      propsCopy = setStubs(this.children, propsCopy);
+      propsCopy = setStubs(
+        this.children,
+        propsCopy as PropsType | ChildrenType,
+      );
     }
 
     const fragment = document.createElement('template');
@@ -185,8 +195,8 @@ export default class Block {
     });
   }
 
-  addEvent(event: string, callback: CallbackType) {
-    (this.props.events as Record<string, CallbackType>)[event] = callback;
+  addEvent(event: string, callback: EventListener) {
+    (this.props.events as Record<string, EventListener>)[event] = callback;
     this._element!.addEventListener(event, callback);
   }
 
@@ -197,7 +207,9 @@ export default class Block {
   }
 
   removeEvent(event: string) {
-    const callback = (this.props.events as Record<string, CallbackType>)[event];
+    const callback = (this.props.events as Record<string, EventListener>)[
+      event
+    ];
 
     this._element!.removeEventListener(event, callback);
   }
@@ -214,13 +226,13 @@ export default class Block {
 
   componentDidMount() {}
 
-  dispatchComponentDidMount() {
-    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
+  // dispatchComponentDidMount() {
+  //   this.eventBus.emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
-    });
-  }
+  //   Object.values(this.children).forEach((child) => {
+  //     child.dispatchComponentDidMount();
+  //   });
+  // }
 
   _componentDidUpdate(
     oldProps: PropsType | ChildrenType,
@@ -260,4 +272,3 @@ export default class Block {
     el!.classList.add('hidden');
   }
 }
-
