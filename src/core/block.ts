@@ -1,8 +1,7 @@
 import { v4 as makeId } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './event-bus.ts';
-
-import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
+import { IBlock } from './interfaces.ts';
 
 export type PropValue =
   | string
@@ -20,7 +19,7 @@ export type ChildrenType = Record<string, Block | Block[]>;
 /* eslint @typescript-eslint/no-explicit-any:0 */
 // Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 
-export default class Block {
+export default class Block implements IBlock {
   props: PropsType;
 
   children: ChildrenType;
@@ -82,30 +81,27 @@ export default class Block {
   }
 
   _makePropsProxy<T extends object>(props: T): T {
+    /* eslint @typescript-eslint/no-this-alias:0 */
+
     const self = this;
 
     return new Proxy<T>(props, {
       get(target: T, prop: string | symbol): unknown {
-        // Directly using `target[prop]` might result in an error because `prop` can be a symbol.
-        // Reflect.get is a better choice as it handles all types of keys.
         const value = Reflect.get(target, prop);
-        // Assuming all functions you're binding are meant to be bound to `target`.
-        // This checks if the value is a function and binds it; otherwise, it returns the value directly.
+
         return typeof value === 'function' ? value.bind(target) : value;
       },
+
       set(target: T, prop: string | symbol, value: unknown): boolean {
-        // Here we do a shallow copy to keep track of old properties for comparison.
-        // Note: This approach might need adjustments for deep copy scenarios.
         const oldProps = { ...target };
-        // Reflect.set ensures the correct setting of property and returns a boolean indicating success.
         const success = Reflect.set(target, prop, value);
+
         if (success) {
-          // Emitting an event indicating that properties have been updated.
-          // The `emit` method should be capable of handling `unknown` for both `oldProps` and `newProps` safely.
           self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return success;
       },
+
       deleteProperty() {
         throw new Error('нет доступа');
       },
@@ -259,7 +255,7 @@ export default class Block {
   }
 
   getContent() {
-    return this.element;
+    return this.element!;
   }
 
   show() {
@@ -271,4 +267,39 @@ export default class Block {
     const el = this.getContent();
     el!.classList.add('hidden');
   }
+}
+
+function setStubs(
+  children: ChildrenType,
+  props: PropsType | ChildrenType,
+): PropsType | ChildrenType {
+  /* eslint no-param-reassign: "error" */
+
+  Object.entries(children).forEach(([key, child]) => {
+    if (Array.isArray(child)) {
+      props[key] = child.map((item) => `<div data-id="${item._id}"></div>`);
+    } else {
+      props[key] = `<div data-id="${child._id}"></div>`;
+    }
+  });
+
+  return props;
+}
+
+function replaceStubs(fragment: HTMLTemplateElement, children: ChildrenType) {
+  function stubHandler(child: IBlock): void {
+    const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+
+    if (stub) {
+      stub.replaceWith(child.getContent()!);
+    }
+  }
+
+  Object.values(children).forEach((child) => {
+    if (Array.isArray(child)) {
+      child.forEach((item) => stubHandler(item));
+    } else {
+      stubHandler(child);
+    }
+  });
 }
