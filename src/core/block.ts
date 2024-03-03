@@ -1,8 +1,13 @@
 import { v4 as makeId } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './event-bus.ts';
+
+/* eslint-disable-next-line import/no-cycle */
+import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
+
 import { IBlock } from './interfaces.ts';
 
+/* eslint no-use-before-define:0 */
 export type PropValue =
   | string
   | number
@@ -14,10 +19,6 @@ export type PropValue =
 
 export type PropsType = Record<string, PropValue | PropValue[]>;
 export type ChildrenType = Record<string, Block | Block[]>;
-
-/* eslint no-use-before-define:0 */
-/* eslint @typescript-eslint/no-explicit-any:0 */
-// Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 
 export default class Block implements IBlock {
   props: PropsType;
@@ -267,39 +268,4 @@ export default class Block implements IBlock {
     const el = this.getContent();
     el!.classList.add('hidden');
   }
-}
-
-function setStubs(
-  children: ChildrenType,
-  props: PropsType | ChildrenType,
-): PropsType | ChildrenType {
-  /* eslint no-param-reassign: "error" */
-
-  Object.entries(children).forEach(([key, child]) => {
-    if (Array.isArray(child)) {
-      props[key] = child.map((item) => `<div data-id="${item._id}"></div>`);
-    } else {
-      props[key] = `<div data-id="${child._id}"></div>`;
-    }
-  });
-
-  return props;
-}
-
-function replaceStubs(fragment: HTMLTemplateElement, children: ChildrenType) {
-  function stubHandler(child: IBlock): void {
-    const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-
-    if (stub) {
-      stub.replaceWith(child.getContent()!);
-    }
-  }
-
-  Object.values(children).forEach((child) => {
-    if (Array.isArray(child)) {
-      child.forEach((item) => stubHandler(item));
-    } else {
-      stubHandler(child);
-    }
-  });
 }
