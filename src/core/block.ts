@@ -317,11 +317,11 @@ export default class Block implements IBlock {
 
   show() {
     const el = this.getContent();
-    el!.classList.remove('hidden');
+    el!.style.display = 'block';
   }
 
   hide() {
     const el = this.getContent();
-    el!.classList.add('hidden');
+    el!.style.display = 'none';
   }
 }
