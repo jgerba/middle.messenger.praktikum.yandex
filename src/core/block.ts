@@ -5,9 +5,6 @@ import EventBus from './event-bus.ts';
 /* eslint-disable-next-line import/no-cycle */
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
-// for handleStubs util
-import { IBlock } from './interfaces.ts';
-
 /* eslint no-use-before-define:0 */
 export type PropValue =
   | string
@@ -21,7 +18,7 @@ export type PropValue =
 export type PropsType = Record<string, PropValue | PropValue[]>;
 export type ChildrenType = Record<string, Block | Block[]>;
 
-export default class Block implements IBlock {
+export default class Block {
   props: PropsType;
 
   children: ChildrenType;

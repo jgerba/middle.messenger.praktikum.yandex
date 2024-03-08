@@ -1,6 +1,10 @@
 /* eslint-disable-next-line import/no-cycle */
 import { ChildrenType, PropsType } from '../core/block.ts';
-import { IBlock } from '../core/interfaces.ts';
+
+type BlockType = {
+  _id: string;
+  getContent(): HTMLElement;
+};
 
 export function setStubs(
   children: ChildrenType,
@@ -23,7 +27,7 @@ export function replaceStubs(
   fragment: HTMLTemplateElement,
   children: ChildrenType,
 ) {
-  function stubHandler(child: IBlock): void {
+  function stubHandler(child: BlockType): void {
     const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
     if (stub) {
