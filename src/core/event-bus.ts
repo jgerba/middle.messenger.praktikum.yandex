@@ -1,6 +1,6 @@
 export default class EventBus {
   /* eslint @typescript-eslint/ban-types:0 */
-  listeners: { [eventName: string]: Function[] };
+  listeners: { [eventName: string]: CallableFunction[] };
 
   constructor() {
     this.listeners = {};
@@ -34,4 +34,3 @@ export default class EventBus {
     });
   }
 }
-
