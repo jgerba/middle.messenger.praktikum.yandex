@@ -314,11 +314,11 @@ export default class Block {
 
   show() {
     const el = this.getContent();
-    el!.style.display = 'block';
+    el!.classList.remove('hidden');
   }
 
   hide() {
     const el = this.getContent();
-    el!.style.display = 'none';
+    el!.classList.add('hidden');
   }
 }
