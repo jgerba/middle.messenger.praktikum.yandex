@@ -1,16 +1,17 @@
-import BaseAPI from './base-api';
-import HTTPTransport from '../core/HTTPTransport';
+// import BaseAPI from './base-api';
+// import HTTPTransport from '../core/HTTPTransport';
 
-const chatAPIInstance = new HTTPTransport('api/v1/chats');
+// const chatAPIInstance = new HTTPTransport('api/v1/chats');
 
-class ChatAPI extends BaseAPI {
-  create() {
-    // Здесь уже не нужно писать полный путь /api/v1/chats/
-    return chatAPIInstance.post('/', { title: 'string' });
-  }
+// class ChatAPI extends BaseAPI {
+//   create() {
+//     // Здесь уже не нужно писать полный путь /api/v1/chats/
+//     return chatAPIInstance.post('/', { title: 'string' });
+//   }
 
-  request() {
-    // Здесь уже не нужно писать полный путь /api/v1/chats/
-    return chatAPIInstance.get('/full');
-  }
-}
+//   request() {
+//     // Здесь уже не нужно писать полный путь /api/v1/chats/
+//     return chatAPIInstance.get('/full');
+//   }
+// }
+

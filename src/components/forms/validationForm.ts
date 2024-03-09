@@ -1,4 +1,5 @@
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import { router } from '../../main.ts';
 import ValidationInput from '../inputs/validationInput.ts';
 
 export default class ValidationForm extends Block {
@@ -28,6 +29,7 @@ export default class ValidationForm extends Block {
     });
 
     console.log(formObject);
+    router.go('/messenger');
   }
 
   validateForm(): boolean {
@@ -51,3 +53,4 @@ export default class ValidationForm extends Block {
     return isValid;
   }
 }
+
