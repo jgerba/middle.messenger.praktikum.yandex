@@ -1,5 +1,6 @@
 import tpl from './settings.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
+import router from '../../main.js';
 
 export default class Settings extends Block {
   btns: Block[];
@@ -49,13 +50,13 @@ export default class Settings extends Block {
     const nameHeader = this.element!.querySelector('h1') as HTMLElement;
 
     if (btnTitle === 'Log out') {
-      console.log('Logging out...');
+      this.logOutHandler();
       return;
     }
     if (btnTitle === 'Step back') {
-      // case when already in profile form
+      // case when already in settings root
       if (!this.forms[0].classList.contains('hidden')) {
-        console.log('Redirecting to chat page...');
+        router.go('/messenger');
         return;
       }
 
@@ -74,5 +75,9 @@ export default class Settings extends Block {
 
       form.classList.add('hidden');
     });
+  }
+
+  logOutHandler() {
+    console.log('Logging out...');
   }
 }

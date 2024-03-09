@@ -4,13 +4,16 @@ import ChatPreview from '../../components/chatPreview/chatPreview.ts';
 import Message from '../../components/message/message.ts';
 import fallbackImg from './svg/fallback-img.svg';
 import isReadSvg from './svg/isRead.svg';
+import router from '../../main.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
 
 export default class Messenger extends Block {
   constructor(props: PropsType | ChildrenType) {
-    super('div', props);
+    const onAnchorClick = (event: MouseEvent) => this.anchorHandler(event);
+
+    super('div', { ...props, events: { click: onAnchorClick } });
 
     this.renderPreviews();
     this.renderChat();
@@ -76,6 +79,14 @@ export default class Messenger extends Block {
 
   chatPreviewHandler() {
     console.log('Chat is openeing...');
+  }
+
+  anchorHandler(event: MouseEvent) {
+    if (!(event.target as HTMLElement).classList.contains('settings-link')) {
+      return;
+    }
+    event.preventDefault();
+    router.go('/settings');
   }
 }
 
