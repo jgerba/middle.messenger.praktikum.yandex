@@ -2,7 +2,6 @@ import { v4 as makeId } from 'uuid';
 import Handlebars from 'handlebars';
 import EventBus from './event-bus.ts';
 
-/* eslint-disable-next-line import/no-cycle */
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
 /* eslint no-use-before-define:0 */
@@ -57,7 +56,6 @@ export default class Block {
     this.eventBus.emit(Block.EVENTS.INIT);
   }
 
-  /* eslint class-methods-use-this:0 */
   _getPropsAndChildren(propsAndChildren: PropsType | ChildrenType): {
     props: PropsType;
     children: ChildrenType;

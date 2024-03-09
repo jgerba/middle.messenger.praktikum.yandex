@@ -1,8 +1,8 @@
-import chatPage from './pages/chat/index.ts';
+import chatPage from './pages/messenger/index.ts';
 
 import signUp from './pages/signUp/index.ts';
 import signIn from './pages/signIn/index.ts';
-import profilePage from './pages/profile/index.ts';
+import profilePage from './pages/settings/index.ts';
 // import ErrorPage from './pages/error/error.ts';
 import './styles/style.scss';
 import Router from './core/Router.ts';

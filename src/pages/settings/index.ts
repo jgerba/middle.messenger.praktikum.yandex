@@ -3,9 +3,9 @@ import profile from '../../components/profile/index.ts';
 import profileForm from '../../components/forms/profileForm/index.ts';
 import returnBtn from '../../components/returnButton/index.ts';
 import userPic from '../../components/userPic/index.ts';
-import ProfilePage from './profile.ts';
+import Settings from './settings.ts';
 
-export default new ProfilePage({
+export default new Settings({
   returnBtn,
   userPic,
 

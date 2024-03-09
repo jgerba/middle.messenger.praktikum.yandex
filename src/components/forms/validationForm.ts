@@ -1,19 +1,13 @@
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
 import ValidationInput from '../inputs/validationInput.ts';
 
 export default class ValidationForm extends Block {
-  constructor(tagName: string, props: PropsType | ChildrenType) {
-    super(tagName, props);
-  }
-
   submitForm() {
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
-      /* eslint no-console: 0 */
-
       console.log('Wrong input values!');
-      return;
+      return null;
     }
 
     const formObject: Record<string, string> = {};

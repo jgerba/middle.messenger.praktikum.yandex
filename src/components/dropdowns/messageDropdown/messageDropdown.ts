@@ -30,9 +30,6 @@ export default class MessageDropdown extends Dropdown {
     );
   }
 
-  /* eslint class-methods-use-this: 0 */
-  /* eslint no-console: 0 */
-
   addMedia() {
     console.log('Adding media...');
   }

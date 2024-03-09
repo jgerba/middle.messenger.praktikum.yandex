@@ -36,7 +36,6 @@ export default class HTTPTransport {
     return this.request(this._api + url, { ...options, method: METHOD.DELETE });
   };
 
-  /* eslint class-methods-use-this:0 */
   request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
     const { headers, method, data } = options;
 

@@ -1,9 +1,9 @@
 import chatHeader from '../../components/chatHeader/index.ts';
 import messageForm from '../../components/forms/messageForm/index.ts';
 import searchForm from '../../components/forms/searchForm/index.ts';
-import ChatPage from './chat.ts';
+import Messenger from './messenger.ts';
 
-export default new ChatPage({
+export default new Messenger({
   searchForm,
   chatHeader,
   messageForm,

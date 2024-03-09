@@ -1,4 +1,3 @@
-/* eslint-disable-next-line import/no-cycle */
 import { ChildrenType, PropsType } from '../core/block.ts';
 
 type BlockType = {

@@ -41,7 +41,6 @@ export default class HeaderDropdown extends Dropdown {
   }
 
   createModal(type: string) {
-    /* eslint class-methods-use-this: 0 */
     /* eslint no-new: 0 */
 
     new Modal({

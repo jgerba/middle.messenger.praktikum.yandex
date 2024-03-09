@@ -1,4 +1,4 @@
-import tpl from './chat.hbs?raw';
+import tpl from './messenger.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 import ChatPreview from '../../components/chatPreview/chatPreview.ts';
 import Message from '../../components/message/message.ts';
@@ -6,11 +6,9 @@ import fallbackImg from './svg/fallback-img.svg';
 import isReadSvg from './svg/isRead.svg';
 
 /* eslint no-use-before-define:0 */
-/* eslint class-methods-use-this:0 */
 /* eslint prefer-template:0 */
-/* eslint no-console:0 */
 
-export default class ChatPage extends Block {
+export default class Messenger extends Block {
   constructor(props: PropsType | ChildrenType) {
     super('div', props);
 
@@ -115,4 +113,3 @@ const chatDummy: { [key: string]: string | boolean | number }[] = [
     isPersonal: true,
   },
 ];
-

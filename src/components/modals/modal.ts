@@ -25,9 +25,6 @@ export default class Modal extends Block {
   }
 
   fileInputHandle() {
-    /* eslint class-methods-use-this: 0 */
-    /* eslint no-console: 0 */
-
     console.log('input');
   }
 

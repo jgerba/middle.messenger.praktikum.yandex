@@ -1,7 +1,7 @@
-import tpl from './profile.hbs?raw';
+import tpl from './settings.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
-export default class ProfilePage extends Block {
+export default class Settings extends Block {
   btns: Block[];
 
   forms: HTMLElement[];
@@ -49,8 +49,6 @@ export default class ProfilePage extends Block {
     const nameHeader = this.element!.querySelector('h1') as HTMLElement;
 
     if (btnTitle === 'Log out') {
-      /* eslint no-console: 0 */
-
       console.log('Logging out...');
       return;
     }
