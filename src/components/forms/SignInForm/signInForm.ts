@@ -2,6 +2,7 @@ import tpl from './signInForm.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 import router from '../../../main.ts';
+import AuthAPI from '../../../api/auth-api.ts';
 
 export default class SignInForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -25,8 +26,13 @@ export default class SignInForm extends ValidationForm {
 
     const formData = this.submitForm();
     console.log(formData);
-
-    router.go('/messenger');
+    if (formData && Object.keys(formData).length === 2) {
+      AuthAPI.logIn({ data: formData })
+        .then((response) => console.log(response))
+        .then(() => AuthAPI.getUser())
+        .then((response) => console.log(response));
+    }
+    // router.go('/messenger');
   }
 
   initSignUpBtn() {
