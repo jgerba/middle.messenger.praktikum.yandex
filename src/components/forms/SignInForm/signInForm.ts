@@ -1,8 +1,8 @@
-import tpl from './createUserForm.hbs?raw';
+import tpl from './signInForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 
-export default class CreateUserForm extends ValidationForm {
+export default class SignInForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
     super('form', props);
   }

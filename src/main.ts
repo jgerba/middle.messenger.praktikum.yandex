@@ -1,5 +1,7 @@
 import chatPage from './pages/chat/index.ts';
-import authPage from './pages/auth/index.ts';
+
+import signUp from './pages/signUp/index.ts';
+import signIn from './pages/signIn/index.ts';
 import profilePage from './pages/profile/index.ts';
 // import ErrorPage from './pages/error/error.ts';
 import './styles/style.scss';
@@ -29,9 +31,11 @@ import Router from './core/Router.ts';
 //   );
 // }
 
-export const router = new Router();
-router.use('/', authPage);
+const router = new Router();
+router.use('/', signIn);
+router.use('/sign-up', signUp);
 router.use('/messenger', chatPage);
 router.use('/settings', profilePage);
 router.start();
 
+export default router;

@@ -1,8 +1,8 @@
 import Button from '../../button/button.ts';
 import FormInput from '../../inputs/formInput.ts';
-import LogInForm from './logInForm.ts';
+import SignInForm from './signInForm.ts';
 
-export default new LogInForm({
+export default new SignInForm({
   nameInput: new FormInput({
     name: 'login',
     text: 'Login',
@@ -28,4 +28,3 @@ export default new LogInForm({
   }),
   attr: { class: 'form' },
 });
-

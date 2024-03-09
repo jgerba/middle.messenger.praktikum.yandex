@@ -1,8 +1,8 @@
 import Button from '../../button/button.ts';
 import FormInput from '../../inputs/formInput.ts';
-import CreateUserForm from './createUserForm.ts';
+import SignUpForm from './signUpForm.ts';
 
-export default new CreateUserForm({
+export default new SignUpForm({
   emailInput: new FormInput({
     name: 'email',
     text: 'Email',
@@ -59,5 +59,5 @@ export default new CreateUserForm({
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
   }),
-  attr: { class: 'form form--signUp hidden' },
+  attr: { class: 'form form--signUp' },
 });
