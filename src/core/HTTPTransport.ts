@@ -16,7 +16,7 @@ type Options = {
 };
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
-class HTTPTransport {
+export default class HTTPTransport {
   _api = 'someAPI';
 
   /* eslint-disable arrow-body-style */
