@@ -4,7 +4,9 @@ import ValidationForm from '../validationForm.ts';
 
 export default class ProfileForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
-    super('form', props);
+    const onSubmit = (event: SubmitEvent) => this.submitHandler(event);
+
+    super('form', { ...props, events: { submit: onSubmit } });
   }
 
   render(): DocumentFragment {
@@ -13,5 +15,12 @@ export default class ProfileForm extends ValidationForm {
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
     return this.compile(tpl, propsToRender);
+  }
+
+  submitHandler(event: SubmitEvent): void {
+    event.preventDefault();
+
+    const formData = this.submitForm();
+    console.log(formData);
   }
 }

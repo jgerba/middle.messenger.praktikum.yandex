@@ -3,14 +3,10 @@ import ValidationInput from '../inputs/validationInput.ts';
 
 export default class ValidationForm extends Block {
   constructor(tagName: string, props: PropsType | ChildrenType) {
-    const onSubmit = (event: SubmitEvent) => this.submitForm(event);
-
-    super(tagName, { ...props, events: { submit: onSubmit } });
+    super(tagName, props);
   }
 
-  submitForm(event: SubmitEvent) {
-    event.preventDefault();
-
+  submitForm() {
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
@@ -27,7 +23,7 @@ export default class ValidationForm extends Block {
       formObject[input.name] = input.value;
     });
 
-    console.log(formObject);
+    return formObject;
   }
 
   validateForm(): boolean {

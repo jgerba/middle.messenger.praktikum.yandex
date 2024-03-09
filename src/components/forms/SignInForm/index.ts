@@ -21,7 +21,7 @@ export default new SignInForm({
     text: 'Enter',
     attr: { class: 'btn', type: 'submit' },
   }),
-  createUserBtn: new Button({
+  signUpBtn: new Button({
     text: 'Sign up',
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
