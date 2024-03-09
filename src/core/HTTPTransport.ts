@@ -13,11 +13,16 @@ type Options = {
   method?: METHOD;
   data?: unknown;
   headers?: Record<string, string>;
+  credentials?: boolean;
 };
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export default class HTTPTransport {
-  _api = 'someAPI';
+  _api;
+
+  constructor(endpoint: string) {
+    this._api = endpoint;
+  }
 
   /* eslint-disable arrow-body-style */
   get: HTTPMethod = (url, options = {}) => {
@@ -47,7 +52,12 @@ export default class HTTPTransport {
         Object.entries(headers).forEach(([key, value]) => {
           xhr.setRequestHeader(key, value);
         });
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
       }
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       /* eslint func-names:0 */
       xhr.onload = function () {
