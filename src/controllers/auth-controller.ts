@@ -1,6 +1,9 @@
 import AuthAPI from '../api/auth-api';
 import router from '../main';
 
+import messenger from '../pages/messenger/index.ts';
+import settings from '../pages/settings/index.ts';
+
 type DataType = { [key: string]: Record<string, string> };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
@@ -50,9 +53,14 @@ export default class AuthController {
           );
         }
 
+        router.use('/messenger', messenger);
+        router.use('/settings', settings);
         router.go('/messenger');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        router.go('/');
+      });
   }
 
   static async logOut() {
