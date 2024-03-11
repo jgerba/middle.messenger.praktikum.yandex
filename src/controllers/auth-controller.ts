@@ -65,13 +65,11 @@ export default class AuthController {
 
   static async logOut() {
     AuthAPI.logOut()
-      .then(({ status, response }: ResponseType) => {
+      .then(({ status }: ResponseType) => {
         console.log(status);
 
         if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
+          throw new Error(`${status}`);
         }
 
         router.go('/');
