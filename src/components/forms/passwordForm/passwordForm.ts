@@ -1,6 +1,7 @@
 import tpl from './passwordForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
+import UserController from '../../../controllers/user-controller.ts';
 
 export default class PasswordForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -22,5 +23,10 @@ export default class PasswordForm extends ValidationForm {
 
     const formData = this.submitForm();
     console.log(formData);
+
+    if (formData && Object.keys(formData).length > 0) {
+      const { oldPassword, newPassword } = formData;
+      UserController.changePassword({ data: { oldPassword, newPassword } });
+    }
   }
 }
