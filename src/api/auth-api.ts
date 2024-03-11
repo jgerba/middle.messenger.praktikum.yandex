@@ -17,7 +17,7 @@ export default class AuthAPI {
     return api.get('/user');
   }
 
-  static async logOut(options: OptionsType) {
-    return api.post('/logout', options);
+  static async logOut() {
+    return api.post('/logout');
   }
 }
