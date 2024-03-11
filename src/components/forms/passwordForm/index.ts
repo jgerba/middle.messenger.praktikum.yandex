@@ -11,7 +11,7 @@ export default new PasswordForm({
     attr: { class: 'input-wrapper' },
   }),
   newPassInput: new FormInput({
-    name: 'password',
+    name: 'newPassword',
     text: 'New password',
     type: 'password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
