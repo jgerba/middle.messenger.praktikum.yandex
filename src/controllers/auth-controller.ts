@@ -84,6 +84,7 @@ class AuthController {
           );
         }
 
+        store.clearStore();
         router.go('/');
       })
       .catch((error) => console.log(error));

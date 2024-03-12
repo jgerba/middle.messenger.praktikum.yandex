@@ -30,6 +30,10 @@ class Store {
     this.updateStore(path, value);
   }
 
+  public clearStore() {
+    this.state = {};
+  }
+
   private updateStore(path: string, value: unknown) {
     this.state = setObjectValue(this.state, path, value);
     this.eventBus.emit(StoreEvents.Updated);
