@@ -1,13 +1,14 @@
-import UserAPI from '../api/user-api';
+import userAPI from '../api/user-api';
 
 type DataType = { [key: string]: Record<string, string> | FormData };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
 
-export default class UserController {
-  static async changeUser(submitData: DataType) {
-    UserAPI.changeUser(submitData)
+class UserController {
+  async changeUser(submitData: DataType) {
+    userAPI
+      .changeUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -20,8 +21,9 @@ export default class UserController {
       .catch((error) => console.log(error));
   }
 
-  static async changeAvatar(submitData: DataType) {
-    UserAPI.changeAvatar(submitData)
+  async changeAvatar(submitData: DataType) {
+    userAPI
+      .changeAvatar(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -34,8 +36,9 @@ export default class UserController {
       .catch((error) => console.log(error));
   }
 
-  static async changePassword(submitData: DataType) {
-    UserAPI.changePassword(submitData)
+  async changePassword(submitData: DataType) {
+    userAPI
+      .changePassword(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status);
 
@@ -48,8 +51,9 @@ export default class UserController {
       .catch((error) => console.log(error));
   }
 
-  static async searchUser(submitData: DataType) {
-    UserAPI.searchUser(submitData)
+  async searchUser(submitData: DataType) {
+    userAPI
+      .searchUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -62,3 +66,5 @@ export default class UserController {
       .catch((error) => console.log(error));
   }
 }
+
+export default new UserController();

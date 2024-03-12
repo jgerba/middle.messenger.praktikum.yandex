@@ -2,7 +2,7 @@ import tpl from './settings.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
 import router from '../../main.js';
-import AuthController from '../../controllers/auth-controller.js';
+import authController from '../../controllers/auth-controller.js';
 
 export default class Settings extends Block {
   btns: Block[];
@@ -80,6 +80,6 @@ export default class Settings extends Block {
   }
 
   logOutHandler() {
-    AuthController.logOut();
+    authController.logOut();
   }
 }

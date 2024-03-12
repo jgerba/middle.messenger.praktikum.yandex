@@ -1,4 +1,5 @@
-import AuthAPI from '../api/auth-api';
+import authAPI from '../api/auth-api';
+import store from '../core/store.ts';
 import router from '../main';
 
 import messenger from '../pages/messenger/index.ts';
@@ -9,9 +10,10 @@ type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
 
-export default class AuthController {
-  static async createUser(submitData: DataType) {
-    AuthAPI.createUser(submitData)
+class AuthController {
+  async createUser(submitData: DataType) {
+    authAPI
+      .createUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -26,8 +28,9 @@ export default class AuthController {
       .catch((error) => console.log(error));
   }
 
-  static async logIn(submitData: DataType) {
-    AuthAPI.logIn(submitData)
+  async logIn(submitData: DataType) {
+    authAPI
+      .logIn(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status);
 
@@ -37,13 +40,16 @@ export default class AuthController {
           );
         }
 
+        store;
+
         this.getUser();
       })
       .catch((error) => console.log(error));
   }
 
-  static async getUser() {
-    AuthAPI.getUser()
+  async getUser() {
+    authAPI
+      .getUser()
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -63,8 +69,9 @@ export default class AuthController {
       });
   }
 
-  static async logOut() {
-    AuthAPI.logOut()
+  async logOut() {
+    authAPI
+      .logOut()
       .then(({ status, response }: ResponseType) => {
         console.log(status);
 
@@ -79,3 +86,5 @@ export default class AuthController {
       .catch((error) => console.log(error));
   }
 }
+
+export default new AuthController();

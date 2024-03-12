@@ -3,7 +3,7 @@ import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 
 import router from '../../../main.ts';
-import AuthController from '../../../controllers/auth-controller.ts';
+import authController from '../../../controllers/auth-controller.ts';
 
 export default class SignInForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -29,7 +29,7 @@ export default class SignInForm extends ValidationForm {
     console.log(formData);
 
     if (formData && Object.keys(formData).length === 2) {
-      AuthController.logIn({ data: formData });
+      authController.logIn({ data: formData });
     }
   }
 

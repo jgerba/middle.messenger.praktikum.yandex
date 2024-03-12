@@ -3,7 +3,7 @@ import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 
 import router from '../../../main.ts';
-import AuthController from '../../../controllers/auth-controller.ts';
+import authController from '../../../controllers/auth-controller.ts';
 
 export default class SignUpForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -32,7 +32,7 @@ export default class SignUpForm extends ValidationForm {
     console.log(formData);
 
     if (formData) {
-      AuthController.createUser({ data: formData });
+      authController.createUser({ data: formData });
     }
   }
 

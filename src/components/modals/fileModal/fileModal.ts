@@ -1,7 +1,7 @@
 import tpl from './fileModal.hbs?raw';
 import Modal from '../modal.ts';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
-import UserController from '../../../controllers/user-controller.ts';
+import userController from '../../../controllers/user-controller.ts';
 
 export default class FileModal extends Modal {
   constructor(props: PropsType | ChildrenType) {
@@ -51,6 +51,6 @@ export default class FileModal extends Modal {
     const formData = new FormData();
     formData.append('avatar', inputFiles[0]);
 
-    UserController.changeAvatar({ data: formData });
+    userController.changeAvatar({ data: formData });
   }
 }

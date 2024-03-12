@@ -1,7 +1,7 @@
 import tpl from './profileForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
-import UserController from '../../../controllers/user-controller.ts';
+import userController from '../../../controllers/user-controller.ts';
 
 export default class ProfileForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -25,7 +25,7 @@ export default class ProfileForm extends ValidationForm {
     console.log(formData);
 
     if (formData && Object.keys(formData).length > 0) {
-      UserController.changeUser({ data: formData });
+      userController.changeUser({ data: formData });
     }
   }
 }
