@@ -59,6 +59,9 @@ class AuthController {
           );
         }
 
+        store.set('isAuth', true);
+        store.set('user', response);
+
         router.use('/messenger', messenger);
         router.use('/settings', settings);
         router.go('/messenger');
