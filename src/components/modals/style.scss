@@ -23,9 +23,9 @@
     background-color: $white-color;
 
     .input-wrapper {
-      position: relative;
-      width: 100%;
-      top: 35px;
+      justify-content: center;
+      // width: 100%;
+      top: 40px;
     }
   }
 
@@ -33,4 +33,3 @@
     font-size: 15px;
   }
 }
-

@@ -1,6 +1,6 @@
 import HTTPTransport from '../core/HTTPTransport';
 
-type OptionsType = { [key: string]: Record<string, string> };
+type OptionsType = { [key: string]: Record<string, string> | FormData };
 
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 

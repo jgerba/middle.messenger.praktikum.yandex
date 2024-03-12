@@ -40,7 +40,9 @@
   }
 
   .upload-label {
+    position: relative;
     align-self: center;
+    top: 0px;
     cursor: pointer;
     text-decoration: underline;
     color: $highlight-color;
@@ -54,4 +56,3 @@
     z-index: -1;
   }
 }
-

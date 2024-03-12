@@ -1,6 +1,6 @@
 import UserAPI from '../api/user-api';
 
-type DataType = { [key: string]: Record<string, string> };
+type DataType = { [key: string]: Record<string, string> | FormData };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
@@ -21,10 +21,7 @@ export default class UserController {
   }
 
   static async changeAvatar(submitData: DataType) {
-    UserAPI.changeAvatar({
-      ...submitData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
+    UserAPI.changeAvatar(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 

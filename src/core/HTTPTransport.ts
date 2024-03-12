@@ -52,7 +52,7 @@ export default class HTTPTransport {
         Object.entries(headers).forEach(([key, value]) => {
           xhr.setRequestHeader(key, value);
         });
-      } else {
+      } else if (!(data instanceof FormData)) {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
 
@@ -71,7 +71,7 @@ export default class HTTPTransport {
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   };

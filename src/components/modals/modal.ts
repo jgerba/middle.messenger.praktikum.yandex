@@ -2,9 +2,15 @@ import Block, { ChildrenType, PropsType } from '../../core/block.js';
 
 export default class Modal extends Block {
   constructor(props: PropsType | ChildrenType) {
-    const onClick = (event: Event) => this.clickHandle.bind(this, event)();
+    const onClick = (event: MouseEvent) =>
+      this.clickHandler.bind(this, event)();
+    const onSubmit = (event: SubmitEvent) =>
+      this.submitHandler.bind(this, event)();
 
-    super('section', { ...props, events: { click: onClick } });
+    super('section', {
+      ...props,
+      events: { click: onClick, submit: onSubmit },
+    });
 
     this.initModal();
   }
@@ -14,21 +20,17 @@ export default class Modal extends Block {
     modalRoot.append(this.element!);
   }
 
-  clickHandle(event: Event) {
-    if ((event.target as HTMLElement).title === 'Add file') {
-      this.fileInputHandle();
-    }
-
+  clickHandler(event: Event) {
     if ((event.target as HTMLElement).title === 'Backdrop') {
       this.closeModal();
     }
   }
 
-  fileInputHandle() {
-    console.log('input');
-  }
-
   closeModal() {
     this.element!.remove();
+  }
+
+  submitHandler(event: SubmitEvent) {
+    event.preventDefault();
   }
 }
