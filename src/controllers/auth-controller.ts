@@ -40,8 +40,6 @@ class AuthController {
           );
         }
 
-        store;
-
         this.getUser();
       })
       .catch((error) => console.log(error));
@@ -59,8 +57,8 @@ class AuthController {
           );
         }
 
-        store.set('isAuth', true);
-        store.set('user', response);
+        store.setState('isAuth', true);
+        store.setState('user', response);
 
         router.use('/messenger', messenger);
         router.use('/settings', settings);
