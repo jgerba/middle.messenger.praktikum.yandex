@@ -1,4 +1,6 @@
 import EventBus from './event-bus';
+
+import findValueByKey from '../utils/findValueByKey';
 import setObjectValue from '../utils/setObjectValue';
 
 type IndexedType = {
@@ -9,24 +11,24 @@ export enum StoreEvents {
   Updated = 'updated',
 }
 
-class Store {
+class Store extends EventBus {
   private state: IndexedType = {};
   eventBus: EventBus;
 
   constructor() {
-    this.eventBus = new EventBus();
-    this._registerEvents(this.eventBus);
+    super();
+
+    const initState = localStorage.getItem('My store');
+    if (initState) {
+      this.state = JSON.parse(initState);
+    }
   }
 
-  _registerEvents(eventBus: EventBus) {
-    eventBus.on(StoreEvents.Updated, this._updateHandler.bind(this));
+  public getState(key: string) {
+    return findValueByKey(this.state, key);
   }
 
-  public get getState() {
-    return this.state;
-  }
-
-  public set(path: string, value: unknown) {
+  public setState(path: string, value: unknown) {
     this.updateStore(path, value);
   }
 
@@ -36,11 +38,9 @@ class Store {
 
   private updateStore(path: string, value: unknown) {
     this.state = setObjectValue(this.state, path, value);
-    this.eventBus.emit(StoreEvents.Updated);
-  }
+    localStorage.setItem('My store', JSON.stringify(this.state));
 
-  private _updateHandler() {
-    console.log('Store updated', this.state);
+    this.emit(StoreEvents.Updated);
   }
 }
 
