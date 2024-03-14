@@ -19,7 +19,7 @@ class Store extends EventBus {
   constructor() {
     if (Store.__instance) {
       // eslint-disable-next-line no-constructor-return
-      return Store.__instance; // Реализация паттерна "Singleton"
+      return Store.__instance;
     }
 
     super();
@@ -48,6 +48,7 @@ class Store extends EventBus {
 
   public clearStore() {
     this.state = {};
+    this.updateStorage(); // or through emit?
   }
 
   private updateStore(path: string, value: unknown) {

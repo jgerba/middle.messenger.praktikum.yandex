@@ -19,12 +19,12 @@ export default class Router {
       return Router.__instance; // Реализация паттерна "Singleton"
     }
 
+    Router.__instance = this; // Сохранение экземпляра Router
+
     this.routes = []; // Список маршрутов
     this.history = window.history; // Интерфейс для работы с историей браузера
     this._currentRoute = null; // Текущий активный маршрут
     this.rootId = rootId; // Селектор корневого элемента для отрисовки
-
-    Router.__instance = this; // Сохранение экземпляра Router
   }
 
   // Метод для добавления маршрута
