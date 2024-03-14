@@ -12,16 +12,30 @@ export enum StoreEvents {
 }
 
 class Store extends EventBus {
+  private static __instance: Store;
   private state: IndexedType = {};
   eventBus: EventBus;
 
   constructor() {
+    if (Store.__instance) {
+      // eslint-disable-next-line no-constructor-return
+      return Store.__instance; // Реализация паттерна "Singleton"
+    }
+
     super();
+
+    Store.__instance = this;
 
     const initState = localStorage.getItem('My store');
     if (initState) {
       this.state = JSON.parse(initState);
     }
+
+    this.__registerEvents();
+  }
+
+  private __registerEvents() {
+    this.on(StoreEvents.Updated, this.updateStorage.bind(this));
   }
 
   public getState(key: string) {
@@ -38,9 +52,11 @@ class Store extends EventBus {
 
   private updateStore(path: string, value: unknown) {
     this.state = setObjectValue(this.state, path, value);
-    localStorage.setItem('My store', JSON.stringify(this.state));
-
     this.emit(StoreEvents.Updated);
+  }
+
+  private updateStorage() {
+    localStorage.setItem('My store', JSON.stringify(this.state));
   }
 }
 
