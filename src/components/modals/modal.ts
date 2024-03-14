@@ -16,7 +16,7 @@ export default class Modal extends Block {
   }
 
   initModal() {
-    const modalRoot = document.getElementById('modalRoot')!;
+    const modalRoot = document.getElementById('modal-root')!;
     modalRoot.append(this.element!);
   }
 

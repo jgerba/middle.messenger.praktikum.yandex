@@ -13,7 +13,7 @@ export default class Router {
 
   rootId;
 
-  constructor(rootId: string = 'appRoot') {
+  constructor(rootId: string = 'app-root') {
     if (Router.__instance) {
       // eslint-disable-next-line no-constructor-return
       return Router.__instance; // Реализация паттерна "Singleton"
