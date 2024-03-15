@@ -263,6 +263,7 @@ export default class Block {
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
+    // make compare logic
     return oldProps !== newProps;
   }
 

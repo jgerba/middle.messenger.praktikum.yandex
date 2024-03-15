@@ -1,6 +1,6 @@
-import authAPI from '../api/auth-api';
+import authAPI from '../api/auth-api.ts';
 import store from '../core/store.ts';
-import router from '../main';
+import router from '../main.ts';
 
 import messenger from '../pages/messenger/index.ts';
 import settings from '../pages/settings/index.ts';
@@ -57,7 +57,6 @@ class AuthController {
           );
         }
 
-        store.setState('isAuth', true); // ?
         store.setState('user', response);
 
         router.use('/messenger', messenger);
@@ -82,7 +81,7 @@ class AuthController {
           );
         }
 
-        store.clearStore();
+        store.clearState();
         router.go('/');
       })
       .catch((error) => console.log(error));

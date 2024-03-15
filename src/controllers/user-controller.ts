@@ -1,4 +1,5 @@
-import userAPI from '../api/user-api';
+import userAPI from '../api/user-api.ts';
+import store from '../core/store.ts';
 
 type DataType = { [key: string]: Record<string, string> | FormData };
 type ResponseType = {
@@ -32,6 +33,8 @@ class UserController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
+
+        store.setState('user', response);
       })
       .catch((error) => console.log(error));
   }
