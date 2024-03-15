@@ -1,19 +1,22 @@
-import EventBus from './event-bus';
+import EventBus from './event-bus.ts';
 
-import findValueByKey from '../utils/findValueByKey';
-import setObjectValue from '../utils/setObjectValue';
+import setObjectValue from '../utils/setObjectValue.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
 };
 
+/* eslint-disable no-shadow */
 export enum StoreEvents {
   Updated = 'updated',
 }
 
+/* eslint no-use-before-define:0 */
 class Store extends EventBus {
   private static __instance: Store;
+
   private state: IndexedType = {};
+
   eventBus: EventBus;
 
   constructor() {
@@ -31,28 +34,26 @@ class Store extends EventBus {
       this.state = JSON.parse(initState);
     }
 
-    this.__registerEvents();
-  }
-
-  private __registerEvents() {
     this.on(StoreEvents.Updated, this.updateStorage.bind(this));
   }
 
-  public getState(key: string) {
-    return findValueByKey(this.state, key);
+  public getState() {
+    // return findValueByKey(this.state, key);
+    return this.state;
   }
 
   public setState(path: string, value: unknown) {
-    this.updateStore(path, value);
+    this.updateState(path, value);
   }
 
-  public clearStore() {
+  public clearState() {
     this.state = {};
-    this.updateStorage(); // or through emit?
+    localStorage.clear();
   }
 
-  private updateStore(path: string, value: unknown) {
+  private updateState(path: string, value: unknown) {
     this.state = setObjectValue(this.state, path, value);
+
     this.emit(StoreEvents.Updated);
   }
 
