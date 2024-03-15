@@ -5,10 +5,10 @@ import Button from '../button/button.ts';
 import Input from '../inputs/input.ts';
 
 export default class UserPic extends Block {
-  constructor(props: PropsType | ChildrenType) {
+  constructor(tagName: string, props: PropsType | ChildrenType) {
     const onOpenModal = () => this.openModal.bind(this)();
 
-    super('div', { ...props, events: { click: onOpenModal } });
+    super(tagName, { ...props, events: { click: onOpenModal } });
   }
 
   render(): DocumentFragment {
