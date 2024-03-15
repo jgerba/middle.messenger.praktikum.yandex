@@ -1,4 +1,4 @@
-import isObject from './isObject';
+import isObject from './isObject.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
@@ -12,21 +12,28 @@ export default function findValueByKey(
     return object;
   }
 
-  // key on cuurent level
-  if (object.hasOwnProperty(key)) {
+  // key on current level
+  if (key in object) {
     return object[key] as IndexedType;
   }
 
+  // Return undefined if the key is not found
+  let foundValue: IndexedType | undefined;
+
   // iterate deeper
-  for (let k in object) {
+  Object.keys(object).some((k) => {
     if (isObject(object[k])) {
       const result = findValueByKey(object[k] as IndexedType, key);
-      if (result) {
-        return result;
+
+      if (result !== undefined) {
+        foundValue = result;
+        // Stop iterating
+        return true;
       }
     }
-  }
+    // Continue iterating
+    return false;
+  });
 
-  // return undefined if not found
-  return undefined;
+  return foundValue;
 }
