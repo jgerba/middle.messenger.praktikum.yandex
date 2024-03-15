@@ -21,7 +21,8 @@ export default function mergeObjects(
         rightVal as IndexedType,
       );
     } else {
-      // If one of them is not an object (string or number), overwrite the left value with the right one
+      // If one of them is not an object (string or number),
+      // overwrite the left value with the right one
       result[key] = rightVal;
     }
   });

@@ -1,4 +1,4 @@
-import HTTPTransport from '../core/HTTPTransport';
+import HTTPTransport from '../core/HTTPTransport.ts';
 
 type OptionsType = { [key: string]: Record<string, string> };
 

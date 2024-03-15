@@ -21,7 +21,8 @@ export default function setObjectValue(
   }
 
   const resultObject = path.split('.').reduceRight(
-    // create new obj, where every key is put inside previous key, form right to left, first key has a value
+    // create new obj, where every key is put inside previous key,
+    // form right to left, first key has a value
     // [key-last]:value => [key-[last-1]]: acc ([key1]:value)...
     (acc, key) => ({
       [key]: acc,
