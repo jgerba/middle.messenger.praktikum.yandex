@@ -4,6 +4,10 @@ import ChatPreview from '../chatPreview/chatPreview.ts';
 import fallbackImg from './svg/fallback-img.svg';
 import router from '../../main.ts';
 
+import Modal from '../modals/textModal/textModal.ts';
+import FormInput from '../inputs/formInput.ts';
+import Button from '../button/button.ts';
+
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
 
@@ -28,11 +32,27 @@ export default class ChatsSection extends Block {
   initBtns() {
     const createChatBtn = this.children.createChatBtn as Block;
 
-    createChatBtn.addEvent('click', this.createChatHandler.bind(this));
+    createChatBtn.addEvent('click', this.openCreateModal.bind(this));
   }
 
-  createChatHandler() {
-    console.log(123);
+  openCreateModal() {
+    /* eslint no-new: 0 */
+
+    new Modal({
+      textInput: new FormInput({
+        name: 'title',
+        text: 'Chat title',
+        attr: { class: 'input-wrapper ' },
+      }),
+      submitBtn: new Button({
+        text: 'Create',
+        attr: { class: 'btn', type: 'submit' },
+      }),
+
+      modalHeader: 'New chat',
+      attr: { class: 'modal' },
+      events: {},
+    });
   }
 
   renderPreviews() {

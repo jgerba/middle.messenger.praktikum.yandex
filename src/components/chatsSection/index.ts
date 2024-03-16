@@ -6,7 +6,7 @@ import searchForm from '../forms/searchForm/index.ts';
 export default new ChatsSection({
   searchForm,
   createChatBtn: new Button({
-    text: 'Create a chat',
+    text: 'New chat',
     attr: { class: 'btn', type: 'button' },
     events: {},
   }),

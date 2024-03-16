@@ -20,14 +20,20 @@ export default class ValidationInput extends Input {
     let isValid;
 
     // message form case
-    if (inputEl.name === 'message' && inputEl.value.trim()) {
+    if (
+      (inputEl.name === 'message' && inputEl.value.trim()) ||
+      (inputEl.name === 'title' && inputEl.value.trim())
+    ) {
       isValid = true;
       this.handleError(isValid);
       return isValid;
     }
 
     // message form case
-    if (inputEl.name === 'message' && !inputEl.value.trim()) {
+    if (
+      (inputEl.name === 'message' && !inputEl.value.trim()) ||
+      (inputEl.name === 'title' && !inputEl.value.trim())
+    ) {
       isValid = false;
       this.handleError(isValid);
       return isValid;
