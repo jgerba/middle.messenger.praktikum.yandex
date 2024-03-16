@@ -18,7 +18,7 @@ class UserAPI {
   }
 
   async searchUser(options: OptionsType) {
-    return api.post('/user/search', options);
+    return api.post('/search', options);
   }
 }
 
