@@ -49,7 +49,6 @@ export default class Settings extends Block {
   changePage(event: MouseEvent) {
     const clickBtn = event.currentTarget as HTMLElement;
     let { title: btnTitle } = clickBtn;
-    const nameHeader = this.element!.querySelector('h1') as HTMLElement;
 
     if (btnTitle === 'Log out') {
       this.logOutHandler();
@@ -66,10 +65,6 @@ export default class Settings extends Block {
     }
 
     this.forms.forEach((form) => {
-      btnTitle === 'Profile'
-        ? nameHeader.classList.remove('hidden')
-        : nameHeader.classList.add('hidden');
-
       if (form.title === btnTitle) {
         form.classList.remove('hidden');
         return;

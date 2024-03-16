@@ -2,13 +2,11 @@
   flex-direction: column;
 
   &__header-wrapper {
+    position: absolute;
     display: flex;
     flex-direction: column;
     gap: 21px;
-  }
 
-  .header {
-    place-self: center flex-start;
-    font-size: 20px;
+    top: 15%;
   }
 }
