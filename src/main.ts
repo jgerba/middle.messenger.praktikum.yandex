@@ -6,11 +6,29 @@ import signInPage from './pages/signIn/index.ts';
 
 import './styles/style.scss';
 
-const router = new Router();
-router.use('/', signInPage);
-router.use('/sign-up', signUpPage);
-router.start();
+class App {
+  appRouter: Router;
 
-await authController.getUser();
+  constructor() {
+    this.initRouter();
+    this.checkAuth();
+  }
 
-export default router;
+  initRouter() {
+    this.appRouter = new Router();
+    this.router.use('/', signInPage);
+    this.router.use('/sign-up', signUpPage);
+    this.router.start();
+  }
+
+  async checkAuth() {
+    await authController.getUser();
+  }
+
+  get router() {
+    return this.appRouter;
+  }
+}
+
+const app = new App();
+export default app.router;
