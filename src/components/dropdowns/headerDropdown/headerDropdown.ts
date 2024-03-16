@@ -2,7 +2,7 @@ import tpl from './headerDropdown.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 
 import Dropdown from '../dropdown.ts';
-import Modal from '../../modals/userModal/userModal.ts';
+import Modal from '../../modals/textModal/textModal.ts';
 import FormInput from '../../inputs/formInput.ts';
 import Button from '../../button/button.ts';
 
@@ -44,17 +44,17 @@ export default class HeaderDropdown extends Dropdown {
     /* eslint no-new: 0 */
 
     new Modal({
-      userInput: new FormInput({
+      textInput: new FormInput({
         name: 'login',
         text: 'Login',
         attr: { class: 'input-wrapper ' },
       }),
-      addBtn: new Button({
+      submitBtn: new Button({
         text: type,
         attr: { class: 'btn', type: 'submit' },
       }),
 
-      modalType: type,
+      modalHeader: `${type} user`,
       attr: { class: 'modal' },
       events: {},
     });
