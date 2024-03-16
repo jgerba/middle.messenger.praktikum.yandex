@@ -18,6 +18,8 @@ class UserController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
+
+        store.setState('user', response);
       })
       .catch((error) => console.log(error));
   }
