@@ -7,9 +7,11 @@ type ResponseType = {
 };
 
 class ChatsController {
-  async getChats(data: DataType) {
+  // to do - set chats offset & limit
+
+  async getChats() {
     chatAPI
-      .getChats(data)
+      .getChats()
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
 
@@ -35,6 +37,8 @@ class ChatsController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
+
+        this.getChats();
       })
       .catch((error) => console.log(error));
   }

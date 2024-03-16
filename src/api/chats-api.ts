@@ -7,8 +7,8 @@ type OptionsType = {
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
 
 class ChatsAPI {
-  async getChats(options: OptionsType) {
-    return api.get('', options);
+  async getChats() {
+    return api.get('');
   }
 
   async createChat(options: OptionsType) {

@@ -9,6 +9,7 @@ export type PropValue =
   | string
   | number
   | boolean
+  | Date
   | EventListener
   | Record<string, string>
   | Record<string, EventListener>
