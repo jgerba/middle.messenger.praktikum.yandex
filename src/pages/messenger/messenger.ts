@@ -15,6 +15,7 @@ export default class Messenger extends Block {
 
     super('div', { ...props, events: { click: onAnchorClick } });
 
+    this.initBtns();
     this.renderPreviews();
     this.renderChat();
   }
@@ -25,6 +26,16 @@ export default class Messenger extends Block {
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
     return this.compile(tpl, propsToRender);
+  }
+
+  initBtns() {
+    const createChatBtn = this.children.createChatBtn as Block;
+
+    createChatBtn.addEvent('click', this.createChatHandler.bind(this));
+  }
+
+  createChatHandler() {
+    console.log(123);
   }
 
   renderPreviews() {
@@ -124,3 +135,4 @@ const chatDummy: { [key: string]: string | boolean | number }[] = [
     isPersonal: true,
   },
 ];
+
