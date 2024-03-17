@@ -7,7 +7,7 @@ import Modal from '../modals/textModal/textModal.ts';
 import FormInput from '../inputs/formInput.ts';
 import Button from '../button/button.ts';
 import fallbackImg from './svg/fallback-img.svg';
-import chatsController from '../../controllers/chats-controller.ts';
+import WSController from '../../controllers/WS-controller.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
@@ -81,12 +81,15 @@ export default class ChatsSection extends Block {
   //   }`;
   // }
 
-  async openChatHandler(chatID: string, chatAvatar: string, chatTitle: string) {
-    const response = await chatsController.getWStoken({ id: chatID });
+  async openChatHandler(chatId: string, chatAvatar: string, chatTitle: string) {
+    const response = await WSController.getToken({ id: chatId });
 
     if (response === 200) {
+      console.log('click');
+
       store.setState('currentChat', { avatar: chatAvatar });
       store.setState('currentChat', { title: chatTitle });
+      WSController.connect({ chatId });
     }
   }
 
@@ -118,4 +121,3 @@ export default class ChatsSection extends Block {
     store.getRouter().go('/settings');
   }
 }
-

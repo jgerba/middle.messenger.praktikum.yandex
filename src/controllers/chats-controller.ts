@@ -1,4 +1,4 @@
-import chatAPI from '../api/chats-api.ts';
+import chatApi from '../api/chats-api.ts';
 import store from '../core/store.ts';
 
 type DataType = { [key: string]: Record<string, string> | FormData | string };
@@ -10,7 +10,7 @@ class ChatsController {
   // to do - set chats offset & limit
 
   async getChats() {
-    chatAPI
+    chatApi
       .getChats()
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -27,7 +27,7 @@ class ChatsController {
   }
 
   async createChat(data: DataType) {
-    chatAPI
+    chatApi
       .createChat(data)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -42,27 +42,6 @@ class ChatsController {
       })
       .catch((error) => console.log(error));
   }
-
-  async getWStoken(data: DataType): Promise<number | undefined> {
-    try {
-      const { status, response }: ResponseType = (await chatAPI.getWStoken(
-        data,
-      )) as ResponseType;
-      console.log(status, response);
-
-      if (status !== 200) {
-        throw new Error(
-          `${status} ${(response as { [key: string]: string }).reason}`,
-        );
-      }
-
-      store.setState('currentChat', response);
-      return status;
-    } catch (error) {
-      console.log(error);
-    }
-  }
 }
 
 export default new ChatsController();
-

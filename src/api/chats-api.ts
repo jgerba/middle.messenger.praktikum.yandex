@@ -6,7 +6,7 @@ type OptionsType = {
 
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
 
-class ChatsAPI {
+class ChatsApi {
   async getChats() {
     return api.get('');
   }
@@ -26,11 +26,6 @@ class ChatsAPI {
   async deleteChatUser(options: OptionsType) {
     return api.delete('/users', options);
   }
-
-  async getWStoken(options: OptionsType) {
-    return api.post(`/token/${options.id}`);
-  }
 }
 
-export default new ChatsAPI();
-
+export default new ChatsApi();
