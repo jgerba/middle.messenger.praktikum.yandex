@@ -23,15 +23,15 @@ class WSApi {
     this.socket = new WSTransport(
       `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${WStoken}`,
     );
-    return this.socket.connect();
+    this.socket.connect();
   }
 
   close() {
-    return this.socket.close();
+    this.socket.close();
   }
 
   send(data: DataType) {
-    return this.socket.send(data);
+    this.socket.send(data);
   }
 }
 

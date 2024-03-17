@@ -38,8 +38,6 @@ class WSController {
       [key: string]: string;
     };
 
-    console.log('contr');
-
     WSApi.connect(sendData);
   }
 
