@@ -22,11 +22,12 @@ https://www.figma.com/file/jX0PPV9INgyvigFhhqxuAb/Chat_external_link-(Copy)?type
 
 ### Ссылки
 
-> [!NOTE]
-> В качестве временного решения, пока логика страницы в начальном состоянии, используется навигация с помощью меню в верхней части страницы. В дальнейшем это меню будет удалено.
-
 модуль аутентификации
+вход в приложение
 https://jugermessenger.netlify.app/
+
+создать пользователя
+https://jugermessenger.netlify.app/sign-up
 
 <details>
 
@@ -39,7 +40,7 @@ https://jugermessenger.netlify.app/
 </details>
 
 модуль чата
-https://jugermessenger.netlify.app/chatpage
+https://jugermessenger.netlify.app/messenger
 
 <details>
 
@@ -49,10 +50,14 @@ https://jugermessenger.netlify.app/chatpage
 
 > При провале валидации в консоль выводится соответствующее сообщение, при прохождении - данные формы.
 
+> Слева находится превью доступных чатов, клик по чату выводит его содрежимое в основной раздел модуля.
+
+> В основном разделе модуля отображаются полученные/отправленные сообщения, в правом верхнем углу выпадающее меню для добалвения/удаления пользователя из чата.
+
 </details>
 
 модуль профиля
-https://jugermessenger.netlify.app/profile
+https://jugermessenger.netlify.app/settings
 
 <details>
 
@@ -65,9 +70,6 @@ https://jugermessenger.netlify.app/profile
 > При провале валидации в консоль выводится соответствующее сообщение, при прохождении - данные формы.
 
 </details>
-
-ошибка 500 (страница errorpage)
-https://jugermessenger.netlify.app/error
 
 ошибка 404 (страница errorpage с контекстом {notFound: true})
 https://jugermessenger.netlify.app/ + любое значение, отличное от вышеперечисленных
