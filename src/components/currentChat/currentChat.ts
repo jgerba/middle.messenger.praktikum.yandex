@@ -34,24 +34,41 @@ export default class CurrentChat extends Block {
     ) as HTMLElement;
 
     const state = store.getState();
+
+    if (!state.currentChat) {
+      return;
+    }
+
     const messages = (state.currentChat as IndexedType).messages as unknown;
+
+    if (!messages) {
+      return;
+    }
 
     chatRoot.innerHTML = '';
 
-    (messages as PropsType[]).forEach((message) => {
-      const isPersonalMsg = message.user_id === (state.user as IndexedType).id;
+    (messages as PropsType[])
+      .sort((a, b) => {
+        const bTime = new Date(b.time as string) as unknown;
+        const aTime = new Date(a.time as string) as unknown;
 
-      chatRoot.append(
-        new Message({
-          content: message.content,
-          time: formatDate(message.time as string),
-          isRead: message.isRead,
-          isReadSvg,
-          attr: {
-            class: `message ${isPersonalMsg ? 'personal-message' : ''}`,
-          },
-        }).getContent() as HTMLElement,
-      );
-    });
+        return (aTime as number) - (bTime as number);
+      })
+      .forEach((message) => {
+        const isPersonalMsg =
+          message.user_id === (state.user as IndexedType).id;
+
+        chatRoot.append(
+          new Message({
+            content: message.content,
+            time: formatDate(message.time as string),
+            isRead: message.isRead,
+            isReadSvg,
+            attr: {
+              class: `message ${isPersonalMsg ? 'personal-message' : ''}`,
+            },
+          }).getContent() as HTMLElement,
+        );
+      });
   }
 }
