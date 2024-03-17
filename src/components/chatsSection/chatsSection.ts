@@ -2,25 +2,26 @@ import tpl from './chatsSection.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 import ChatPreview from '../chatPreview/chatPreview.ts';
 import fallbackImg from './svg/fallback-img.svg';
-import router from '../../main.ts';
+// import router from '../../main.ts';
 
 import Modal from '../modals/textModal/textModal.ts';
 import FormInput from '../inputs/formInput.ts';
 import Button from '../button/button.ts';
-import chatsController from '../../controllers/chats-controller.ts';
-import store from '../../core/store.ts';
+// import chatsController from '../../controllers/chats-controller.ts';
+import store, { StoreEvents } from '../../core/store.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
 
 export default class ChatsSection extends Block {
-  constructor(props: PropsType | ChildrenType) {
+  constructor(tagName: string, props: PropsType | ChildrenType) {
     const onAnchorClick = (event: MouseEvent) => this.anchorHandler(event);
 
-    super('section', { ...props, events: { click: onAnchorClick } });
+    super(tagName, { ...props, events: { click: onAnchorClick } });
 
     this.initBtns();
-    this.initChats();
+
+    store.on(StoreEvents.Updated, this.renderPreviews.bind(this));
   }
 
   render(): DocumentFragment {
@@ -37,11 +38,6 @@ export default class ChatsSection extends Block {
     createChatBtn.addEvent('click', this.openCreateModal.bind(this));
   }
 
-  initChats() {
-    chatsController.getChats();
-    this.renderPreviews();
-  }
-
   renderPreviews() {
     const previewSection = this.element!.querySelector(
       '.chat__chats-preview',
@@ -49,7 +45,7 @@ export default class ChatsSection extends Block {
 
     const chatsData = store.getState().chats as unknown;
 
-    console.log(chatsData);
+    previewSection.innerHTML = '';
 
     (chatsData as PropsType[]).forEach((chat) => {
       previewSection.append(
@@ -106,6 +102,6 @@ export default class ChatsSection extends Block {
       return;
     }
     event.preventDefault();
-    router.go('/settings');
+    store.getRouter().go('/settings');
   }
 }

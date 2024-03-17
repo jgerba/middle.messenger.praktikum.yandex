@@ -1,9 +1,10 @@
 import authAPI from '../api/auth-api.ts';
 import store from '../core/store.ts';
-import router from '../main.ts';
+// import router from '../main.ts';
 
 import messenger from '../pages/messenger/index.ts';
 import settings from '../pages/settings/index.ts';
+import chatsController from './chats-controller.ts';
 
 type DataType = { [key: string]: Record<string, string> };
 type ResponseType = {
@@ -58,14 +59,15 @@ class AuthController {
         }
 
         store.setState('user', response);
+        chatsController.getChats();
 
-        router.use('/messenger', messenger);
-        router.use('/settings', settings);
-        router.go('/messenger');
+        store.getRouter().use('/messenger', messenger);
+        store.getRouter().use('/settings', settings);
+        store.getRouter().go('/messenger');
       })
       .catch((error) => {
         console.log(error);
-        router.go('/');
+        store.getRouter().go('/');
       });
   }
 
@@ -82,7 +84,7 @@ class AuthController {
         }
 
         store.clearState();
-        router.go('/');
+        store.getRouter().go('/');
       })
       .catch((error) => console.log(error));
   }
