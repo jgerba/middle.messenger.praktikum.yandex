@@ -1,12 +1,10 @@
 import Messenger from './messenger.ts';
 
-import chatHeader from '../../components/chatHeader/index.ts';
 import chatsSection from '../../components/chatsSection/index.ts';
-import messageForm from '../../components/forms/messageForm/index.ts';
+import currentChat from '../../components/currentChat/index.ts';
 
 export default new Messenger({
   chatsSection,
-  chatHeader,
-  messageForm,
-  attr: { class: 'main chat' },
+  currentChat,
+  attr: { class: 'main' },
 });
