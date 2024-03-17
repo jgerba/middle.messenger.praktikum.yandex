@@ -1,16 +1,23 @@
 import tpl from './currentChat.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
-// import Message from '../message/message.ts';
-// import isReadSvg from './svg/isRead.svg';
+import store, { StoreEvents } from '../../core/store.ts';
+import Message from '../message/message.ts';
+import isReadSvg from './svg/isRead.svg';
+import formatDate from '../../utils/formatDate.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
+
+type IndexedType = {
+  [key: string]: string | number | IndexedType;
+};
 
 export default class CurrentChat extends Block {
   constructor(props: PropsType | ChildrenType) {
     super('section', props);
 
     this.renderChat();
+    store.on(StoreEvents.Updated, this.renderChat.bind(this));
   }
 
   render(): DocumentFragment {
@@ -22,30 +29,29 @@ export default class CurrentChat extends Block {
   }
 
   renderChat() {
-    // const chatRoot = this.element!.querySelector(
-    //   '.current-chat__dialog',
-    // ) as HTMLElement;
-    // chatDummy.forEach((message) => {
-    //   chatRoot.append(
-    //     new Message({
-    //       text: message.text,
-    //       time: this.getTime(message.timestamp as number),
-    //       isRead: message.isRead,
-    //       isReadSvg,
-    //       attr: {
-    //         class: `message ${message.isPersonal ? 'personal-message' : ''}`,
-    //       },
-    //     }).getContent() as HTMLElement,
-    //   );
-    // });
-  }
+    const chatRoot = this.element!.querySelector(
+      '.current-chat__dialog',
+    ) as HTMLElement;
 
-  getTime(timestamp: number): string {
-    const date = new Date(timestamp);
-    const hours = date.getHours();
-    const mins = date.getMinutes();
-    return `${hours < 10 ? '0' + hours : hours}:${
-      mins < 10 ? '0' + mins : mins
-    }`;
+    const state = store.getState();
+    const messages = (state.currentChat as IndexedType).messages as unknown;
+
+    chatRoot.innerHTML = '';
+
+    (messages as PropsType[]).forEach((message) => {
+      const isPersonalMsg = message.user_id === (state.user as IndexedType).id;
+
+      chatRoot.append(
+        new Message({
+          content: message.content,
+          time: formatDate(message.time as string),
+          isRead: message.isRead,
+          isReadSvg,
+          attr: {
+            class: `message ${isPersonalMsg ? 'personal-message' : ''}`,
+          },
+        }).getContent() as HTMLElement,
+      );
+    });
   }
 }

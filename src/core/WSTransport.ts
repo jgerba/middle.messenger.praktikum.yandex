@@ -1,10 +1,9 @@
 import EventBus from './event-bus';
+import store from './store';
 
 type DataType = { [key: string]: Record<string, string> | FormData | string };
 
 export default class WSTransport extends EventBus {
-  private static __instance: WSTransport;
-
   api: string;
 
   socket: WebSocket;
@@ -12,24 +11,14 @@ export default class WSTransport extends EventBus {
   pingInterval: ReturnType<typeof setInterval> | null;
 
   constructor(api: string) {
-    if (WSTransport.__instance) {
-      // eslint-disable-next-line no-constructor-return
-      return WSTransport.__instance;
-    }
-
     super();
 
-    WSTransport.__instance = this;
-
     this.api = api;
-    console.log(this.api);
   }
 
   connect() {
-    console.log(this.socket);
-
     if (this.socket) {
-      throw new Error('Socket is alredy created');
+      this.close();
     }
 
     this.socket = new WebSocket(this.api);
@@ -50,9 +39,10 @@ export default class WSTransport extends EventBus {
 
   subscribe() {
     this.socket.addEventListener('open', () => {
-      console.log('connected');
-
-      this.send({ content: '12345', type: 'message' });
+      this.send({
+        content: '0',
+        type: 'get old',
+      });
     });
     this.socket.addEventListener('close', () => {
       console.log('closed');
@@ -82,6 +72,8 @@ export default class WSTransport extends EventBus {
       }
 
       console.log(data);
+
+      store.setState('currentChat', { messages: data });
     } catch (error) {}
   }
 
