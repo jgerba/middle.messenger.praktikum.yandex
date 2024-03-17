@@ -1,12 +1,13 @@
 import tpl from './messageForm.hbs?raw';
 import { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
+import WSController from '../../../controllers/WS-controller.ts';
 
 export default class MessageForm extends ValidationForm {
-  constructor(props: PropsType | ChildrenType) {
+  constructor(tagName: string, props: PropsType | ChildrenType) {
     const onSubmit = (event: SubmitEvent) => this.submitHandler(event);
 
-    super('form', { ...props, events: { submit: onSubmit } });
+    super(tagName, { ...props, events: { submit: onSubmit } });
   }
 
   render(): DocumentFragment {
@@ -21,6 +22,7 @@ export default class MessageForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
+
+    WSController.sendMessage(formData as { [key: string]: string });
   }
 }

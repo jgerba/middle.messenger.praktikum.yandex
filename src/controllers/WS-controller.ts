@@ -5,10 +5,11 @@ type DataType = { [key: string]: Record<string, string> | FormData | string };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
-
 type IndexedType = {
   [key: string]: string | number | IndexedType;
 };
+
+/* eslint consistent-return:0 */
 
 class WSController {
   async getToken(data: DataType): Promise<number | undefined> {
@@ -25,6 +26,7 @@ class WSController {
       }
 
       store.setState('currentChat', response);
+
       return status;
     } catch (error) {
       console.log(error);
@@ -45,8 +47,8 @@ class WSController {
     WSApi.close();
   }
 
-  sendMessage(data: DataType) {
-    WSApi.send(data);
+  sendMessage(data: { [key: string]: string }) {
+    WSApi.send({ content: data.message, type: 'message' });
   }
 }
 

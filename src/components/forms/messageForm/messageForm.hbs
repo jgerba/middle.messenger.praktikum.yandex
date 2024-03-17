@@ -1,7 +1,9 @@
-{{{messageDropdown}}}
-{{{messageInput}}}
+{{#if isInChat}}
+  {{{messageDropdown}}}
+  {{{messageInput}}}
 
-<button class='message-form__send-btn' title='Send message'><img
-    src='{{sendIcon}}'
-    alt='Send message'
-  /></button>
+  <button class='message-form__send-btn' title='Send message'><img
+      src='{{sendIcon}}'
+      alt='Send message'
+    /></button>
+{{/if}}
