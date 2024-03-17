@@ -9,6 +9,14 @@
   }
 }
 
+.dropdown::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
 .header-drop {
   right: -10px;
   top: 65px;
@@ -18,4 +26,3 @@
   left: -8px;
   top: -128px;
 }
-
