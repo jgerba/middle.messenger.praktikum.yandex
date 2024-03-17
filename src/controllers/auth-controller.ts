@@ -1,4 +1,4 @@
-import authAPI from '../api/auth-api.ts';
+import authApi from '../api/auth-api.ts';
 import store from '../core/store.ts';
 // import router from '../main.ts';
 
@@ -13,7 +13,7 @@ type ResponseType = {
 
 class AuthController {
   async createUser(submitData: DataType) {
-    authAPI
+    authApi
       .createUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -30,7 +30,7 @@ class AuthController {
   }
 
   async logIn(submitData: DataType) {
-    authAPI
+    authApi
       .logIn(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status);
@@ -47,7 +47,7 @@ class AuthController {
   }
 
   async getUser() {
-    authAPI
+    authApi
       .getUser()
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -72,7 +72,7 @@ class AuthController {
   }
 
   async logOut() {
-    authAPI
+    authApi
       .logOut()
       .then(({ status, response }: ResponseType) => {
         console.log(status);

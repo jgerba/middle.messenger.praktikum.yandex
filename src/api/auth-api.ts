@@ -4,7 +4,7 @@ type OptionsType = { [key: string]: Record<string, string> };
 
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
-class AuthAPI {
+class AuthApi {
   async createUser(options: OptionsType) {
     return api.post('/signup', options);
   }
@@ -22,4 +22,4 @@ class AuthAPI {
   }
 }
 
-export default new AuthAPI();
+export default new AuthApi();

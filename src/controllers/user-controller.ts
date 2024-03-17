@@ -1,4 +1,4 @@
-import userAPI from '../api/user-api.ts';
+import userApi from '../api/user-api.ts';
 import store from '../core/store.ts';
 
 type DataType = { [key: string]: Record<string, string> | FormData };
@@ -8,7 +8,7 @@ type ResponseType = {
 
 class UserController {
   async changeUser(submitData: DataType) {
-    userAPI
+    userApi
       .changeUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -25,7 +25,7 @@ class UserController {
   }
 
   async changeAvatar(submitData: DataType) {
-    userAPI
+    userApi
       .changeAvatar(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);
@@ -42,7 +42,7 @@ class UserController {
   }
 
   async changePassword(submitData: DataType) {
-    userAPI
+    userApi
       .changePassword(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status);
@@ -57,7 +57,7 @@ class UserController {
   }
 
   async searchUser(submitData: DataType) {
-    userAPI
+    userApi
       .searchUser(submitData)
       .then(({ status, response }: ResponseType) => {
         console.log(status, response);

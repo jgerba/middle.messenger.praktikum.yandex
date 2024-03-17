@@ -4,7 +4,7 @@ type OptionsType = { [key: string]: Record<string, string> | FormData };
 
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 
-class UserAPI {
+class UserApi {
   async changeUser(options: OptionsType) {
     return api.put('/profile', options);
   }
@@ -22,4 +22,4 @@ class UserAPI {
   }
 }
 
-export default new UserAPI();
+export default new UserApi();
