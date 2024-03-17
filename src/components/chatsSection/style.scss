@@ -3,10 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: auto;
   gap: 20px;
   height: 100%;
   width: 25vw;
+  max-width: 500px;
   min-width: 290px;
+  left: 0px;
   padding: 40px 10px 0px;
   border-right: 1px solid $borders-color;
 
@@ -28,5 +31,9 @@
       border-right: 1px solid $back-text-color;
       transform: rotateZ(45deg);
     }
+  }
+
+  .btn {
+    width: 300px;
   }
 }
