@@ -1,14 +1,13 @@
 import tpl from './chatsSection.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
-import ChatPreview from '../chatPreview/chatPreview.ts';
-import fallbackImg from './svg/fallback-img.svg';
-// import router from '../../main.ts';
+import store, { StoreEvents } from '../../core/store.ts';
 
+import ChatPreview from '../chatPreview/chatPreview.ts';
 import Modal from '../modals/textModal/textModal.ts';
 import FormInput from '../inputs/formInput.ts';
 import Button from '../button/button.ts';
-// import chatsController from '../../controllers/chats-controller.ts';
-import store, { StoreEvents } from '../../core/store.ts';
+import fallbackImg from './svg/fallback-img.svg';
+import chatsController from '../../controllers/chats-controller.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
@@ -44,6 +43,7 @@ export default class ChatsSection extends Block {
     ) as HTMLElement;
 
     const chatsData = store.getState().chats as unknown;
+    if (!chatsData) return;
 
     previewSection.innerHTML = '';
 
@@ -58,23 +58,36 @@ export default class ChatsSection extends Block {
           unreadCount: chat.unread_count,
           lastMessage: chat.lastMessage,
           attr: { class: 'chat-preview' },
-          events: { click: this.chatPreviewHandler },
+          events: {
+            click: this.openChatHandler.bind(
+              this,
+              chat.id,
+              chat.avatar,
+              chat.title,
+            ),
+          },
         }).getContent() as HTMLElement,
       );
     });
   }
 
-  getTime(timestamp: number): string {
-    const date = new Date(timestamp);
-    const hours = date.getHours();
-    const mins = date.getMinutes();
-    return `${hours < 10 ? '0' + hours : hours}:${
-      mins < 10 ? '0' + mins : mins
-    }`;
-  }
+  // change later
+  // getTime(timestamp: number): string {
+  //   const date = new Date(timestamp);
+  //   const hours = date.getHours();
+  //   const mins = date.getMinutes();
+  //   return `${hours < 10 ? '0' + hours : hours}:${
+  //     mins < 10 ? '0' + mins : mins
+  //   }`;
+  // }
 
-  chatPreviewHandler() {
-    console.log('Chat is openeing...');
+  async openChatHandler(chatID: string, chatAvatar: string, chatTitle: string) {
+    const response = await chatsController.getWStoken({ id: chatID });
+
+    if (response === 200) {
+      store.setState('currentChat', { avatar: chatAvatar });
+      store.setState('currentChat', { title: chatTitle });
+    }
   }
 
   openCreateModal() {
@@ -105,3 +118,4 @@ export default class ChatsSection extends Block {
     store.getRouter().go('/settings');
   }
 }
+

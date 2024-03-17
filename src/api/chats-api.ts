@@ -1,7 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 
 type OptionsType = {
-  [key: string]: Record<string, string> | FormData;
+  [key: string]: Record<string, string> | FormData | string;
 };
 
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
@@ -26,6 +26,11 @@ class ChatsAPI {
   async deleteChatUser(options: OptionsType) {
     return api.delete('/users', options);
   }
+
+  async getWStoken(options: OptionsType) {
+    return api.post(`/token/${options.id}`);
+  }
 }
 
 export default new ChatsAPI();
+
