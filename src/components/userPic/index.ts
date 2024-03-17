@@ -1,7 +1,8 @@
 import UserPic from './userPic.ts';
-import fallbackImg from './svg/fallback-img.svg';
 import connect from '../../core/connect.ts';
 import findValueByKey from '../../utils/findValueByKey.ts';
+
+import fallbackImg from '../../static/svg/fallback-img.svg';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
