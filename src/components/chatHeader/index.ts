@@ -21,9 +21,9 @@ function getHeadData(state: IndexedType): IndexedType {
     )!;
 
     return {
-      avatar: `https://ya-praktikum.tech/api/v2/resources${
-        avatar || fallbackImg
-      }` as string,
+      avatar: avatar
+        ? `https://ya-praktikum.tech/api/v2/resources/${avatar}`
+        : fallbackImg,
       title,
     };
   }

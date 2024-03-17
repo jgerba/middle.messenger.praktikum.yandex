@@ -12,9 +12,9 @@ function getAvatarImg(state: IndexedType): IndexedType {
   const avatarImg = findValueByKey(state, 'avatar');
 
   return {
-    avatarImg: `https://ya-praktikum.tech/api/v2/resources${
-      avatarImg || fallbackImg
-    }`,
+    avatarImg: avatarImg
+      ? `https://ya-praktikum.tech/api/v2/resources/${avatarImg}`
+      : fallbackImg,
   };
 }
 
