@@ -1,4 +1,4 @@
-import Block, { PropValue } from './block.ts';
+import Block, { PropValue, PropsType } from './block.ts';
 import store, { StoreEvents } from './store.ts';
 
 type IndexedType = {
@@ -7,7 +7,7 @@ type IndexedType = {
 
 export default function connect(
   Component: typeof Block,
-  mapStateToProps: (state: IndexedType) => IndexedType,
+  mapStateToProps: (state: IndexedType) => PropsType,
 ) {
   return class extends Component {
     constructor(tagName: string, props = {}) {

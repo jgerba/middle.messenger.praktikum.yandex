@@ -1,4 +1,4 @@
-import { PropsType } from '../../core/block.ts';
+import { PropValue, PropsType } from '../../core/block.ts';
 import connect from '../../core/connect.ts';
 import findValueByKey from '../../utils/findValueByKey.ts';
 import Button from '../button/button.ts';
@@ -9,8 +9,8 @@ type IndexedType = {
   [key: string]: string | number | IndexedType;
 };
 
-function getFieldData(state: IndexedType, fieldType: string) {
-  const stateValue = findValueByKey(state, fieldType);
+function getFieldData(state: IndexedType, fieldType: string): PropsType {
+  const stateValue = findValueByKey(state, fieldType) as PropValue;
 
   return {
     text: stateValue || '-',

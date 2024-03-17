@@ -14,16 +14,17 @@ export default function formatDate(dateStr: string) {
       hour: '2-digit',
       minute: '2-digit',
     });
-
-    // if in 1 week
-  } else if (daysDiff >= 1 && daysDiff <= 7) {
-    return (date as Date).toLocaleDateString('ru-RU', { weekday: 'long' });
-  } else {
-    // if more then 1 week
-    return (date as Date).toLocaleDateString('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
   }
+
+  // if in 1 week
+  if (daysDiff >= 1 && daysDiff <= 7) {
+    return (date as Date).toLocaleDateString('ru-RU', { weekday: 'long' });
+  }
+
+  // if more then 1 week
+  return (date as Date).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 }

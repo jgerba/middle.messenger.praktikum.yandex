@@ -4,6 +4,13 @@ type OptionsType = {
   [key: string]: Record<string, string> | FormData | string;
 };
 
+type AddUsersDataType = {
+  data: {
+    users: number[]; // Тип для users изменен с any[] на number[]
+    chatId: number;
+  };
+};
+
 const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
 
 class ChatsApi {
@@ -19,11 +26,11 @@ class ChatsApi {
     return api.delete('', options);
   }
 
-  async addChatUser(options: OptionsType) {
+  async addUsers(options: AddUsersDataType) {
     return api.put('/users', options);
   }
 
-  async deleteChatUser(options: OptionsType) {
+  async removeUsers(options: AddUsersDataType) {
     return api.delete('/users', options);
   }
 }
