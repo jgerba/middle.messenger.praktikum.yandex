@@ -1,10 +1,12 @@
 import userApi from '../api/user-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData };
+type DataType = { [key: string]: Record<string, string> | FormData | string };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
+
+/* eslint consistent-return:0 */
 
 class UserController {
   async changeUser(submitData: DataType) {
@@ -57,18 +59,22 @@ class UserController {
   }
 
   async searchUser(submitData: DataType) {
-    userApi
-      .searchUser(submitData)
-      .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
+    try {
+      const { status, response }: ResponseType = (await userApi.searchUser(
+        submitData,
+      )) as ResponseType;
+      console.log(status, response);
 
-        if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
-        }
-      })
-      .catch((error) => console.log(error));
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
