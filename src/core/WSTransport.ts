@@ -1,7 +1,10 @@
-import EventBus from './event-bus';
-import store from './store';
+import EventBus from './event-bus.ts';
+import store from './store.ts';
 
 type DataType = { [key: string]: Record<string, string> | FormData | string };
+type IndexedType = {
+  [key: string]: string | number | IndexedType;
+};
 
 export default class WSTransport extends EventBus {
   api: string;
@@ -63,18 +66,31 @@ export default class WSTransport extends EventBus {
     this.socket.send(JSON.stringify(data));
   }
 
-  get(message: MessageEvent) {
+  get(event: MessageEvent) {
     try {
-      const data = JSON.parse(message.data);
+      const data = JSON.parse(event.data);
 
       if (!data || ['pong', 'user connected'].includes(data.type)) {
         return;
       }
-
       console.log(data);
 
-      store.setState('currentChat', { messages: data });
-    } catch (error) {}
+      let dataToStore = data;
+
+      // временное решение для нового сообщения
+      if (dataToStore.id) {
+        const state = store.getState();
+        const currentMessages = (state.currentChat as IndexedType)
+          .messages as unknown;
+        (currentMessages as IndexedType[]).push(dataToStore);
+
+        dataToStore = currentMessages;
+      }
+
+      store.setState('currentChat', { messages: dataToStore });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   setupPing() {

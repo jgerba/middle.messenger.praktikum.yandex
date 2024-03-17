@@ -61,7 +61,10 @@ class Store extends EventBus {
   }
 
   private updateStorage() {
-    localStorage.setItem('My store', JSON.stringify(this.state));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const localState = (({ currentChat, ...rest }) => rest)(this.state);
+
+    localStorage.setItem('My store', JSON.stringify(localState));
   }
 
   public setRouter(router: Router) {

@@ -78,6 +78,7 @@ export default class ChatsSection extends Block {
     if (response === 200) {
       store.setState('currentChat', { avatar: chatAvatar });
       store.setState('currentChat', { title: chatTitle });
+      store.setState('currentChat', { id: chatId });
       WSController.connect({ chatId });
     }
   }
