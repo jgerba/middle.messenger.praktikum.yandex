@@ -2,8 +2,8 @@ import tpl from './chatHeader.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 
 export default class ChatHeader extends Block {
-  constructor(props: PropsType | ChildrenType) {
-    super('header', props);
+  constructor(tagName: string, props: PropsType | ChildrenType) {
+    super(tagName, props);
   }
 
   render(): DocumentFragment {
