@@ -4,6 +4,7 @@ import store from './core/store.ts';
 
 import signUpPage from './pages/signUp/index.ts';
 import signInPage from './pages/signIn/index.ts';
+import error from './pages/error/index.ts';
 
 import './styles/style.scss';
 
@@ -19,6 +20,7 @@ class App {
     this.router = new Router();
     this.router.use('/', signInPage);
     this.router.use('/sign-up', signUpPage);
+    this.router.use('/404', error);
     this.router.start();
 
     store.setRouter(this.router);

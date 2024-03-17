@@ -46,10 +46,10 @@ export default class Router {
 
   // Внутренний метод для обработки перехода на новый маршрут
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
 
     if (!route) {
-      return;
+      route = this.getRoute('/404')!;
     }
 
     // Вызов leave у текущего маршрута

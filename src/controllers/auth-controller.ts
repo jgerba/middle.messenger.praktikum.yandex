@@ -67,7 +67,9 @@ class AuthController {
       })
       .catch((error) => {
         console.log(error);
-        store.getRouter().go('/');
+        setTimeout(() => {
+          store.getRouter().go('/');
+        }, 3000);
       });
   }
 
