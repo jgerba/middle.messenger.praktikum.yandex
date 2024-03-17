@@ -2,8 +2,8 @@ import tpl from './signInForm.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 
-import router from '../../../main.ts';
 import authController from '../../../controllers/auth-controller.ts';
+import store from '../../../core/store.ts';
 
 export default class SignInForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {
@@ -41,6 +41,6 @@ export default class SignInForm extends ValidationForm {
   }
 
   changeFormHandler() {
-    router.go('/sign-up');
+    store.getRouter().go('/sign-up');
   }
 }

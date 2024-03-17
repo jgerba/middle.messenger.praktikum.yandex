@@ -1,8 +1,9 @@
 import tpl from './settings.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.js';
 
-import router from '../../main.js';
+// import router from '../../main.js';
 import authController from '../../controllers/auth-controller.js';
+import store from '../../core/store.js';
 
 export default class Settings extends Block {
   btns: Block[];
@@ -57,7 +58,7 @@ export default class Settings extends Block {
     if (btnTitle === 'Step back') {
       // case when already in settings root
       if (!this.forms[0].classList.contains('hidden')) {
-        router.go('/messenger');
+        store.getRouter().go('/messenger');
         return;
       }
 

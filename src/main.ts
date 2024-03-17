@@ -30,5 +30,6 @@ class App {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* eslint no-new: 0 */
   new App();
 });

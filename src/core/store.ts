@@ -1,6 +1,7 @@
 import EventBus from './event-bus.ts';
 
 import setObjectValue from '../utils/setObjectValue.ts';
+import Router from './Router.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
@@ -18,6 +19,8 @@ class Store extends EventBus {
   private state: IndexedType = {};
 
   eventBus: EventBus;
+
+  router: Router;
 
   constructor() {
     if (Store.__instance) {
@@ -59,6 +62,14 @@ class Store extends EventBus {
 
   private updateStorage() {
     localStorage.setItem('My store', JSON.stringify(this.state));
+  }
+
+  public setRouter(router: Router) {
+    this.router = router;
+  }
+
+  public getRouter() {
+    return this.router;
   }
 }
 
