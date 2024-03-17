@@ -2,6 +2,7 @@ import tpl from './chatsSection.hbs?raw';
 import Block, { PropsType, ChildrenType } from '../../core/block.ts';
 import store, { StoreEvents } from '../../core/store.ts';
 import WSController from '../../controllers/WS-controller.ts';
+import formatDate from '../../utils/formatDate.ts';
 
 import ChatPreview from '../chatPreview/chatPreview.ts';
 import Modal from '../modals/textModal/textModal.ts';
@@ -38,22 +39,22 @@ export default class ChatsSection extends Block {
   }
 
   renderPreviews() {
-    const previewSection = this.element!.querySelector(
+    const previewRoot = this.element!.querySelector(
       '.chat__chats-preview',
     ) as HTMLElement;
 
     const chatsData = store.getState().chats as unknown;
     if (!chatsData) return;
 
-    previewSection.innerHTML = '';
+    previewRoot.innerHTML = '';
 
     (chatsData as PropsType[]).forEach((chat) => {
-      previewSection.append(
+      previewRoot.append(
         new ChatPreview({
           avatar: chat.avatar || fallbackImg,
           title: chat.title,
           time: (chat.last_message as PropsType)
-            ? this.formatDate((chat.last_message as PropsType).time as string)
+            ? formatDate((chat.last_message as PropsType).time as string)
             : '',
           unreadCount: chat.unread_count,
           lastMessage: chat.lastMessage,
@@ -71,42 +72,10 @@ export default class ChatsSection extends Block {
     });
   }
 
-  formatDate(dateStr: string) {
-    const now = new Date() as unknown;
-    const date = new Date(dateStr) as unknown;
-
-    // sec difference
-    const diff = (now as number) - (date as number);
-
-    // days difference
-    const daysDiff = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    // if in 1 day
-    if (daysDiff === 0) {
-      return (date as Date).toLocaleTimeString('ru-RU', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-
-      // if in 1 week
-    } else if (daysDiff >= 1 && daysDiff <= 7) {
-      return (date as Date).toLocaleDateString('ru-RU', { weekday: 'long' });
-    } else {
-      // if more then 1 week
-      return (date as Date).toLocaleDateString('ru-RU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
-    }
-  }
-
   async openChatHandler(chatId: string, chatAvatar: string, chatTitle: string) {
     const response = await WSController.getToken({ id: chatId });
 
     if (response === 200) {
-      console.log('click');
-
       store.setState('currentChat', { avatar: chatAvatar });
       store.setState('currentChat', { title: chatTitle });
       WSController.connect({ chatId });
