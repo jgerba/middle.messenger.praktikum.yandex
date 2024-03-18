@@ -1,7 +1,8 @@
 .message {
   position: relative;
   align-self: flex-start;
-  width: 402px;
+  // max-width: 402px;
+  min-width: 200px;
   padding: 11px;
   font-size: 12px;
   border-radius: 12px;
@@ -10,7 +11,7 @@
   &__time {
     position: absolute;
     right: 6px;
-    bottom: 6px;
+    bottom: 3px;
     font-size: 9px;
     color: $back-text-color;
   }
@@ -22,7 +23,8 @@
   }
 
   &__text {
-    overflow-wrap: break-word;
+    // overflow-wrap: break-word;
+    word-break: break-all;
   }
 }
 
@@ -34,3 +36,4 @@
     color: $highlight-color;
   }
 }
+
