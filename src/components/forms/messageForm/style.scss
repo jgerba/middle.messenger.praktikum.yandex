@@ -1,6 +1,7 @@
 .message-form {
   display: flex;
-  position: relative;
+  position: absolute;
+  bottom: 0px;
   width: 80%;
   padding: 10px 0;
   border-top: 1px solid $borders-color;
@@ -25,6 +26,10 @@
       &::placeholder {
         text-align: start;
       }
+    }
+
+    & .error {
+      right: 16px;
     }
   }
 
