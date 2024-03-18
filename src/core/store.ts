@@ -54,6 +54,10 @@ class Store extends EventBus {
     localStorage.clear();
   }
 
+  public clearCurrentChat() {
+    delete this.state.currentChat;
+  }
+
   private updateState(path: string, value: unknown) {
     this.state = setObjectValue(this.state, path, value);
 

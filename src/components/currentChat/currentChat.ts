@@ -36,6 +36,7 @@ export default class CurrentChat extends Block {
     const state = store.getState();
 
     if (!state.currentChat) {
+      chatRoot.innerHTML = '';
       return;
     }
 
