@@ -23,7 +23,7 @@ export default class UserPic extends Block {
     /* eslint no-new: 0 */
 
     new Modal({
-      fileInput: new Input({
+      fileInput: new Input('div', {
         name: 'avatar',
         text: 'Choose file on PC',
         upload: true,
@@ -41,3 +41,4 @@ export default class UserPic extends Block {
     });
   }
 }
+

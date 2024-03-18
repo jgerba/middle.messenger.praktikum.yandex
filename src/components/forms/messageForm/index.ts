@@ -20,7 +20,7 @@ const ConnectedChatHead = connect(MessageForm, checkChat);
 
 export default new ConnectedChatHead('form', {
   messageDropdown,
-  messageInput: new ValidationInput({
+  messageInput: new ValidationInput('div', {
     name: 'message',
     text: 'Message',
     centeredInput: true,
@@ -30,3 +30,4 @@ export default new ConnectedChatHead('form', {
   sendIcon: sendSvg,
   attr: { class: 'message-form' },
 });
+

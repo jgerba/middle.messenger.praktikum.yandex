@@ -44,7 +44,7 @@ export default class HeaderDropdown extends Dropdown {
     /* eslint no-new: 0 */
 
     new Modal({
-      textInput: new FormInput({
+      textInput: new FormInput('div', {
         name: 'login',
         text: 'Login',
         attr: { class: 'input-wrapper ' },
@@ -60,3 +60,4 @@ export default class HeaderDropdown extends Dropdown {
     });
   }
 }
+

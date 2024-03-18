@@ -2,8 +2,8 @@ import tpl from './input.hbs?raw';
 import Block, { PropsType } from '../../core/block.js';
 
 export default class Input extends Block {
-  constructor(props: PropsType) {
-    super('div', props);
+  constructor(tagName: string, props: PropsType) {
+    super(tagName, props);
   }
 
   render(): DocumentFragment {
@@ -14,3 +14,4 @@ export default class Input extends Block {
     return this.compile(tpl, propsToRender);
   }
 }
+

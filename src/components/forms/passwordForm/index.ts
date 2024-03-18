@@ -4,20 +4,20 @@ import Input from '../../inputs/input.ts';
 import PasswordForm from './passwordForm.ts';
 
 export default new PasswordForm({
-  oldPassInput: new Input({
+  oldPassInput: new Input('div', {
     name: 'oldPassword',
     text: 'Old password',
     type: 'password',
     attr: { class: 'input-wrapper' },
   }),
-  newPassInput: new FormInput({
+  newPassInput: new FormInput('div', {
     name: 'newPassword',
     text: 'New password',
     type: 'password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
-  confirmPassInput: new FormInput({
+  confirmPassInput: new FormInput('div', {
     name: 'password-confirm',
     text: 'Confirm password',
     type: 'password',
@@ -34,3 +34,4 @@ export default new PasswordForm({
     title: 'Change password',
   },
 });
+

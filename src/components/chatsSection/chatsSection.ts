@@ -87,7 +87,7 @@ export default class ChatsSection extends Block {
     /* eslint no-new: 0 */
 
     new Modal({
-      textInput: new FormInput({
+      textInput: new FormInput('div', {
         name: 'title',
         text: 'Chat title',
         attr: { class: 'input-wrapper ' },
@@ -111,3 +111,4 @@ export default class ChatsSection extends Block {
     store.getRouter().go('/settings');
   }
 }
+

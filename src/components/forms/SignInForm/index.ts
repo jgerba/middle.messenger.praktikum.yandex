@@ -3,13 +3,13 @@ import FormInput from '../../inputs/formInput.ts';
 import SignInForm from './signInForm.ts';
 
 export default new SignInForm({
-  nameInput: new FormInput({
+  nameInput: new FormInput('div', {
     name: 'login',
     text: 'Login',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper ' },
   }),
-  passInput: new FormInput({
+  passInput: new FormInput('div', {
     name: 'password',
     text: 'Password',
     type: 'password',
@@ -28,3 +28,4 @@ export default new SignInForm({
   }),
   attr: { class: 'form' },
 });
+

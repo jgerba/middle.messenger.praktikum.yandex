@@ -2,10 +2,10 @@ import { PropsType } from '../../core/block.js';
 import Input from './input.ts';
 
 export default class ValidationInput extends Input {
-  constructor(props: PropsType) {
+  constructor(tagName: string, props: PropsType) {
     const onBlur = () => this.validateInput.bind(this)();
 
-    super({
+    super(tagName, {
       ...props,
       events: {
         ...(props.events as { [key: string]: () => void }),
@@ -90,3 +90,4 @@ export default class ValidationInput extends Input {
     errorEl.innerText = errorMessage;
   }
 }
+
