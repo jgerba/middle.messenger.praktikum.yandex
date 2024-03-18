@@ -55,7 +55,7 @@ export default class HeaderDropdown extends Dropdown {
       textInput: new FormInput('div', {
         name: type === 'Remove chat' ? 'chatId' : 'login',
         text: type === 'Remove chat' ? 'Chat ID' : 'Login',
-        attr: { class: 'input-wrapper ' },
+        attr: { class: type === 'Remove chat' ? 'hidden' : 'input-wrapper ' },
       }),
       submitBtn: new Button({
         text: type === 'Add' ? type : 'Remove',
