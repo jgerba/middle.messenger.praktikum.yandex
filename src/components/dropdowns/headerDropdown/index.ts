@@ -21,5 +21,7 @@ export default new HeaderDropdown({
   }),
 
   btnIcon,
+  attr: { class: 'dropdown-root' },
   events: {},
 });
+

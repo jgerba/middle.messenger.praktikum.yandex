@@ -29,6 +29,7 @@ export default new MessageDropdown({
   }),
 
   btnIcon,
+  attr: { class: 'dropdown-root' },
   events: {},
 });
 

@@ -1,3 +1,7 @@
+.dropdown-root {
+  display: flex;
+}
+
 .dropdown {
   position: absolute;
   padding: 15px;
@@ -26,3 +30,4 @@
   left: -8px;
   top: -128px;
 }
+

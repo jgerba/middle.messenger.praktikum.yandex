@@ -1,5 +1,6 @@
 .message-form {
   display: flex;
+  align-items: center;
   position: absolute;
   bottom: 0px;
   width: 80%;
@@ -33,11 +34,14 @@
     }
   }
 
+  .dropdown-root {
+    margin-right: 10px;
+  }
+
   &__dropdown-btn {
     position: relative;
     width: 32px;
     height: 32px;
-    right: 10px;
   }
 
   &__send-btn {
@@ -47,3 +51,4 @@
     left: 10px;
   }
 }
+
