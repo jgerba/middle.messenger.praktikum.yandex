@@ -1,5 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 import WSTransport from '../core/WSTransport.ts';
+import { BASE_URL } from '../core/const.ts';
+
 import store from '../core/store.ts';
 
 type IndexedType = {
@@ -8,7 +10,7 @@ type IndexedType = {
 
 type DataType = { [key: string]: Record<string, string> | FormData | string };
 
-const chatApi = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
+const chatApi = new HTTPTransport(`${BASE_URL}/chats`);
 
 class WSApi {
   socket: WSTransport;

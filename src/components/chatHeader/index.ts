@@ -1,5 +1,7 @@
 import ChatHeader from './chatHeader.ts';
 import connect from '../../core/connect.ts';
+import { BASE_URL } from '../../core/const.ts';
+
 import findValueByKey from '../../utils/findValueByKey.ts';
 
 import headerDropdown from '../dropdowns/headerDropdown/index.ts';
@@ -21,9 +23,7 @@ function getHeadData(state: IndexedType): PropsType {
   )! as PropValue;
 
   return {
-    avatar: avatar
-      ? `https://ya-praktikum.tech/api/v2/resources/${avatar}`
-      : fallbackImg,
+    avatar: avatar ? `${BASE_URL}/resources/${avatar}` : fallbackImg,
     title,
     // eslint-disable-next-line no-unneeded-ternary
     isInChat: state.currentChat ? true : false,

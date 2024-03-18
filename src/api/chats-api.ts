@@ -1,4 +1,5 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
+import { BASE_URL } from '../core/const.ts';
 
 type OptionsType = {
   [key: string]: Record<string, string> | FormData | string;
@@ -11,7 +12,7 @@ type AddUsersDataType = {
   };
 };
 
-const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/chats');
+const api = new HTTPTransport(`${BASE_URL}/chats`);
 
 class ChatsApi {
   async getChats() {

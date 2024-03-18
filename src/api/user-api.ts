@@ -1,10 +1,11 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
+import { BASE_URL } from '../core/const.ts';
 
 type OptionsType = {
   [key: string]: Record<string, string> | FormData | string;
 };
 
-const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
+const api = new HTTPTransport(`${BASE_URL}/user`);
 
 class UserApi {
   async changeUser(options: OptionsType) {

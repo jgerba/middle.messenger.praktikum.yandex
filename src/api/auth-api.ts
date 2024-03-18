@@ -1,8 +1,9 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
+import { BASE_URL } from '../core/const.ts';
 
 type OptionsType = { [key: string]: Record<string, string> };
 
-const api = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
+const api = new HTTPTransport(`${BASE_URL}/auth`);
 
 class AuthApi {
   async createUser(options: OptionsType) {
