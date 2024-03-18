@@ -40,6 +40,12 @@ class ChatsApi {
   async changeAvatar(options: AddUsersDataType) {
     return api.put('/avatar', options);
   }
+
+  async removeChat(options: AddUsersDataType) {
+    console.log(options);
+
+    return api.delete('', options);
+  }
 }
 
 export default new ChatsApi();

@@ -28,6 +28,9 @@ export default class HeaderDropdown extends Dropdown {
     (this.children.removeUserBtn as Block).addEvent('click', (event: Event) =>
       this.removeUserHandler.bind(this, event)(),
     );
+    (this.children.removeChatBtn as Block).addEvent('click', (event: Event) =>
+      this.removeChatHandler.bind(this, event)(),
+    );
   }
 
   addUserHandler(e: Event) {
@@ -40,24 +43,28 @@ export default class HeaderDropdown extends Dropdown {
     this.createModal('Remove');
   }
 
+  removeChatHandler(e: Event) {
+    e.stopPropagation();
+    this.createModal('Remove chat');
+  }
+
   createModal(type: string) {
     /* eslint no-new: 0 */
 
     new Modal({
       textInput: new FormInput('div', {
-        name: 'login',
-        text: 'Login',
+        name: type === 'Remove chat' ? 'chatId' : 'login',
+        text: type === 'Remove chat' ? 'Chat ID' : 'Login',
         attr: { class: 'input-wrapper ' },
       }),
       submitBtn: new Button({
-        text: type,
+        text: type === 'Add' ? type : 'Remove',
         attr: { class: 'btn', type: 'submit' },
       }),
 
-      modalHeader: `${type} user`,
+      modalHeader: type === 'Remove chat' ? type : `${type} user`,
       attr: { class: 'modal' },
       events: {},
     });
   }
 }
-

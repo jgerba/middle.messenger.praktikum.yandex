@@ -3,6 +3,7 @@ import HeaderDropdown from './headerDropdown.ts';
 import addSvg from './svg/add.svg';
 import removeSvg from './svg/remove.svg';
 import btnIcon from './svg/dots.svg';
+import removeChatSvg from './svg/remove-chat.svg';
 
 export default new HeaderDropdown({
   addUserBtn: new DropdownOption({
@@ -19,9 +20,15 @@ export default new HeaderDropdown({
     attr: { class: 'dropdown-option' },
     events: {},
   }),
+  removeChatBtn: new DropdownOption({
+    alt: 'Remove chat',
+    text: 'Remove chat',
+    icon: removeChatSvg,
+    attr: { class: 'dropdown-option' },
+    events: {},
+  }),
 
   btnIcon,
   attr: { class: 'dropdown-root' },
   events: {},
 });
-

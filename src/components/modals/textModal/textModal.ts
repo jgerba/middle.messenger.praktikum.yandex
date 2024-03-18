@@ -5,6 +5,10 @@ import chatsController from '../../../controllers/chats-controller.js';
 import userController from '../../../controllers/user-controller.js';
 import store from '../../../core/store.js';
 
+type IndexedType = {
+  [key: string]: string | number | IndexedType;
+};
+
 export default class textModal extends Modal {
   render(): DocumentFragment {
     // remove events & attr data from props
@@ -24,21 +28,25 @@ export default class textModal extends Modal {
       return;
     }
 
-    const titleVal = { title: input.element!.querySelector('input')!.value };
+    const inputData = { title: input.element!.querySelector('input')!.value };
     const modalTitle = this.props.modalHeader as string;
 
-    console.log(modalTitle, titleVal);
+    console.log(modalTitle, inputData);
 
     if (modalTitle.includes('Add user')) {
-      this.userHandler(titleVal);
+      this.userHandler(inputData);
       return;
     }
     if (modalTitle.includes('Remove user')) {
-      this.userHandler(titleVal, false);
+      this.userHandler(inputData, false);
+      return;
+    }
+    if (modalTitle.includes('Remove chat')) {
+      this.chatRemoveHandler();
       return;
     }
 
-    const status = await chatsController.createChat({ data: titleVal });
+    const status = await chatsController.createChat({ data: inputData });
     status === 200 ? this.closeModal() : this.handleError();
   }
 
@@ -68,12 +76,20 @@ export default class textModal extends Modal {
       : (status = await chatsController.removeUsers(dataToSend));
 
     status === 200 ? this.closeModal() : this.handleError();
+  }
 
-    this.closeModal();
+  async chatRemoveHandler() {
+    const state = store.getState();
+    const currentId = (state.currentChat as IndexedType).id as number;
+
+    const status = await chatsController.removeChat({
+      data: { chatId: currentId },
+    });
+
+    status === 200 ? this.closeModal() : this.handleError();
   }
 
   handleError() {
     console.log('Error handling...');
   }
 }
-

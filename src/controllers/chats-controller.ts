@@ -122,10 +122,29 @@ class ChatsController {
   }
 
   async changeAvatar(submitData: AddUsersDataType) {
-    console.log(submitData);
-
     try {
       const { status, response }: ResponseType = (await chatApi.changeAvatar(
+        submitData,
+      )) as ResponseType;
+      console.log(status, response);
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      this.getChats();
+
+      return status;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removeChat(submitData: AddUsersDataType) {
+    try {
+      const { status, response }: ResponseType = (await chatApi.removeChat(
         submitData,
       )) as ResponseType;
       console.log(status, response);
