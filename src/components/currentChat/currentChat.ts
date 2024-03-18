@@ -58,7 +58,7 @@ export default class CurrentChat extends Block {
         const isPersonalMsg =
           message.user_id === (state.user as IndexedType).id;
 
-        chatRoot.append(
+        chatRoot.prepend(
           new Message({
             content: message.content,
             time: formatDate(message.time as string),
