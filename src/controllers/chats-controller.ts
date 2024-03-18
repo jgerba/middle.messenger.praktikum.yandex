@@ -3,10 +3,12 @@ import store from '../core/store.ts';
 
 type DataType = { [key: string]: Record<string, string> | FormData | string };
 type AddUsersDataType = {
-  data: {
-    users: number[];
-    chatId: number;
-  };
+  data:
+    | {
+        users?: number[];
+        chatId: number;
+      }
+    | FormData;
 };
 type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
@@ -89,7 +91,28 @@ class ChatsController {
       console.log(error);
     }
   }
+
+  async changeAvatar(submitData: AddUsersDataType) {
+    console.log(submitData);
+
+    try {
+      const { status, response }: ResponseType = (await chatApi.changeAvatar(
+        submitData,
+      )) as ResponseType;
+      console.log(status, response);
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      this.getChats();
+      return status;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new ChatsController();
-

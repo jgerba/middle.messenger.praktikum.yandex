@@ -6,10 +6,12 @@ type OptionsType = {
 };
 
 type AddUsersDataType = {
-  data: {
-    users: number[];
-    chatId: number;
-  };
+  data:
+    | {
+        users?: number[];
+        chatId: number;
+      }
+    | FormData;
 };
 
 const api = new HTTPTransport(`${BASE_URL}/chats`);
@@ -33,6 +35,10 @@ class ChatsApi {
 
   async removeUsers(options: AddUsersDataType) {
     return api.delete('/users', options);
+  }
+
+  async changeAvatar(options: AddUsersDataType) {
+    return api.put('/avatar', options);
   }
 }
 
