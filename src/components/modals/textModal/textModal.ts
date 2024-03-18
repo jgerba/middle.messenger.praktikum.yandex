@@ -14,7 +14,7 @@ export default class textModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const input = this.children.textInput as ValidationInput;
@@ -38,7 +38,8 @@ export default class textModal extends Modal {
       return;
     }
 
-    chatsController.createChat({ data: titleVal });
+    const status = await chatsController.createChat({ data: titleVal });
+    status === 200 ? this.closeModal() : this.handleError();
   }
 
   async userHandler(data: { [key: string]: string }, isAdd: boolean = true) {
@@ -47,6 +48,7 @@ export default class textModal extends Modal {
     })) as unknown;
 
     if (!user) {
+      this.handleError();
       return;
     }
 
@@ -59,11 +61,19 @@ export default class textModal extends Modal {
       },
     };
 
-    if (isAdd) {
-      chatsController.addUsers(dataToSend);
-      return;
-    }
+    let status;
 
-    chatsController.removeUsers(dataToSend);
+    isAdd
+      ? (status = await chatsController.addUsers(dataToSend))
+      : (status = await chatsController.removeUsers(dataToSend));
+
+    status === 200 ? this.closeModal() : this.handleError();
+
+    this.closeModal();
+  }
+
+  handleError() {
+    console.log('Error handling...');
   }
 }
+

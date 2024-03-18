@@ -33,20 +33,23 @@ class ChatsController {
   }
 
   async createChat(data: DataType) {
-    chatApi
-      .createChat(data)
-      .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
+    try {
+      const { status, response }: ResponseType = (await chatApi.createChat(
+        data,
+      )) as ResponseType;
+      console.log(status, response);
 
-        if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
-        }
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
 
-        this.getChats();
-      })
-      .catch((error) => console.log(error));
+      this.getChats();
+      return status;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async addUsers(submitData: AddUsersDataType) {
@@ -61,6 +64,8 @@ class ChatsController {
           `${status} ${(response as { [key: string]: string }).reason}`,
         );
       }
+
+      return status;
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +83,8 @@ class ChatsController {
           `${status} ${(response as { [key: string]: string }).reason}`,
         );
       }
+
+      return status;
     } catch (error) {
       console.log(error);
     }
@@ -85,3 +92,4 @@ class ChatsController {
 }
 
 export default new ChatsController();
+
