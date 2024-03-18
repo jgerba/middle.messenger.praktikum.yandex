@@ -27,20 +27,23 @@ class UserController {
   }
 
   async changeAvatar(submitData: DataType) {
-    userApi
-      .changeAvatar(submitData)
-      .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
+    try {
+      const { status, response }: ResponseType = (await userApi.changeAvatar(
+        submitData,
+      )) as ResponseType;
+      console.log(status, response);
 
-        if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
-        }
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
 
-        store.setState('user', response);
-      })
-      .catch((error) => console.log(error));
+      store.setState('user', response);
+      return status;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async changePassword(submitData: DataType) {

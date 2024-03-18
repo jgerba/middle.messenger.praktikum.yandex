@@ -47,14 +47,20 @@ export default class FileModal extends Modal {
   submitHandler(event: SubmitEvent) {
     super.submitHandler(event);
 
-    const inputFiles = (event.target as HTMLFormElement).avatar.files;
+    const inputFiles: FileList = (event.target as HTMLFormElement).avatar.files;
 
     if (inputFiles.length === 0) {
       console.log('No files');
       return;
     }
 
+    this.fetchHandler(inputFiles);
+  }
+
+  async fetchHandler(inputFiles: FileList) {
     const formData = new FormData();
+    let status: number;
+
     formData.append('avatar', inputFiles[0]);
 
     if (this.origin === 'chat') {
@@ -62,9 +68,20 @@ export default class FileModal extends Modal {
         .id;
 
       formData.append('chatId', chatId.toString());
-      chatsController.changeAvatar({ data: formData });
-      return;
+
+      status = (await chatsController.changeAvatar({
+        data: formData,
+      })) as number;
+    } else {
+      status = (await userController.changeAvatar({
+        data: formData,
+      })) as number;
     }
-    userController.changeAvatar({ data: formData });
+
+    status === 200 ? this.closeModal() : this.handleError();
+  }
+
+  handleError() {
+    console.log('Error handling...');
   }
 }
