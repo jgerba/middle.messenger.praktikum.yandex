@@ -1,12 +1,16 @@
-.userpic {
+.avatar-pic {
   align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 130px;
-  height: 130px;
+
   border-radius: 50%;
   background-color: $back-el-color;
+}
+
+.userpic {
+  width: 130px;
+  height: 130px;
 
   &__text {
     display: none;
@@ -31,4 +35,12 @@
       display: block;
     }
   }
+}
+
+.chatpic,
+.chatpic img {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
 }

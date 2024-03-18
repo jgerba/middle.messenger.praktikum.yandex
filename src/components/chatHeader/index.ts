@@ -7,6 +7,7 @@ import findValueByKey from '../../utils/findValueByKey.ts';
 import headerDropdown from '../dropdowns/headerDropdown/index.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
 import { PropValue, PropsType } from '../../core/block.ts';
+import chatPic from '../avatarInput/chatPic-index.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
@@ -33,6 +34,7 @@ function getHeadData(state: IndexedType): PropsType {
 const ConnectedChatHead = connect(ChatHeader, getHeadData);
 
 export default new ConnectedChatHead('header', {
+  chatPic,
   headerDropdown,
   attr: { class: 'chat-header' },
 });

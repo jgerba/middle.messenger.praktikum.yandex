@@ -2,11 +2,17 @@ import tpl from './fileModal.hbs?raw';
 import Modal from '../modal.ts';
 import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
 import userController from '../../../controllers/user-controller.ts';
+import store from '../../../core/store.ts';
+import chatsController from '../../../controllers/chats-controller.ts';
 
 export default class FileModal extends Modal {
+  // define origin of modal: chat/user
+  origin: string;
+
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
+    this.origin = props.origin as string;
     this.initFileInput();
   }
 
@@ -51,6 +57,14 @@ export default class FileModal extends Modal {
     const formData = new FormData();
     formData.append('avatar', inputFiles[0]);
 
+    if (this.origin === 'chat') {
+      const chatId = (store.getState().currentChat as { [key: string]: number })
+        .id;
+
+      formData.append('chatId', chatId.toString());
+      chatsController.changeAvatar({ data: formData });
+      return;
+    }
     userController.changeAvatar({ data: formData });
   }
 }

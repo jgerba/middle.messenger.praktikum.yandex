@@ -1,14 +1,20 @@
-import tpl from './userPic.hbs?raw';
+import tpl from './avatarInput.hbs?raw';
 import Block, { ChildrenType, PropsType } from '../../core/block.js';
 import Modal from '../modals/fileModal/fileModal.ts';
 import Button from '../button/button.ts';
 import Input from '../inputs/input.ts';
 
-export default class UserPic extends Block {
+export default class AvatarInput extends Block {
+  isChatAvatar: boolean;
+
   constructor(tagName: string, props: PropsType | ChildrenType) {
     const onOpenModal = () => this.openModal.bind(this)();
 
     super(tagName, { ...props, events: { click: onOpenModal } });
+
+    this.isChatAvatar = (
+      props.attr as { [key: string]: string }
+    ).class.includes('chatpic');
   }
 
   render(): DocumentFragment {
@@ -21,6 +27,10 @@ export default class UserPic extends Block {
 
   openModal() {
     /* eslint no-new: 0 */
+
+    // use to define endpoint for pic upload
+    let origin;
+    this.isChatAvatar ? (origin = 'chat') : (origin = 'user');
 
     new Modal({
       fileInput: new Input('div', {
@@ -36,9 +46,9 @@ export default class UserPic extends Block {
         attr: { class: 'btn', type: 'submit' },
       }),
 
+      origin,
       attr: { class: 'modal' },
       events: {},
     });
   }
 }
-

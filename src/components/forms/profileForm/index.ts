@@ -12,7 +12,9 @@ type IndexedType = {
 function getDefaultVal(state: IndexedType, type: string): PropsType {
   const user = state.user as IndexedType;
 
-  return { value: (user[type] as string) || '' };
+  return {
+    value: user && (user[type] as string) ? (user[type] as string) : '',
+  };
 }
 
 function createNewInput(type: string, props: PropsType) {
@@ -72,4 +74,3 @@ export default new ProfileForm({
     title: 'Change profile',
   },
 });
-
