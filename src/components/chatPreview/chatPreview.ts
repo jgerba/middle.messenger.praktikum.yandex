@@ -1,11 +1,7 @@
 import tpl from './chatPreview.hbs?raw';
-import Block, { PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
 
 export default class ChatPreview extends Block {
-  constructor(tagName: string, props: PropsType) {
-    super(tagName, props);
-  }
-
   render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -18,6 +18,8 @@ type IndexedType = {
   [key: string]: string | number | IndexedType;
 };
 
+/* eslint consistent-return:0 */
+
 class ChatsController {
   // to do - set chats offset & limit
 
@@ -50,8 +52,6 @@ class ChatsController {
             (state.currentChat as IndexedType).avatar !==
               (sameChat[0] as IndexedType).avatar
           ) {
-            console.log(sameChat);
-
             store.setState('currentChat', {
               avatar: (sameChat[0] as IndexedType).avatar,
             });
@@ -156,6 +156,7 @@ class ChatsController {
       }
 
       this.getChats();
+      store.clearCurrentChat();
 
       return status;
     } catch (error) {

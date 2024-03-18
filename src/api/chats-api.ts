@@ -42,8 +42,6 @@ class ChatsApi {
   }
 
   async removeChat(options: AddUsersDataType) {
-    console.log(options);
-
     return api.delete('', options);
   }
 }
