@@ -14,6 +14,10 @@ type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
 
+type IndexedType = {
+  [key: string]: string | number | IndexedType;
+};
+
 class ChatsController {
   // to do - set chats offset & limit
 
@@ -30,6 +34,31 @@ class ChatsController {
         }
 
         store.setState('chats', response);
+
+        const state = store.getState();
+
+        if (state.currentChat) {
+          const currentId = (state.currentChat as IndexedType).id;
+          const storedChats = state.chats as unknown;
+
+          const sameChat = (storedChats as IndexedType[]).filter(
+            (chat) => chat.id === currentId,
+          );
+
+          if (
+            sameChat ||
+            (state.currentChat as IndexedType).avatar !==
+              (sameChat[0] as IndexedType).avatar
+          ) {
+            console.log(sameChat);
+
+            store.setState('currentChat', {
+              avatar: (sameChat[0] as IndexedType).avatar,
+            });
+          }
+        }
+
+        return response;
       })
       .catch((error) => console.log(error));
   }
@@ -108,6 +137,7 @@ class ChatsController {
       }
 
       this.getChats();
+
       return status;
     } catch (error) {
       console.log(error);
