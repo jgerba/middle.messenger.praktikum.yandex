@@ -4,7 +4,7 @@ import store from '../core/store.ts';
 type DataType = { [key: string]: Record<string, string> | FormData | string };
 type AddUsersDataType = {
   data: {
-    users: number[]; // Тип для users изменен с any[] на number[]
+    users: number[];
     chatId: number;
   };
 };

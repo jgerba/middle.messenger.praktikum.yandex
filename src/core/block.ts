@@ -50,7 +50,7 @@ export default class Block {
     this._id = makeId();
 
     this.props = this._makePropsProxy({ ...props, _id: this._id });
-    this.children = this._makePropsProxy(children); // need to make proxy
+    this.children = this._makePropsProxy(children); // need to make proxy?
 
     this.eventBus = new EventBus();
     this._registerEvents(this.eventBus);

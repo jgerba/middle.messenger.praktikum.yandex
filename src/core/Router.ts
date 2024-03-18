@@ -16,26 +16,27 @@ export default class Router {
   constructor(rootId: string = 'app-root') {
     if (Router.__instance) {
       // eslint-disable-next-line no-constructor-return
-      return Router.__instance; // Реализация паттерна "Singleton"
+      return Router.__instance; // singltone realisation
     }
 
-    Router.__instance = this; // Сохранение экземпляра Router
+    // save Router instance
+    Router.__instance = this;
 
-    this.routes = []; // Список маршрутов
-    this.history = window.history; // Интерфейс для работы с историей браузера
-    this._currentRoute = null; // Текущий активный маршрут
-    this.rootId = rootId; // Селектор корневого элемента для отрисовки
+    this.routes = []; // routes list
+    this.history = window.history; // browser history interface
+    this._currentRoute = null; // current active route
+    this.rootId = rootId; // root el for render
   }
 
-  // Метод для добавления маршрута
+  // add route method
   use(pathname: string, block: Block) {
     const route = new Route(pathname, block, this.rootId!);
 
     this.routes.push(route);
-    return this; // Возврат экземпляра Router для цепочечного вызова
+    return this; // возврат экземпляра Router для цепочечного вызова ??
   }
 
-  // Метод для запуска Router и отслеживания изменений URL
+  // start Router & handle URL changes
   start() {
     window.onpopstate = (event: PopStateEvent) => {
       this._onRoute((event.currentTarget as Window).location.pathname);
@@ -44,7 +45,7 @@ export default class Router {
     this._onRoute(window.location.pathname);
   }
 
-  // Внутренний метод для обработки перехода на новый маршрут
+  // inner method for route handle
   _onRoute(pathname: string) {
     let route = this.getRoute(pathname);
 
@@ -52,34 +53,33 @@ export default class Router {
       route = this.getRoute('/404')!;
     }
 
-    // Вызов leave у текущего маршрута
+    // leave current route
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
 
     this._currentRoute = route;
-    // Отрисовка нового маршрута
-    // route.render(route, pathname); ???
+    // render route
     route.render();
   }
 
-  // Метод для перехода на указанный маршрут
+  // go to new selected route
   go(pathname: string) {
     this.history!.pushState({}, pathname, pathname);
-    this._onRoute(pathname); // Обработка перехода
+    this._onRoute(pathname); // handle routing
   }
 
-  // Метод для возврата на предыдущий маршрут
+  // return prev route handler
   back() {
     this.history!.back();
   }
 
-  // Метод для перехода на следующий маршрут
+  // forw route handler
   forward() {
     this.history!.forward();
   }
 
-  // Вспомогательный метод для получения маршрута по указанному пути
+  // вспомогательный метод для получения маршрута по указанному пути ??
   getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
   }

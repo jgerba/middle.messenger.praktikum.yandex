@@ -77,7 +77,7 @@ export default class WSTransport extends EventBus {
 
       let dataToStore = data;
 
-      // временное решение для нового сообщения
+      // временное решение для нового сообщения ??
       if (dataToStore.id) {
         const state = store.getState();
         const currentMessages = (state.currentChat as IndexedType)
