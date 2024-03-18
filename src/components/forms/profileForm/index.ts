@@ -1,58 +1,64 @@
 import ProfileForm from './profileForm.ts';
+import connect from '../../../core/connect.ts';
 
 import Button from '../../button/button.ts';
 import FormInput from '../../inputs/formInput.ts';
-
-import store from '../../../core/store.ts';
+import { PropsType } from '../../../core/block.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;
 };
 
-const user = store.getState().user as IndexedType | undefined;
+function getDefaultVal(state: IndexedType, type: string): PropsType {
+  const user = state.user as IndexedType;
+
+  return { value: (user[type] as string) || '' };
+}
+
+function createNewInput(type: string, props: PropsType) {
+  const ConnectedInput = connect(FormInput, (state) =>
+    getDefaultVal(state, type),
+  );
+
+  return new ConnectedInput('div', props);
+}
 
 export default new ProfileForm({
-  emailInput: new FormInput({
+  emailInput: createNewInput('email', {
     name: 'email',
     text: 'Email',
     type: 'email',
-    value: (user?.email as string) || '',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
     attr: { class: 'input-wrapper' },
   }),
-  loginInput: new FormInput({
+  loginInput: createNewInput('login', {
     name: 'login',
     text: 'Login',
-    value: (user?.login as string) || '',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
-  nameInput: new FormInput({
+  nameInput: createNewInput('first_name', {
     name: 'first_name',
     text: 'Name',
-    value: (user?.first_name as string) || '',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  surnameInput: new FormInput({
+  surnameInput: createNewInput('second_name', {
     name: 'second_name',
     text: 'Surname',
-    value: (user?.second_name as string) || '',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
-  displayNameInput: new FormInput({
+  displayNameInput: createNewInput('display_name', {
     name: 'display_name',
     text: 'Username',
-    value: (user?.display_name as string) || '',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
-  phoneInput: new FormInput({
+  phoneInput: createNewInput('phone', {
     name: 'phone',
     text: 'Phone',
     type: 'phone',
-    value: (user?.phone as string) || '',
     regExpString: '^\\+?\\d{10,15}$',
     attr: { class: 'input-wrapper' },
   }),
@@ -66,3 +72,4 @@ export default new ProfileForm({
     title: 'Change profile',
   },
 });
+
