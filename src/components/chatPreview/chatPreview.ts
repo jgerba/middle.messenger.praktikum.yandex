@@ -2,8 +2,8 @@ import tpl from './chatPreview.hbs?raw';
 import Block, { PropsType } from '../../core/block.js';
 
 export default class ChatPreview extends Block {
-  constructor(props: PropsType) {
-    super('article', props);
+  constructor(tagName: string, props: PropsType) {
+    super(tagName, props);
   }
 
   render(): DocumentFragment {

@@ -9,6 +9,7 @@ import Modal from '../modals/textModal/textModal.ts';
 import FormInput from '../inputs/formInput.ts';
 import Button from '../button/button.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
+import { BASE_URL } from '../../core/const.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
@@ -50,8 +51,10 @@ export default class ChatsSection extends Block {
 
     (chatsData as PropsType[]).forEach((chat) => {
       previewRoot.append(
-        new ChatPreview({
-          avatar: chat.avatar || fallbackImg,
+        new ChatPreview('article', {
+          avatar: (chat.avatar as string)
+            ? `${BASE_URL}/resources/${chat.avatar}`
+            : fallbackImg,
           title: chat.title,
           time: (chat.last_message as PropsType)
             ? formatDate((chat.last_message as PropsType).time as string)
@@ -81,6 +84,8 @@ export default class ChatsSection extends Block {
       store.setState('currentChat', { id: chatId });
       WSController.connect({ chatId });
     }
+
+    console.log(store.getState().currentChat);
   }
 
   openCreateModal() {
@@ -111,4 +116,3 @@ export default class ChatsSection extends Block {
     store.getRouter().go('/settings');
   }
 }
-
