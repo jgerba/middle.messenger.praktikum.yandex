@@ -1,31 +1,50 @@
+import { PropValue, PropsType } from '../../core/block.ts';
+import connect from '../../core/connect.ts';
+import findValueByKey from '../../utils/findValueByKey.ts';
 import Button from '../button/button.ts';
 import ProfileField from '../profileField/profileField.ts';
 import Profile from './profile.ts';
 
+type IndexedType = {
+  [key: string]: string | number | IndexedType;
+};
+
+function getFieldData(state: IndexedType, fieldType: string): PropsType {
+  const stateValue = findValueByKey(state, fieldType) as PropValue;
+
+  return {
+    text: stateValue || '-',
+  };
+}
+
+/* eslint-disable no-shadow */
+function createNewConnectedField(fieldType: string, props: PropsType) {
+  const ConnectedField = connect(ProfileField, (state) =>
+    getFieldData(state, fieldType),
+  ) as { new (tagName: string, props: PropsType): ProfileField };
+
+  return new ConnectedField('div', props);
+}
+
 export default new Profile({
-  emailField: new ProfileField({
+  emailField: createNewConnectedField('email', {
     header: 'Email',
-    text: 'email@email.ru',
     attr: { class: 'profile-field' },
   }),
-  loginField: new ProfileField({
+  loginField: createNewConnectedField('login', {
     header: 'Login',
-    text: 'Some login',
     attr: { class: 'profile-field' },
   }),
-  nameField: new ProfileField({
+  nameField: createNewConnectedField('first_name', {
     header: 'Name',
-    text: 'Some name',
     attr: { class: 'profile-field' },
   }),
-  surnameField: new ProfileField({
+  surnameField: createNewConnectedField('second_name', {
     header: 'Surname',
-    text: 'Some surname',
     attr: { class: 'profile-field' },
   }),
-  phoneField: new ProfileField({
+  phoneField: createNewConnectedField('phone', {
     header: 'Phone',
-    text: '111-111-11',
     attr: { class: 'profile-field' },
   }),
 
@@ -50,7 +69,7 @@ export default new Profile({
   logOutBtn: new Button({
     text: 'Log Out',
     attr: {
-      class: 'btn btn--warning form--profile__btn',
+      class: 'btn form--profile__btn btn--warning ',
       type: 'button',
       title: 'Log out',
     },

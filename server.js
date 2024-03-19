@@ -12,7 +12,5 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  /* eslint no-console: 0 */
-
   console.log(`Server is up on port ${port}`);
 });

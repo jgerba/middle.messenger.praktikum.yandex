@@ -1,26 +1,25 @@
 .chat-header {
-    position: relative;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid $borders-color;
+  background-color: $white-color;
+  z-index: 10;
+
+  &__title-wrapper {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid $borders-color;
+    align-items: center;
+    gap: 10px;
+  }
 
-    &__title-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+  &__icon {
+    position: relative;
+    top: 2px;
+  }
 
-    &__avatar {
-        width: 34px;
-        height: 34px;
-        border-radius: 50px;
-        background-color: $back-el-color;
-    }
-
-    &__icon {
-        position: relative;
-        top: 2px;
-    }
+  &__dropdown-btn {
+    width: 30px;
+  }
 }

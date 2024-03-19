@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: Inter;
-  src: url('../../static/fonts/Inter-Medium.woff2');
+  src: url('../static/fonts/Inter-Medium.woff2');
 }
 
 * {
@@ -32,29 +32,10 @@ a:active {
   text-decoration: none;
 }
 
-// temp style
-
-.nav {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  /* stylelint */
-  z-index: 10;
-}
-
-.nav__links {
-  display: flex;
-  justify-content: space-around;
-  width: 500px;
-  list-style: none;
-
-  & a {
-    color: $highlight-color;
-  }
-}
-
 .hidden {
   display: none;
+}
+
+.active {
+  filter: invert(100%);
 }

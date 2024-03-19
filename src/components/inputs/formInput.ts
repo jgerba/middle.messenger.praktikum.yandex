@@ -2,10 +2,10 @@ import { PropsType } from '../../core/block.js';
 import ValidationInput from './validationInput.js';
 
 export default class FormInput extends ValidationInput {
-  constructor(props: PropsType) {
+  constructor(tagName: string, props: PropsType) {
     const onFocus = () => this.toggleLabel.bind(this)();
 
-    super({
+    super(tagName, {
       ...props,
       events: { focusin: onFocus, focusout: onFocus },
     });
@@ -18,3 +18,4 @@ export default class FormInput extends ValidationInput {
     labelEl.classList.toggle('label--hidden');
   }
 }
+

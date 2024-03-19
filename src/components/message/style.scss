@@ -1,32 +1,38 @@
 .message {
-    position: relative;
-    align-self: flex-start;
-    width: 402px;
-    padding: 11px;
-    font-size: 12px;
-    border-radius: 12px;
-    background-color: $back-message-color;
+  position: relative;
+  align-self: flex-start;
+  min-width: 200px;
+  max-width: 70%;
+  padding: 11px;
+  font-size: 12px;
+  border-radius: 12px;
+  background-color: $back-message-color;
 
-    &__time {
-        position: absolute;
-        right: 6px;
-        bottom: 6px;
-        font-size: 9px;
-        color: $back-text-color;
-    }
+  &__time {
+    position: absolute;
+    right: 6px;
+    bottom: 3px;
+    font-size: 9px;
+    color: $back-text-color;
+  }
 
-    &__is-read-icon {
-        position: absolute;
-        right: 33px;
-        bottom: 8px;
-    }
+  &__is-read-icon {
+    position: absolute;
+    right: 33px;
+    bottom: 8px;
+  }
+
+  &__text {
+    // overflow-wrap: break-word;
+    word-break: break-all;
+  }
 }
 
 .personal-message {
-    align-self: flex-end;
-    background-color: $personal-message-color;
+  align-self: flex-end;
+  background-color: $personal-message-color;
 
-    .message__time {
-        color: $highlight-color;
-    }
+  .message__time {
+    color: $highlight-color;
+  }
 }

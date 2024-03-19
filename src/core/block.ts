@@ -4,21 +4,19 @@ import EventBus from './event-bus.ts';
 
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 
-export type PropsType = Record<
-  string,
-  | string
-  | Record<string, () => void>
-  | Record<string, () => boolean>
-  | Record<string, string>
-  | boolean
-  | (() => void)
-  | HTMLElement
->;
-
 /* eslint no-use-before-define:0 */
-/* eslint @typescript-eslint/no-explicit-any:0 */
-// Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
-export type ChildrenType = Record<string, Block | Block[] | any>;
+export type PropValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | EventListener
+  | Record<string, string>
+  | Record<string, EventListener>
+  | Block;
+
+export type PropsType = Record<string, PropValue | PropValue[]>;
+export type ChildrenType = Record<string, Block | Block[]>;
 
 export default class Block {
   props: PropsType;
@@ -37,6 +35,7 @@ export default class Block {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   };
 
@@ -51,27 +50,28 @@ export default class Block {
     this._id = makeId();
 
     this.props = this._makePropsProxy({ ...props, _id: this._id });
-    this.children = this._makePropsProxy(children); // need to make proxy
+    this.children = this._makePropsProxy(children); // need to make proxy?
 
     this.eventBus = new EventBus();
     this._registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
   }
 
-  /* eslint class-methods-use-this:0 */
-  _getPropsAndChildren(propsAndChildren: ChildrenType): {
-    props: Record<string, string>;
+  _getPropsAndChildren(propsAndChildren: PropsType | ChildrenType): {
+    props: PropsType;
     children: ChildrenType;
   } {
-    const props: Record<string, string> = {};
+    const props: PropsType = {};
     const children: ChildrenType = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      // need to add children array checking
-
-      if (value instanceof Block) {
-        children[key] = value;
+      if (
+        value instanceof Block ||
+        (Array.isArray(value) && value.every((item) => item instanceof Block))
+      ) {
+        children[key] = value as Block;
       } else {
+        // Only assign to props if it's not a Block or Block[]
         props[key] = value;
       }
     });
@@ -79,28 +79,43 @@ export default class Block {
     return { props, children };
   }
 
-  _makePropsProxy(props: ChildrenType): ChildrenType {
+  _makePropsProxy<T extends object>(props: T): T {
     /* eslint @typescript-eslint/no-this-alias:0 */
 
+    // reference to the current Block instance for proxy
     const self = this;
 
-    return new Proxy<ChildrenType>(props, {
-      get(target: ChildrenType, prop: string) {
-        const value = target[prop];
+    // create new proxy obj. First arg - proxied obj, second - traps
+    return new Proxy<T>(props, {
+      // intercept props accesses
+      get(target: T, prop: string): unknown {
+        // get prop in a safe way
+        const value = Reflect.get(target, prop);
 
+        // if func - bind to the target obj
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: ChildrenType, prop: string, value: unknown): boolean {
-        /* eslint no-param-reassign:0 */
 
-        const oldProps = { ...target };
+      // intercept props assignments
+      set(target: T, prop: string, value: unknown): boolean {
+        // shallow copy of the target
+        const oldProps = { ...target }; // mb add deep copy
 
-        target[prop] = value; // new props
+        // set prop in a safe way, return bool on success
+        const success = Reflect.set(target, prop, value);
 
-        self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
-        return true;
+        if (success) {
+          // emit 'component-did-update' event
+          // "self" gives reference to current Block instance
+          // else "this" will give reference to proxy obj
+          self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+        }
+        return success;
       },
+
+      // intercept attemots to del props
       deleteProperty() {
+        // throw an error to prevent del
         throw new Error('нет доступа');
       },
     });
@@ -110,6 +125,7 @@ export default class Block {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -131,7 +147,6 @@ export default class Block {
 
   _render() {
     // console.log('render ' + this._meta.tagName);
-    /* eslint operator-linebreak:0 */
 
     const hasEvents =
       this.props.events && Object.keys(this.props.events).length > 0;
@@ -146,7 +161,7 @@ export default class Block {
     this._element!.appendChild(block);
 
     if (this.props.attr && Object.keys(this.props.attr).length > 0) {
-      this.setAttributes();
+      this.addAttributes();
     }
     if (hasEvents) {
       this._addEvents();
@@ -157,13 +172,16 @@ export default class Block {
     return new DocumentFragment();
   }
 
-  compile(tpl: string, props: PropsType | ChildrenType): DocumentFragment {
+  compile(tpl: string, props: PropsType): DocumentFragment {
     const hasChildren = Object.keys(this.children).length > 0;
 
     let propsCopy = { ...props, ...this.children };
 
     if (hasChildren) {
-      propsCopy = setStubs(this.children, propsCopy);
+      propsCopy = setStubs(
+        this.children,
+        propsCopy as PropsType | ChildrenType,
+      );
     }
 
     const fragment = document.createElement('template');
@@ -186,8 +204,8 @@ export default class Block {
     });
   }
 
-  addEvent(event: string, callback: () => void) {
-    (this.props.events as Record<string, () => void>)[event] = callback;
+  addEvent(event: string, callback: EventListener) {
+    (this.props.events as Record<string, EventListener>)[event] = callback;
     this._element!.addEventListener(event, callback);
   }
 
@@ -197,22 +215,34 @@ export default class Block {
     );
   }
 
-  setAttributes() {
+  removeEvent(event: string) {
+    const callback = (this.props.events as Record<string, EventListener>)[
+      event
+    ];
+
+    this._element!.removeEventListener(event, callback);
+  }
+
+  addAttributes() {
     Object.entries(this.props.attr).forEach(([attr, value]) => {
       this._element!.setAttribute(attr, value);
     });
   }
 
+  // logic after mounting
   _componentDidMount() {
     this.componentDidMount();
   }
 
+  // logic for subclasses
   componentDidMount() {}
 
+  // call after appending to a parent container in the DOM
+  // end of _render method?
   dispatchComponentDidMount() {
     this.eventBus.emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach((child) => {
+    Object.values(this.children).forEach((child: Block) => {
       child.dispatchComponentDidMount();
     });
   }
@@ -234,7 +264,44 @@ export default class Block {
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
+    // make compare logic
     return oldProps !== newProps;
+  }
+
+  // call in removeComponent func
+  dispatchComponentWillUnmount() {
+    this.eventBus.emit(Block.EVENTS.FLOW_CWU);
+
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((nestedChild) =>
+          nestedChild.dispatchComponentWillUnmount(),
+        );
+      } else {
+        child.dispatchComponentWillUnmount();
+      }
+    });
+  }
+
+  _componentWillUnmount() {
+    this.componentWillUnmount();
+    this._removeEvents();
+
+    // clear intervals or timeouts?
+    // cancel network requests?
+  }
+
+  // logic for subclasses
+  componentWillUnmount() {}
+
+  // call before removing?
+  removeComponent() {
+    this.dispatchComponentWillUnmount();
+  }
+
+  // remove child logic?
+  removeChildComponent(child: Block) {
+    child.dispatchComponentWillUnmount();
   }
 
   get element() {
@@ -242,16 +309,16 @@ export default class Block {
   }
 
   getContent() {
-    return this.element;
+    return this.element!;
   }
 
   show() {
     const el = this.getContent();
-    el!.style.display = 'block';
+    el!.classList.remove('hidden');
   }
 
   hide() {
     const el = this.getContent();
-    el!.style.display = 'none';
+    el!.classList.add('hidden');
   }
 }

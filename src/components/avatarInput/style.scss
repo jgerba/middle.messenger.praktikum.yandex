@@ -1,0 +1,47 @@
+.avatar-pic {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: $back-el-color;
+  cursor: pointer;
+}
+
+.userpic {
+  width: 130px;
+  height: 130px;
+
+  &__text {
+    display: none;
+    text-align: center;
+    color: $white-color;
+  }
+
+  & img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    background-color: rgb(0 0 0 / 50%);
+
+    & img {
+      display: none;
+    }
+
+    .userpic__text {
+      display: block;
+    }
+  }
+}
+
+/* stylelint-disable no-descending-specificity */
+
+.chatpic,
+.chatpic img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}

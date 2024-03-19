@@ -2,7 +2,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 7px;
   height: 50px;
 
   .input {
@@ -41,6 +40,9 @@
   }
 
   .upload-label {
+    position: relative;
+    align-self: center;
+    top: 0px;
     cursor: pointer;
     text-decoration: underline;
     color: $highlight-color;
@@ -48,6 +50,8 @@
 
   .upload-input {
     position: absolute;
+    width: 1px;
+    height: 1px;
     opacity: 0;
     z-index: -1;
   }

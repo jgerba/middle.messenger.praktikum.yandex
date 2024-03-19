@@ -1,0 +1,9 @@
+.dropdown-option {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 8px;
+
+  &__btn:hover {
+    color: $back-text-color;
+  }
+}

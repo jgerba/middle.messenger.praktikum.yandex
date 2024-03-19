@@ -1,30 +1,37 @@
-import chatPage from './pages/chat/index.ts';
-import authPage from './pages/auth/index.ts';
-import profilePage from './pages/profile/index.ts';
-import ErrorPage from './pages/error/error.ts';
+import Router from './core/Router.ts';
+import authController from './controllers/auth-controller.ts';
+import store from './core/store.ts';
+
+import signUpPage from './pages/signUp/index.ts';
+import signInPage from './pages/signIn/index.ts';
+import error from './pages/error/index.ts';
+
 import './styles/style.scss';
 
-const rootEl = document.getElementById('app') as HTMLElement;
+class App {
+  router: Router;
 
-const location = window.location.pathname;
+  constructor() {
+    this.initRouter();
+    this.checkAuth();
+  }
 
-const pages: { [key: string]: HTMLElement } = {
-  '/': authPage.getContent() as HTMLElement,
-  '/chatpage': chatPage.getContent() as HTMLElement,
-  '/profile': profilePage.getContent() as HTMLElement,
-  '/error': new ErrorPage({
-    attr: { class: 'main main-error-page' },
-  }).getContent() as HTMLElement,
-};
+  initRouter() {
+    this.router = new Router();
+    this.router.use('/', signInPage);
+    this.router.use('/sign-up', signUpPage);
+    this.router.use('/404', error);
+    this.router.start();
 
-if (pages[location]) {
-  rootEl.append(pages[location]);
-} else {
-  rootEl.append(
-    new ErrorPage({
-      notFound: true,
-      attr: { class: 'main main-error-page' },
-    }).getContent() as HTMLElement,
-  );
+    store.setRouter(this.router);
+  }
+
+  async checkAuth() {
+    await authController.getUser();
+  }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  /* eslint no-new: 0 */
+  new App();
+});

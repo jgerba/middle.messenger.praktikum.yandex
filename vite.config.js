@@ -4,11 +4,6 @@ import handlebars from 'vite-plugin-handlebars';
 
 export default defineConfig({
   root: resolve(__dirname, 'src'),
-  // resolve: {
-  //     alias: {
-  //         '@': resolve(__dirname, 'static'),
-  //     },
-  // },
   build: {
     outDir: '../dist',
     rollupOptions: {

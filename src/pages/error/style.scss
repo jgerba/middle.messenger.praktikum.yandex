@@ -1,18 +1,18 @@
 .main-error-page {
-    flex-direction: column;
+  flex-direction: column;
 
-    & h1 {
-        font-size: 40px;
-    }
+  & h1 {
+    font-size: 40px;
+  }
 
-    & h3 {
-        margin-top: 20px;
-        font-size: 20px;
-    }
+  & h3 {
+    margin-top: 20px;
+    font-size: 20px;
+  }
 
-    & a {
-        margin-top: 69px;
-        font-size: 11px;
-        color: $highlight-color;
-    }
+  & p {
+    margin-top: 69px;
+    font-size: 11px;
+    color: $highlight-color;
+  }
 }

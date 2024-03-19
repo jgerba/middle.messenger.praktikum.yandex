@@ -9,20 +9,22 @@ enum METHOD {
   DELETE = 'DELETE',
 }
 
-/* eslint @typescript-eslint/no-explicit-any:0 */
-// Предварительная версия, в дальнейшем, по мере "взросления" приложения, от any избавлюсь
 type Options = {
   method?: METHOD;
-  data?: any;
+  data?: unknown;
   headers?: Record<string, string>;
+  credentials?: boolean;
 };
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
-class HTTPTransport {
-  _api = 'someAPI';
+export default class HTTPTransport {
+  _api;
+
+  constructor(endpoint: string) {
+    this._api = endpoint;
+  }
 
   /* eslint-disable arrow-body-style */
-
   get: HTTPMethod = (url, options = {}) => {
     return this.request(this._api + url, { ...options, method: METHOD.GET });
   };
@@ -39,7 +41,6 @@ class HTTPTransport {
     return this.request(this._api + url, { ...options, method: METHOD.DELETE });
   };
 
-  /* eslint class-methods-use-this:0 */
   request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
     const { headers, method, data } = options;
 
@@ -51,7 +52,12 @@ class HTTPTransport {
         Object.entries(headers).forEach(([key, value]) => {
           xhr.setRequestHeader(key, value);
         });
+      } else if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
       }
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       /* eslint func-names:0 */
       xhr.onload = function () {
@@ -62,10 +68,12 @@ class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
+      console.log(data);
+
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   };

@@ -1,0 +1,12 @@
+.main--profile {
+  flex-direction: column;
+
+  &__header-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    top: 0px;
+  }
+}
+
