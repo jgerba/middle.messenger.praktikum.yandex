@@ -1,5 +1,7 @@
 import tpl from './button.hbs?raw';
-import Block, { PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType } from '../../core/types.js';
 
 export default class Button extends Block {
   constructor(props: PropsType) {

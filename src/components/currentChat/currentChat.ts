@@ -1,16 +1,15 @@
 import tpl from './currentChat.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
 import store, { StoreEvents } from '../../core/store.ts';
+
 import Message from '../message/message.ts';
 import isReadSvg from './svg/isRead.svg';
+
 import formatDate from '../../utils/formatDate.ts';
+import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
-
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
 
 export default class CurrentChat extends Block {
   constructor(props: PropsType | ChildrenType) {

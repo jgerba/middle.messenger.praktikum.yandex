@@ -1,5 +1,7 @@
 import tpl from './error.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class ErrorPage extends Block {
   constructor(props: PropsType | ChildrenType) {

@@ -1,8 +1,11 @@
 import tpl from './avatarInput.hbs?raw';
-import Block, { ChildrenType, PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
 import Modal from '../modals/fileModal/fileModal.ts';
 import Button from '../button/button.ts';
 import Input from '../inputs/input.ts';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class AvatarInput extends Block {
   isChatAvatar: boolean;

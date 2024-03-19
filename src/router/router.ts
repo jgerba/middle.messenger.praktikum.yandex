@@ -1,5 +1,5 @@
-import Route from './Route.ts';
-import Block from './block.ts';
+import Route from './route.ts';
+import Block from '../core/block.ts';
 
 export default class Router {
   // eslint-disable-next-line no-use-before-define

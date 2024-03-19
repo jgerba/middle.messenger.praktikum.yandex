@@ -1,4 +1,4 @@
-import Router from './core/Router.ts';
+import Router from './router/router.ts';
 import authController from './controllers/auth-controller.ts';
 import store from './core/store.ts';
 

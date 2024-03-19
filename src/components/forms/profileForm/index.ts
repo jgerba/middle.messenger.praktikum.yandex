@@ -3,11 +3,8 @@ import connect from '../../../core/connect.ts';
 
 import Button from '../../button/button.ts';
 import FormInput from '../../inputs/formInput.ts';
-import { PropsType } from '../../../core/block.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { PropsType, IndexedType } from '../../../core/types.ts';
 
 function getDefaultVal(state: IndexedType, type: string): PropsType {
   const user = state.user as IndexedType;

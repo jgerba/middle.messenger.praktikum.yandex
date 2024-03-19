@@ -1,11 +1,10 @@
 import EventBus from './event-bus.ts';
+import Router from '../router/router.ts';
 
 import setObjectValue from '../utils/setObjectValue.ts';
-import Router from './Router.ts';
+import { IndexedType } from './types.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+type StateMethodType = (path: string, value: unknown) => void;
 
 /* eslint-disable no-shadow */
 export enum StoreEvents {
@@ -45,9 +44,9 @@ class Store extends EventBus {
     return this.state;
   }
 
-  public setState(path: string, value: unknown) {
+  public setState: StateMethodType = (path, value) => {
     this.updateState(path, value);
-  }
+  };
 
   public clearState() {
     this.state = {};
@@ -58,11 +57,11 @@ class Store extends EventBus {
     delete this.state.currentChat;
   }
 
-  private updateState(path: string, value: unknown) {
+  private updateState: StateMethodType = (path, value) => {
     this.state = setObjectValue(this.state, path, value);
 
     this.emit(StoreEvents.Updated);
-  }
+  };
 
   private updateStorage() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,13 +1,11 @@
-import { PropValue, PropsType } from '../../core/block.ts';
-import connect from '../../core/connect.ts';
-import findValueByKey from '../../utils/findValueByKey.ts';
-import Button from '../button/button.ts';
-import ProfileField from '../profileField/profileField.ts';
 import Profile from './profile.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import Button from '../button/button.ts';
+import ProfileField from '../profileField/profileField.ts';
+
+import connect from '../../core/connect.ts';
+import findValueByKey from '../../utils/findValueByKey.ts';
+import { PropValue, PropsType, IndexedType } from '../../core/types.ts';
 
 function getFieldData(state: IndexedType, fieldType: string): PropsType {
   const stateValue = findValueByKey(state, fieldType) as PropValue;

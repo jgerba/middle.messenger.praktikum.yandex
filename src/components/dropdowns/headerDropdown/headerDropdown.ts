@@ -1,10 +1,12 @@
 import tpl from './headerDropdown.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block from '../../../core/block.ts';
 
 import Dropdown from '../dropdown.ts';
 import Modal from '../../modals/textModal/textModal.ts';
 import FormInput from '../../inputs/formInput.ts';
 import Button from '../../button/button.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class HeaderDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {

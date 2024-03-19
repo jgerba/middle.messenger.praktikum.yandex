@@ -1,5 +1,7 @@
 import tpl from './messenger.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */

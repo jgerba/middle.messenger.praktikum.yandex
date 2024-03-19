@@ -1,5 +1,6 @@
-import { PropsType } from '../../core/block.js';
 import ValidationInput from './validationInput.js';
+
+import { PropsType } from '../../core/types.ts';
 
 export default class FormInput extends ValidationInput {
   constructor(tagName: string, props: PropsType) {
@@ -18,4 +19,3 @@ export default class FormInput extends ValidationInput {
     labelEl.classList.toggle('label--hidden');
   }
 }
-

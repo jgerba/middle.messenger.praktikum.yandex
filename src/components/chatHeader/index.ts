@@ -1,13 +1,13 @@
 import ChatHeader from './chatHeader.ts';
-import connect from '../../core/connect.ts';
-import { BASE_URL } from '../../core/const.ts';
-
-import findValueByKey from '../../utils/findValueByKey.ts';
 
 import headerDropdown from '../dropdowns/headerDropdown/index.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
-import { PropValue, PropsType } from '../../core/block.ts';
 import chatPic from '../avatarInput/chatPic-index.ts';
+
+import connect from '../../core/connect.ts';
+import findValueByKey from '../../utils/findValueByKey.ts';
+import { BASE_URL } from '../../core/const.ts';
+import { PropValue, PropsType } from '../../core/types.ts';
 
 type IndexedType = {
   [key: string]: string | number | IndexedType;

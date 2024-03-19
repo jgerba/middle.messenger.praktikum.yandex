@@ -3,20 +3,7 @@ import Handlebars from 'handlebars';
 import EventBus from './event-bus.ts';
 
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
-
-/* eslint no-use-before-define:0 */
-export type PropValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | EventListener
-  | Record<string, string>
-  | Record<string, EventListener>
-  | Block;
-
-export type PropsType = Record<string, PropValue | PropValue[]>;
-export type ChildrenType = Record<string, Block | Block[]>;
+import { PropsType, ChildrenType } from './types.ts';
 
 export default class Block {
   props: PropsType;

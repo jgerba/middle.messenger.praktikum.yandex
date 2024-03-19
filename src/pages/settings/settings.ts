@@ -1,5 +1,7 @@
 import tpl from './settings.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 // import router from '../../main.js';
 import authController from '../../controllers/auth-controller.js';

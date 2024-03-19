@@ -1,7 +1,8 @@
 import tpl from './profileForm.hbs?raw';
-import { PropsType, ChildrenType } from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 import userController from '../../../controllers/user-controller.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class ProfileForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {

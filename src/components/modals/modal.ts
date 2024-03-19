@@ -1,4 +1,6 @@
-import Block, { ChildrenType, PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class Modal extends Block {
   constructor(props: PropsType | ChildrenType) {

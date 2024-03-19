@@ -1,10 +1,7 @@
 import EventBus from './event-bus.ts';
 import store from './store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { IndexedType, DataType } from './types.ts';
 
 export default class WSTransport extends EventBus {
   api: string;

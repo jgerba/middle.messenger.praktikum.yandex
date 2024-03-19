@@ -1,14 +1,16 @@
 import tpl from './chatsSection.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
 import store, { StoreEvents } from '../../core/store.ts';
 import WSController from '../../controllers/WS-controller.ts';
-import formatDate from '../../utils/formatDate.ts';
 
 import ChatPreview from '../chatPreview/chatPreview.ts';
 import Modal from '../modals/textModal/textModal.ts';
 import FormInput from '../inputs/formInput.ts';
 import Button from '../button/button.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
+
+import formatDate from '../../utils/formatDate.ts';
+import { PropsType, ChildrenType } from '../../core/types.ts';
 import { BASE_URL } from '../../core/const.ts';
 
 /* eslint no-use-before-define:0 */

@@ -1,7 +1,9 @@
 import tpl from './messageDropdown.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block from '../../../core/block.ts';
 
 import Dropdown from '../dropdown.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class MessageDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {

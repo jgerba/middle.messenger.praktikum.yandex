@@ -1,4 +1,4 @@
-import Block from './block.ts';
+import Block from '../core/block.ts';
 
 export default class Route {
   _block: Block | null;
