@@ -1,18 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 import { BASE_URL } from '../core/const.ts';
 
-type OptionsType = {
-  [key: string]: Record<string, string> | FormData | string;
-};
-
-type AddUsersDataType = {
-  data:
-    | {
-        users?: number[];
-        chatId: number;
-      }
-    | FormData;
-};
+import { DataType, AddUsersDataType } from '../core/types.ts';
 
 const api = new HTTPTransport(`${BASE_URL}/chats`);
 
@@ -21,11 +10,11 @@ class ChatsApi {
     return api.get('');
   }
 
-  async createChat(options: OptionsType) {
+  async createChat(options: DataType) {
     return api.post('', options);
   }
 
-  async deleteChat(options: OptionsType) {
+  async deleteChat(options: DataType) {
     return api.delete('', options);
   }
 

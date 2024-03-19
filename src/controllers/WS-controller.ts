@@ -1,13 +1,7 @@
 import WSApi from '../api/WS-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { DataType, ResponseType, IndexedType } from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 

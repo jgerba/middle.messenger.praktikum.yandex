@@ -1,13 +1,13 @@
 import tpl from './textModal.hbs?raw';
 import Modal from '../modal.js';
-import ValidationInput from '../../inputs/validationInput.js';
+
 import chatsController from '../../../controllers/chats-controller.js';
 import userController from '../../../controllers/user-controller.js';
 import store from '../../../core/store.js';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import ValidationInput from '../../inputs/validationInput.js';
+
+import { IndexedType } from '../../../core/types.js';
 
 export default class textModal extends Modal {
   render(): DocumentFragment {

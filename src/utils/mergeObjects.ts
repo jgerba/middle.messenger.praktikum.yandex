@@ -1,8 +1,6 @@
 import isObject from './isObject.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { IndexedType } from '../core/types.ts';
 
 export default function mergeObjects(
   leftObj: IndexedType,

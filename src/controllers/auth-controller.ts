@@ -6,10 +6,7 @@ import messenger from '../pages/messenger/index.ts';
 import settings from '../pages/settings/index.ts';
 import chatsController from './chats-controller.ts';
 
-type DataType = { [key: string]: Record<string, string> };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
+import { DataType, ResponseType } from '../core/types.ts';
 
 class AuthController {
   async createUser(submitData: DataType) {

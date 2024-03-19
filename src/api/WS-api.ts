@@ -1,14 +1,10 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 import WSTransport from '../core/WSTransport.ts';
-import { BASE_URL } from '../core/const.ts';
 
 import store from '../core/store.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
-
-type DataType = { [key: string]: Record<string, string> | FormData | string };
+import { DataType, IndexedType } from '../core/types.ts';
+import { BASE_URL } from '../core/const.ts';
 
 const chatApi = new HTTPTransport(`${BASE_URL}/chats`);
 

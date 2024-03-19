@@ -1,16 +1,16 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 import { BASE_URL } from '../core/const.ts';
 
-type OptionsType = { [key: string]: Record<string, string> };
+import { DataType } from '../core/types.ts';
 
 const api = new HTTPTransport(`${BASE_URL}/auth`);
 
 class AuthApi {
-  async createUser(options: OptionsType) {
+  async createUser(options: DataType) {
     return api.post('/signup', options);
   }
 
-  async logIn(options: OptionsType) {
+  async logIn(options: DataType) {
     return api.post('/signin', options);
   }
 

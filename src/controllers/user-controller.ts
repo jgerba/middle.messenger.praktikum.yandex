@@ -1,10 +1,7 @@
 import userApi from '../api/user-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
+import { DataType, ResponseType } from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 

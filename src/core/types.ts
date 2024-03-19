@@ -22,3 +22,16 @@ export type IndexedType = {
 export type DataType = {
   [key: string]: Record<string, string> | FormData | string;
 };
+
+export type AddUsersDataType = {
+  data:
+    | {
+        users?: number[];
+        chatId: number;
+      }
+    | FormData;
+};
+
+export type ResponseType = {
+  [key: string]: Record<string, string | { [key: string]: string }> | number;
+};

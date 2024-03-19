@@ -1,22 +1,12 @@
 import chatApi from '../api/chats-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type AddUsersDataType = {
-  data:
-    | {
-        users?: number[];
-        chatId: number;
-      }
-    | FormData;
-};
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
-
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import {
+  DataType,
+  AddUsersDataType,
+  IndexedType,
+  ResponseType,
+} from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 
