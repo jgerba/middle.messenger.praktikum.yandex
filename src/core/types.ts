@@ -1,6 +1,5 @@
 import Block from './block.ts';
 
-/* eslint no-use-before-define:0 */
 export type PropValue =
   | string
   | number
@@ -35,3 +34,4 @@ export type AddUsersDataType = {
 export type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
+
