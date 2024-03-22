@@ -68,8 +68,6 @@ export default class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      console.log(data);
-
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
