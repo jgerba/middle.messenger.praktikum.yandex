@@ -19,5 +19,5 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "include": ["src"]
+  "include": ["src", "test/HTTPTransport.test.ts"]
 }
