@@ -4,6 +4,8 @@ import { createSandbox } from 'sinon';
 import Router from '../src/router/router.ts';
 import Block from '../src/core/block.ts';
 
+/* eslint-disable no-unused-expressions */
+
 describe('Router', () => {
   const sandBox = createSandbox();
 
@@ -13,6 +15,7 @@ describe('Router', () => {
     constructor() {
       super('div', {});
     }
+
     render(): DocumentFragment {
       return this.compile('<p>123</p>', {});
     }

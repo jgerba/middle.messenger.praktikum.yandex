@@ -3,6 +3,10 @@ import { createSandbox } from 'sinon';
 
 import HTTPTransport from '../src/core/HTTPTransport.ts';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable func-names */
+
 describe('HTTP Transport', () => {
   const sandBox = createSandbox();
   let http: HTTPTransport;

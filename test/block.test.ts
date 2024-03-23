@@ -2,12 +2,16 @@ import { expect } from 'chai';
 
 import Block from '../src/core/block.ts';
 
+/* eslint max-classes-per-file: ["error", { "ignoreExpressions": true,"max": 2 }] */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 describe('Block', () => {
   const childProps = { name: 'Test Child Block' };
   class ChildMockBlock extends Block {
     constructor() {
       super('p', childProps);
     }
+
     render(): DocumentFragment {
       return this.compile('{{name}}', childProps);
     }
@@ -20,6 +24,7 @@ describe('Block', () => {
     constructor() {
       super('div', props);
     }
+
     render(): DocumentFragment {
       return this.compile('<p>{{name}}</p>', props);
     }
@@ -28,6 +33,7 @@ describe('Block', () => {
   const block = new MockBlock();
 
   it('should initialize props correctly', () => {
+    /* eslint-disable-next-line no-shadow */
     const noChildrenProps = (({ childBlock, ...rest }) => rest)(props);
     const noIdBlockProps = (({ _id, ...rest }) => rest)(block.props);
 
@@ -44,10 +50,13 @@ describe('Block', () => {
 
   it('should add events', () => {
     let isClicked = false;
-    block.addEvent('click', () => (isClicked = true));
+    block.addEvent('click', () => {
+      isClicked = true;
+    });
 
     block._element!.click();
 
+    /* eslint-disable-next-line no-unused-expressions */
     expect(isClicked).to.be.true;
   });
 });
