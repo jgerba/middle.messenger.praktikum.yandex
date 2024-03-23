@@ -6,6 +6,11 @@
     "node": "21.2.0"
   },
   "type": "module",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test && npm run lint"
+    }
+  },
   "scripts": {
     "dev": "tsc && vite",
     "build": "tsc && vite build",
@@ -26,6 +31,7 @@
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.29.1",
+    "husky": "9.0.11",
     "jsdom": "24.0.0",
     "mocha": "10.3.0",
     "sass": "1.72.0",
