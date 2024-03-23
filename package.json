@@ -6,11 +6,6 @@
     "node": "21.2.0"
   },
   "type": "module",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test && npm run lint"
-    }
-  },
   "scripts": {
     "dev": "tsc && vite",
     "build": "tsc && vite build",
@@ -18,7 +13,8 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:css": "stylelint \"**/*.(scss|css)\"",
-    "test": "mocha"
+    "test": "mocha",
+    "pre-commit": "npm run test && npm run lint"
   },
   "devDependencies": {
     "@types/chai": "4.3.14",
