@@ -58,7 +58,7 @@ describe('Router', () => {
     expect(window.location.pathname).to.be.equal('/test');
   });
 
-  it('should modify windows history', () => {
+  it('should modify window history', () => {
     const mockBlock = new MockBlock();
     const initHistoryLength = window.history.length;
 
