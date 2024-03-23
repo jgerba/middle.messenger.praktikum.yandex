@@ -11,10 +11,14 @@
     "build": "tsc && vite build",
     "start": "tsc && vite build && node server.js",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:css": "stylelint \"**/*.(scss|css)\"",
-    "test": "mocha",
-    "pre-commit": "npm run test && npm run lint"
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:css": "stylelint \"**/*.(scss|css)\" --fix",
+    "test": "mocha"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test"
+    }
   },
   "devDependencies": {
     "@types/chai": "4.3.14",
