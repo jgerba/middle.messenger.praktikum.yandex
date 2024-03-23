@@ -8,3 +8,4 @@ global.window = jsdom.window;
 global.document = jsdom.window.document;
 global.FormData = jsdom.window.FormData;
 global.XMLHttpRequest = jsdom.window.XMLHttpRequest;
+

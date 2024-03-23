@@ -37,4 +37,28 @@ describe('Router', () => {
 
     expect(router.getRoute('/test')).to.not.be.undefined;
   });
+
+  it('should go to new route', () => {
+    const mockBlock = new MockBlock();
+
+    router.use('/', mockBlock);
+    router.use('/test', mockBlock);
+    router.start();
+    router.go('/test');
+
+    expect(window.location.pathname).to.be.equal('/test');
+  });
+
+  it.only('should go to new route', () => {
+    const mockBlock = new MockBlock();
+
+    router.use('/', mockBlock);
+    router.use('/test', mockBlock);
+    router.start();
+    router.go('/test');
+    router.back();
+
+    expect(window.location.pathname).to.be.equal('/');
+  });
 });
+

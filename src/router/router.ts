@@ -48,10 +48,7 @@ export default class Router {
 
   // inner method for route handle
   _onRoute(pathname: string) {
-    console.log(1, pathname);
-
     let route = this.getRoute(pathname);
-    console.log(2, route);
 
     if (!route) {
       route = this.getRoute('/404')!;
@@ -69,7 +66,12 @@ export default class Router {
 
   // go to new selected route
   go(pathname: string) {
+    console.log('history', pathname);
+    console.log('history2', window.history);
+
     this.history!.pushState({}, pathname, pathname);
+    console.log('history3', this.history);
+
     this._onRoute(pathname); // handle routing
   }
 
@@ -88,3 +90,4 @@ export default class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 }
+
