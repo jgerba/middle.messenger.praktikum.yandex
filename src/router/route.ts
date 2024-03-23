@@ -45,7 +45,6 @@ export default class Route {
       const rootEl = document.getElementById(this.rootId) as HTMLElement;
 
       rootEl.append(this._block.getContent());
-      console.log(rootEl);
 
       return;
     }

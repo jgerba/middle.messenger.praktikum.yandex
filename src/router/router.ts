@@ -5,9 +5,11 @@ export default class Router {
   // eslint-disable-next-line no-use-before-define
   private static __instance: Router;
 
-  routes: Route[];
+  // routes list
+  routes: Route[] = [];
 
-  history;
+  // browser history interface
+  history = window.history;
 
   _currentRoute: Route | null;
 
@@ -22,10 +24,10 @@ export default class Router {
     // save Router instance
     Router.__instance = this;
 
-    this.routes = []; // routes list
-    this.history = window.history; // browser history interface
-    this._currentRoute = null; // current active route
-    this.rootId = rootId; // root el for render
+    // current active route
+    this._currentRoute = null;
+    // root el for render
+    this.rootId = rootId;
   }
 
   // add route method
@@ -34,7 +36,8 @@ export default class Router {
 
     this.routes.push(route);
 
-    return this; // возврат экземпляра Router для цепочечного вызова ??
+    // возврат экземпляра Router для цепочечного вызова
+    return this;
   }
 
   // start Router & handle URL changes
@@ -66,11 +69,7 @@ export default class Router {
 
   // go to new selected route
   go(pathname: string) {
-    console.log('history', pathname);
-    console.log('history2', window.history);
-
     this.history!.pushState({}, pathname, pathname);
-    console.log('history3', this.history);
 
     this._onRoute(pathname); // handle routing
   }
@@ -90,4 +89,3 @@ export default class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 }
-

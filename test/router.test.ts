@@ -1,8 +1,12 @@
 import { expect } from 'chai';
+import { createSandbox } from 'sinon';
+
 import Router from '../src/router/router.ts';
 import Block from '../src/core/block.ts';
 
 describe('Router', () => {
+  const sandBox = createSandbox();
+
   let router: Router;
 
   class MockBlock extends Block {
@@ -18,6 +22,10 @@ describe('Router', () => {
     router = new Router();
   });
 
+  afterEach(() => {
+    sandBox.restore();
+  });
+
   it('should init correctly with default route', () => {
     const mockBlock = new MockBlock();
 
@@ -25,6 +33,7 @@ describe('Router', () => {
     router.start();
 
     expect(router.getRoute('/')).to.not.be.undefined;
+    expect(window.location.pathname).to.be.equal('/');
   });
 
   it('should add new route', () => {
@@ -49,16 +58,19 @@ describe('Router', () => {
     expect(window.location.pathname).to.be.equal('/test');
   });
 
-  it.only('should go to new route', () => {
+  it('should modify windows history', () => {
     const mockBlock = new MockBlock();
+    const initHistoryLength = window.history.length;
 
     router.use('/', mockBlock);
     router.use('/test', mockBlock);
+    router.use('/test2', mockBlock);
     router.start();
     router.go('/test');
-    router.back();
+    router.go('/test2');
 
-    expect(window.location.pathname).to.be.equal('/');
+    const updHistoryLength = window.history.length;
+
+    expect(initHistoryLength).to.be.equal(updHistoryLength - 2);
   });
 });
-
