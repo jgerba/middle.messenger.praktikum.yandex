@@ -33,6 +33,7 @@ export default class Router {
     const route = new Route(pathname, block, this.rootId!);
 
     this.routes.push(route);
+
     return this; // возврат экземпляра Router для цепочечного вызова ??
   }
 
@@ -47,7 +48,10 @@ export default class Router {
 
   // inner method for route handle
   _onRoute(pathname: string) {
+    console.log(1, pathname);
+
     let route = this.getRoute(pathname);
+    console.log(2, route);
 
     if (!route) {
       route = this.getRoute('/404')!;

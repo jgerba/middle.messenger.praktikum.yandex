@@ -19,5 +19,5 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "include": ["src", "test/HTTPTransport.test.ts"]
+  "include": ["src", "test/HTTPTransport.test.ts", "test/router.test.ts"]
 }
