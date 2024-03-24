@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createSandbox } from 'sinon';
 
-import HTTPTransport from '../src/core/HTTPTransport.ts';
+import HTTPTransport from './HTTPTransport.ts';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-expressions */
@@ -108,3 +108,4 @@ describe('HTTP Transport', () => {
     expect(xhrMock.send.calledWith(formData)).to.be.true;
   });
 });
+

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { createSandbox } from 'sinon';
 
-import Router from '../src/router/router.ts';
-import Block from '../src/core/block.ts';
+import Router from './router.ts';
+import Block from '../core/block.ts';
 
 /* eslint-disable no-unused-expressions */
 
@@ -77,3 +77,4 @@ describe('Router', () => {
     expect(initHistoryLength).to.be.equal(updHistoryLength - 2);
   });
 });
+

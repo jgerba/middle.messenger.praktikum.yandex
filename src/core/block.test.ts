@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import Block from '../src/core/block.ts';
+import Block from './block.ts';
 
 /* eslint max-classes-per-file: ["error", { "ignoreExpressions": true,"max": 2 }] */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -60,3 +60,4 @@ describe('Block', () => {
     expect(isClicked).to.be.true;
   });
 });
+
