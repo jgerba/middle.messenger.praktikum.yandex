@@ -52,28 +52,7 @@ export default class ChatsSection extends Block {
     previewRoot.innerHTML = '';
 
     (chatsData as PropsType[]).forEach((chat) => {
-      previewRoot.append(
-        new ChatPreview('article', {
-          avatar: (chat.avatar as string)
-            ? `${BASE_URL}/resources/${chat.avatar}`
-            : fallbackImg,
-          title: chat.title,
-          time: (chat.last_message as PropsType)
-            ? formatDate((chat.last_message as PropsType).time as string)
-            : '',
-          unreadCount: chat.unread_count,
-          lastMessage: chat.lastMessage,
-          attr: { class: 'chat-preview' },
-          events: {
-            click: this.openChatHandler.bind(
-              this,
-              chat.id,
-              chat.avatar,
-              chat.title,
-            ),
-          },
-        }).getContent() as HTMLElement,
-      );
+      previewRoot.append(this.chatPreviewConstructor(chat));
     });
   }
 
@@ -117,4 +96,28 @@ export default class ChatsSection extends Block {
     event.preventDefault();
     store.getRouter().go('/settings');
   }
+
+  chatPreviewConstructor(chatData: PropsType): HTMLElement {
+    return new ChatPreview('article', {
+      avatar: (chatData.avatar as string)
+        ? `${BASE_URL}/resources/${chatData.avatar}`
+        : fallbackImg,
+      title: chatData.title,
+      time: (chatData.last_message as PropsType)
+        ? formatDate((chatData.last_message as PropsType).time as string)
+        : '',
+      unreadCount: chatData.unread_count,
+      lastMessage: chatData.lastMessage,
+      attr: { class: 'chat-preview' },
+      events: {
+        click: this.openChatHandler.bind(
+          this,
+          chatData.id,
+          chatData.avatar,
+          chatData.title,
+        ),
+      },
+    }).getContent() as HTMLElement;
+  }
 }
+
