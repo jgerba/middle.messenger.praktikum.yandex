@@ -6,7 +6,7 @@ export type PropValue =
   | boolean
   | Date
   | EventListener
-  | Record<string, string>
+  | Record<string, string | number>
   | Record<string, EventListener>
   | Block;
 
@@ -34,4 +34,3 @@ export type AddUsersDataType = {
 export type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
-
