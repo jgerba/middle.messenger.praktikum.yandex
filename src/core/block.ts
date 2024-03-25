@@ -4,6 +4,7 @@ import EventBus from './event-bus.ts';
 
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
 import { PropsType, ChildrenType } from './types.ts';
+import isEqual from '../utils/isEqual.ts';
 
 export default class Block {
   props: PropsType;
@@ -240,9 +241,9 @@ export default class Block {
   ) {
     // console.log('update' + this._meta.tagName);
 
-    const update = this.componentDidUpdate(oldProps, newProps);
+    const propsIsEqual = this.componentDidUpdate(oldProps, newProps);
 
-    if (update) {
+    if (!propsIsEqual) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -251,8 +252,7 @@ export default class Block {
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
-    // make compare logic
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
   // call in removeComponent func
