@@ -241,9 +241,9 @@ export default class Block {
   ) {
     // console.log('update' + this._meta.tagName);
 
-    const propsIsEqual = this.componentDidUpdate(oldProps, newProps);
+    const propsAreEqual = this.componentDidUpdate(oldProps, newProps);
 
-    if (!propsIsEqual) {
+    if (!propsAreEqual) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }

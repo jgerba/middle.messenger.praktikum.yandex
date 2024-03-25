@@ -1,9 +1,9 @@
 import EventBus from './event-bus.ts';
 import Router from '../router/router.ts';
 
+import isEqual from '../utils/isEqual.ts';
 import setObjectValue from '../utils/setObjectValue.ts';
 import { IndexedType } from './types.ts';
-import isEqual from '../utils/isEqual.ts';
 
 type StateMethodType = (path: string, value: unknown) => void;
 
