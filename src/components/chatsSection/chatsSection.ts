@@ -24,12 +24,13 @@ export default class ChatsSection extends Block {
 
     this.initBtns();
 
+    this.renderPreviews();
     store.on(StoreEvents.Updated, this.renderPreviews.bind(this));
   }
 
   render(): DocumentFragment {
     // remove events & attr data from props
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
 
     return this.compile(tpl, propsToRender);
@@ -120,4 +121,3 @@ export default class ChatsSection extends Block {
     }).getContent() as HTMLElement;
   }
 }
-

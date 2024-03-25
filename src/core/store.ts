@@ -3,6 +3,7 @@ import Router from '../router/router.ts';
 
 import setObjectValue from '../utils/setObjectValue.ts';
 import { IndexedType } from './types.ts';
+import isEqual from '../utils/isEqual.ts';
 
 type StateMethodType = (path: string, value: unknown) => void;
 
@@ -45,7 +46,14 @@ class Store extends EventBus {
   }
 
   public setState: StateMethodType = (path, value) => {
-    this.updateState(path, value);
+    const statesAreEqual = isEqual(
+      this.state[path] as IndexedType,
+      value as IndexedType,
+    );
+
+    if (!statesAreEqual) {
+      this.updateState(path, value);
+    }
   };
 
   public clearState() {
@@ -59,6 +67,7 @@ class Store extends EventBus {
 
   private updateState: StateMethodType = (path, value) => {
     this.state = setObjectValue(this.state, path, value);
+    console.log('store upd');
 
     this.emit(StoreEvents.Updated);
   };
