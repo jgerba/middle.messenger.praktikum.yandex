@@ -1,9 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport.ts';
 import WSTransport from '../core/WSTransport.ts';
 
-import store from '../core/store.ts';
-
-import { DataType, IndexedType } from '../core/types.ts';
+import { DataType } from '../core/types.ts';
 import { BASE_URL } from '../core/const.ts';
 
 const chatApi = new HTTPTransport(`${BASE_URL}/chats`);
@@ -15,9 +13,7 @@ class WSApi {
     return chatApi.post(`/token/${options.id}`);
   }
 
-  connect({ userId, chatId }: DataType) {
-    const WStoken = (store.getState().currentChat as IndexedType).token;
-
+  connect({ userId, chatId, WStoken }: DataType) {
     this.socket = new WSTransport(
       `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${WStoken}`,
     );

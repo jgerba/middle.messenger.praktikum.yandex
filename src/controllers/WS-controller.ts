@@ -29,8 +29,13 @@ class WSController {
 
   connect(data: DataType) {
     const userId = (store.getState().user as IndexedType).id;
+    const WStoken = (store.getState().currentChat as IndexedType).token;
 
-    const sendData: { [key: string]: string } = { ...data, userId } as {
+    const sendData: { [key: string]: string } = {
+      ...data,
+      userId,
+      WStoken,
+    } as {
       [key: string]: string;
     };
 
