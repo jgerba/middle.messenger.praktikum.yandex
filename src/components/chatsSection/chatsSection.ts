@@ -17,15 +17,21 @@ import { BASE_URL } from '../../core/const.ts';
 /* eslint prefer-template:0 */
 
 export default class ChatsSection extends Block {
+  prevChats: PropsType[] | null;
+
+  previewRoot: HTMLElement;
+
   constructor(tagName: string, props: PropsType | ChildrenType) {
     const onAnchorClick = (event: MouseEvent) => this.anchorHandler(event);
 
     super(tagName, { ...props, events: { click: onAnchorClick } });
 
-    this.initBtns();
+    this.previewRoot = this.element!.querySelector('.chats-section__previews')!;
 
-    this.renderPreviews();
-    store.on(StoreEvents.Updated, this.renderPreviews.bind(this));
+    this.initBtns();
+    this.updateChats();
+
+    store.on(StoreEvents.Updated, this.updateChats.bind(this));
   }
 
   render(): DocumentFragment {
@@ -36,25 +42,88 @@ export default class ChatsSection extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  initBtns() {
+  private initBtns() {
     const createChatBtn = this.children.createChatBtn as Block;
-
     createChatBtn.addEvent('click', this.openCreateModal.bind(this));
   }
 
-  renderPreviews() {
-    const previewRoot = this.element!.querySelector(
-      '.chat__chats-preview',
-    ) as HTMLElement;
+  private getChats() {
+    const newChatsData = store.getState().chats as unknown;
+    if (!newChatsData) {
+      return null;
+    }
 
-    const chatsData = store.getState().chats as unknown;
-    if (!chatsData) return;
+    return newChatsData as PropsType[];
+  }
 
-    previewRoot.innerHTML = '';
+  private updateChats() {
+    const newChatsData = this.getChats();
 
-    (chatsData as PropsType[]).forEach((chat) => {
-      previewRoot.append(this.chatPreviewConstructor(chat));
+    if (!newChatsData) {
+      this.renderPreviews();
+      return;
+    }
+
+    if (!this.prevChats) {
+      this.prevChats = newChatsData;
+      this.renderPreviews();
+      return;
+    }
+
+    const chatToAdd = this.getDataToUpdate(newChatsData, this.prevChats);
+    const chatToRemove = this.getDataToUpdate(this.prevChats, newChatsData);
+
+    // creating and adding new chat case
+    if (chatToAdd.length > 0 && chatToRemove.length === 0) {
+      this.renderPreviews(chatToAdd, true);
+    }
+
+    if (chatToRemove.length > 0) {
+      this.removePreviews(chatToRemove);
+      this.renderPreviews(chatToAdd);
+    }
+
+    this.prevChats = newChatsData;
+  }
+
+  getDataToUpdate(
+    leftArr: PropsType[],
+    rightArr: PropsType[],
+  ): PropsType[] | [] {
+    const resultArr: PropsType[] = [];
+
+    leftArr.forEach((leftArrChat) => {
+      const hasChat = rightArr?.find(
+        (rightArrChat) => rightArrChat.id === leftArrChat.id,
+      );
+
+      if (!hasChat) {
+        resultArr.push(leftArrChat);
+      }
     });
+
+    return resultArr;
+  }
+
+  renderPreviews(chatsData = this.prevChats, prepend = false) {
+    if (!chatsData) {
+      this.previewRoot.innerHTML = '';
+      return;
+    }
+
+    // prepend if add new chats to existing
+    chatsData.forEach((chat) => {
+      prepend
+        ? this.previewRoot.prepend(this.chatPreviewConstructor(chat))
+        : this.previewRoot.append(this.chatPreviewConstructor(chat));
+    });
+  }
+
+  removePreviews(chatData: PropsType[]) {
+    const chatToDelete = this.previewRoot.querySelector(
+      `article[data-id="${chatData[0].id}"]`,
+    );
+    chatToDelete?.remove();
   }
 
   async openChatHandler(chatId: string, chatAvatar: string, chatTitle: string) {
@@ -90,14 +159,6 @@ export default class ChatsSection extends Block {
     });
   }
 
-  anchorHandler(event: MouseEvent) {
-    if (!(event.target as HTMLElement).classList.contains('settings-link')) {
-      return;
-    }
-    event.preventDefault();
-    store.getRouter().go('/settings');
-  }
-
   chatPreviewConstructor(chatData: PropsType): HTMLElement {
     return new ChatPreview('article', {
       avatar: (chatData.avatar as string)
@@ -109,7 +170,10 @@ export default class ChatsSection extends Block {
         : '',
       unreadCount: chatData.unread_count,
       lastMessage: chatData.lastMessage,
-      attr: { class: 'chat-preview' },
+      attr: {
+        class: 'chat-preview',
+        'data-id': chatData.id as number,
+      },
       events: {
         click: this.openChatHandler.bind(
           this,
@@ -119,5 +183,13 @@ export default class ChatsSection extends Block {
         ),
       },
     }).getContent() as HTMLElement;
+  }
+
+  anchorHandler(event: MouseEvent) {
+    if (!(event.target as HTMLElement).classList.contains('settings-link')) {
+      return;
+    }
+    event.preventDefault();
+    store.getRouter().go('/settings');
   }
 }
