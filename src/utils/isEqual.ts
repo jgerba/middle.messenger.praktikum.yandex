@@ -27,10 +27,8 @@ function isArrayOrObject(value: unknown): value is [] | PlainObject {
 // checks if two plain objects (leftObj and rightObj) are equal
 export default function isEqual(leftObj: PlainObject, rightObj: PlainObject) {
   // early exit if one of values is undefined
-  if (
-    (leftObj === undefined && rightObj !== undefined) ||
-    (leftObj !== undefined && rightObj === undefined)
-  ) {
+
+  if (leftObj === undefined || rightObj === undefined) {
     return false;
   }
 
