@@ -61,20 +61,24 @@ class Store extends EventBus {
     localStorage.clear();
   }
 
-  public clearCurrentChat() {
-    delete this.state.currentChat;
+  public clearStatePath(path: string) {
+    delete this.state[path];
+    localStorage.removeItem(path);
   }
 
   private updateState: StateMethodType = (path, value) => {
     this.state = setObjectValue(this.state, path, value);
-    console.log('store upd');
 
+    console.log('store upd');
     this.emit(StoreEvents.Updated);
   };
 
   private updateStorage() {
+    // while adding new chat - chatsReviews rerender cancel
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const localState = (({ currentChat, ...rest }) => rest)(this.state);
+    const localState = (({ currentChat, newChat, ...rest }) => rest)(
+      this.state,
+    );
 
     localStorage.setItem('My store', JSON.stringify(localState));
   }
