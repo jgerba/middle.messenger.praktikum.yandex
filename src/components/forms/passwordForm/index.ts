@@ -25,7 +25,7 @@ export default new PasswordForm({
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Save changes',
     attr: { class: 'btn', type: 'submit' },
   }),
@@ -34,4 +34,3 @@ export default new PasswordForm({
     title: 'Change password',
   },
 });
-

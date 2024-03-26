@@ -44,7 +44,7 @@ export default class AvatarInput extends Block {
         attr: { class: 'input-wrapper', title: 'Add file' },
         events: {},
       }),
-      submitBtn: new Button({
+      submitBtn: new Button('button', {
         text: 'Change',
         attr: { class: 'btn', type: 'submit' },
       }),

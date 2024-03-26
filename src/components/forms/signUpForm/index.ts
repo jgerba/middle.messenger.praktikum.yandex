@@ -50,15 +50,14 @@ export default new SignUpForm({
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Enter',
     attr: { class: 'btn', type: 'submit' },
   }),
-  logInBtn: new Button({
+  logInBtn: new Button('button', {
     text: 'Log in',
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
   }),
   attr: { class: 'form form--signUp' },
 });
-

@@ -59,7 +59,7 @@ export default class HeaderDropdown extends Dropdown {
         text: type === 'Remove chat' ? 'Chat ID' : 'Login',
         attr: { class: type === 'Remove chat' ? 'hidden' : 'input-wrapper ' },
       }),
-      submitBtn: new Button({
+      submitBtn: new Button('button', {
         text: type === 'Add' ? type : 'Remove',
         attr: { class: 'btn', type: 'submit' },
       }),

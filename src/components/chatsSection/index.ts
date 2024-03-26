@@ -14,7 +14,7 @@ function openCreateChatModal() {
       text: 'Chat title',
       attr: { class: 'input-wrapper ' },
     }),
-    submitBtn: new Button({
+    submitBtn: new Button('button', {
       text: 'Create',
       attr: { class: 'btn', type: 'submit' },
     }),
@@ -27,7 +27,7 @@ function openCreateChatModal() {
 
 export default new ChatsSection('section', {
   searchForm,
-  createChatBtn: new Button({
+  createChatBtn: new Button('button', {
     text: 'New chat',
     attr: { class: 'btn', type: 'button' },
     events: { click: openCreateChatModal },

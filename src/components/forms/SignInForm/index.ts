@@ -17,15 +17,14 @@ export default new SignInForm({
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Enter',
     attr: { class: 'btn', type: 'submit' },
   }),
-  signUpBtn: new Button({
+  signUpBtn: new Button('button', {
     text: 'Sign up',
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
   }),
   attr: { class: 'form' },
 });
-
