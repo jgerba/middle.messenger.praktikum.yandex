@@ -66,6 +66,8 @@ class ChatsController {
         );
       }
 
+      // need to append new chat to already rendered chats
+      store.setState('newChat', response);
       this.getChats();
       return status;
     } catch (error) {
@@ -146,7 +148,7 @@ class ChatsController {
       }
 
       this.getChats();
-      store.clearCurrentChat();
+      store.clearStatePath('currentChat');
 
       return status;
     } catch (error) {
