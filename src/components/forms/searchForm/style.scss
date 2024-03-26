@@ -19,4 +19,19 @@
     left: 95px;
     top: 7px;
   }
+
+  &__filter-badge {
+    position: absolute;
+    max-width: 150px;
+    left: 10px;
+    top: -42px;
+    padding: 5px;
+    border: 1px solid $highlight-color;
+    border-radius: 5px;
+    color: $back-text-color;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+  }
 }

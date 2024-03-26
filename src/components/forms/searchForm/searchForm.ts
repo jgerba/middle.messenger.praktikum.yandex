@@ -1,10 +1,12 @@
 import tpl from './searchForm.hbs?raw';
 import Block from '../../../core/block.ts';
 
-import { PropsType, ChildrenType } from '../../../core/types.ts';
+import { PropsType, ChildrenType, IndexedType } from '../../../core/types.ts';
 import store from '../../../core/store.ts';
 
 export default class SearchForm extends Block {
+  filterBadge: Block;
+
   constructor(props: PropsType | ChildrenType) {
     const onFocus = (event: Event) => this.handleIcon.bind(this)(event);
     const onInput = (event: Event) => this.handleInput.bind(this)(event);
@@ -15,6 +17,8 @@ export default class SearchForm extends Block {
       ...props,
       events: { focusin: onFocus, input: onInput, submit: onSubmit },
     });
+
+    this.initBadge();
   }
 
   render(): DocumentFragment {
@@ -42,6 +46,8 @@ export default class SearchForm extends Block {
 
     const filterVal = (event.target as HTMLInputElement).value.trim();
     store.setState('chatsFilter', { filterVal });
+
+    this.handleBadge();
   }
 
   handleIcon(event: Event) {
@@ -56,5 +62,29 @@ export default class SearchForm extends Block {
       return;
     }
     icon!.classList.remove('hidden');
+  }
+
+  initBadge() {
+    this.filterBadge = this.children.clearBtn as Block;
+    this.filterBadge.addEvent('click', this.resetFilterHandler.bind(this));
+
+    console.log(this.filterBadge);
+
+    this.handleBadge();
+  }
+
+  resetFilterHandler() {
+    (this.element! as HTMLFormElement).reset();
+    store.clearStatePath('chatsFilter');
+    this.handleBadge();
+  }
+
+  handleBadge() {
+    const state = store.getState();
+    const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
+
+    console.log(filterVal);
+
+    filterVal ? this.filterBadge.show() : this.filterBadge.hide();
   }
 }
