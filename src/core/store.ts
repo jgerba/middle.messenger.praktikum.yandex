@@ -63,14 +63,15 @@ class Store extends EventBus {
 
   public clearStatePath(path: string) {
     delete this.state[path];
-    localStorage.removeItem(path);
+    this.emit(StoreEvents.Updated);
   }
 
   private updateState: StateMethodType = (path, value) => {
     this.state = setObjectValue(this.state, path, value);
 
-    console.log('store upd');
     this.emit(StoreEvents.Updated);
+
+    console.log('store upd');
   };
 
   private updateStorage() {
