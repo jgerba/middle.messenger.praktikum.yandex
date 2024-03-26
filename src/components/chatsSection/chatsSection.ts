@@ -4,20 +4,18 @@ import store, { StoreEvents } from '../../core/store.ts';
 import WSController from '../../controllers/WS-controller.ts';
 
 import ChatPreview from '../chatPreview/chatPreview.ts';
-import Modal from '../modals/textModal/textModal.ts';
-import FormInput from '../inputs/formInput.ts';
-import Button from '../button/button.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
 
 import formatDate from '../../utils/formatDate.ts';
 import { PropsType, ChildrenType } from '../../core/types.ts';
 import { BASE_URL } from '../../core/const.ts';
+import isEqual from '../../utils/isEqual.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
 
 export default class ChatsSection extends Block {
-  prevChats: PropsType[] | null;
+  prevChats: PropsType[] | undefined;
 
   previewRoot: HTMLElement;
 
@@ -28,7 +26,6 @@ export default class ChatsSection extends Block {
 
     this.previewRoot = this.element!.querySelector('.chats-section__previews')!;
 
-    this.initBtns();
     this.updateChats();
 
     store.on(StoreEvents.Updated, this.updateChats.bind(this));
@@ -42,48 +39,31 @@ export default class ChatsSection extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  private initBtns() {
-    const createChatBtn = this.children.createChatBtn as Block;
-    createChatBtn.addEvent('click', this.openCreateModal.bind(this));
-  }
-
-  private getChats() {
+  private getChats(): PropsType[] | null {
     const newChatsData = store.getState().chats as unknown;
-    if (!newChatsData) {
+    const isSameData = isEqual(
+      newChatsData as PropsType[],
+      this.prevChats as PropsType[],
+    );
+
+    if (isSameData) {
       return null;
     }
 
     return newChatsData as PropsType[];
   }
 
-  private updateChats() {
-    const newChatsData = this.getChats();
-
-    if (!newChatsData) {
-      this.renderPreviews();
+  renderPreviews(chatsData = this.prevChats, prepend = false) {
+    if (!chatsData) {
+      this.previewRoot.innerHTML = '';
       return;
     }
 
-    if (!this.prevChats) {
-      this.prevChats = newChatsData;
-      this.renderPreviews();
-      return;
-    }
-
-    const chatToAdd = this.getDataToUpdate(newChatsData, this.prevChats);
-    const chatToRemove = this.getDataToUpdate(this.prevChats, newChatsData);
-
-    // creating and adding new chat case
-    if (chatToAdd.length > 0 && chatToRemove.length === 0) {
-      this.renderPreviews(chatToAdd, true);
-    }
-
-    if (chatToRemove.length > 0) {
-      this.removePreviews(chatToRemove);
-      this.renderPreviews(chatToAdd);
-    }
-
-    this.prevChats = newChatsData;
+    chatsData.forEach((chat) => {
+      prepend
+        ? this.previewRoot.prepend(this.chatPreviewConstructor(chat))
+        : this.previewRoot.append(this.chatPreviewConstructor(chat));
+    });
   }
 
   getDataToUpdate(
@@ -105,58 +85,63 @@ export default class ChatsSection extends Block {
     return resultArr;
   }
 
-  renderPreviews(chatsData = this.prevChats, prepend = false) {
-    if (!chatsData) {
-      this.previewRoot.innerHTML = '';
-      return;
-    }
-
-    // prepend if add new chats to existing
-    chatsData.forEach((chat) => {
-      prepend
-        ? this.previewRoot.prepend(this.chatPreviewConstructor(chat))
-        : this.previewRoot.append(this.chatPreviewConstructor(chat));
-    });
-  }
-
-  removePreviews(chatData: PropsType[]) {
+  removePreview(chatData: PropsType[]) {
     const chatToDelete = this.previewRoot.querySelector(
       `article[data-id="${chatData[0].id}"]`,
     );
     chatToDelete?.remove();
   }
 
+  private updateChats() {
+    const newChatsData = this.getChats();
+
+    if (!newChatsData) {
+      return;
+    }
+
+    if (!this.prevChats) {
+      this.prevChats = newChatsData;
+      this.renderPreviews();
+      return;
+    }
+
+    const chatToAdd = this.getDataToUpdate(newChatsData, this.prevChats);
+    const chatToRemove = this.getDataToUpdate(this.prevChats, newChatsData);
+
+    if (chatToRemove.length > 0) {
+      this.removePreview(chatToRemove);
+    }
+
+    if (chatToAdd.length > 0) {
+      const { newChat } = store.getState();
+
+      if (newChat) {
+        // append new chat to previous rendered chats
+        this.renderPreviews(chatToAdd, true);
+        store.clearStatePath('newChat');
+      } else {
+        // prepend chat to previous rendered chats
+        this.renderPreviews(chatToAdd);
+      }
+    }
+
+    this.prevChats = newChatsData;
+  }
+
   async openChatHandler(chatId: string, chatAvatar: string, chatTitle: string) {
     const response = await WSController.getToken({ id: chatId });
 
     if (response === 200) {
-      store.setState('currentChat', { avatar: chatAvatar });
-      store.setState('currentChat', { title: chatTitle });
-      store.setState('currentChat', { id: chatId });
+      store.setState('currentChat', {
+        avatar: chatAvatar,
+        title: chatTitle,
+        id: chatId,
+      });
+
       WSController.connect({ chatId });
     }
 
     console.log(store.getState().currentChat);
-  }
-
-  openCreateModal() {
-    /* eslint no-new: 0 */
-
-    new Modal({
-      textInput: new FormInput('div', {
-        name: 'title',
-        text: 'Chat title',
-        attr: { class: 'input-wrapper ' },
-      }),
-      submitBtn: new Button({
-        text: 'Create',
-        attr: { class: 'btn', type: 'submit' },
-      }),
-
-      modalHeader: 'New chat',
-      attr: { class: 'modal' },
-      events: {},
-    });
   }
 
   chatPreviewConstructor(chatData: PropsType): HTMLElement {
