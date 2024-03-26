@@ -2,16 +2,18 @@ import tpl from './searchForm.hbs?raw';
 import Block from '../../../core/block.ts';
 
 import { PropsType, ChildrenType } from '../../../core/types.ts';
+import store from '../../../core/store.ts';
 
 export default class SearchForm extends Block {
   constructor(props: PropsType | ChildrenType) {
-    const onTouch = (event: Event) => this.handleIcon.bind(this)(event);
+    const onFocus = (event: Event) => this.handleIcon.bind(this)(event);
+    const onInput = (event: Event) => this.handleInput.bind(this)(event);
     const onSubmit = (event: SubmitEvent) =>
       this.submitSearch.bind(this)(event);
 
     super('form', {
       ...props,
-      events: { focusin: onTouch, input: onTouch, submit: onSubmit },
+      events: { focusin: onFocus, input: onInput, submit: onSubmit },
     });
   }
 
@@ -33,6 +35,13 @@ export default class SearchForm extends Block {
     }
 
     console.log(`Searching ${searchString}`);
+  }
+
+  handleInput(event: InputEvent) {
+    this.handleIcon(event);
+
+    const filterVal = (event.target as HTMLInputElement).value.trim();
+    store.setState('chatsFilter', { filterVal });
   }
 
   handleIcon(event: Event) {

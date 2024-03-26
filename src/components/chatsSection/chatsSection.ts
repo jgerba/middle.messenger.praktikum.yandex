@@ -7,7 +7,7 @@ import ChatPreview from '../chatPreview/chatPreview.ts';
 import fallbackImg from '../../static/svg/fallback-img.svg';
 
 import formatDate from '../../utils/formatDate.ts';
-import { PropsType, ChildrenType } from '../../core/types.ts';
+import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 import { BASE_URL } from '../../core/const.ts';
 import isEqual from '../../utils/isEqual.ts';
 
@@ -64,6 +64,23 @@ export default class ChatsSection extends Block {
         ? this.previewRoot.prepend(this.chatPreviewConstructor(chat))
         : this.previewRoot.append(this.chatPreviewConstructor(chat));
     });
+
+    this.filterPreviews();
+  }
+
+  filterPreviews() {
+    const state = store.getState();
+    const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
+
+    this.previewRoot.querySelectorAll('article').forEach((el) => {
+      const hasMatch = (el.title as string).toLowerCase().includes(filterVal);
+
+      if (hasMatch || !filterVal) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    });
   }
 
   getDataToUpdate(
@@ -96,6 +113,7 @@ export default class ChatsSection extends Block {
     const newChatsData = this.getChats();
 
     if (!newChatsData) {
+      this.filterPreviews();
       return;
     }
 
@@ -157,6 +175,7 @@ export default class ChatsSection extends Block {
       lastMessage: chatData.lastMessage,
       attr: {
         class: 'chat-preview',
+        title: chatData.title as string,
         'data-id': chatData.id as number,
       },
       events: {
