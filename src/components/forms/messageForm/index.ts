@@ -21,6 +21,7 @@ export default new ConnectedChatHead('form', {
   messageInput: new ValidationInput('div', {
     name: 'message',
     text: 'Message',
+    autocomplete: 'off',
     centeredInput: true,
     attr: { class: 'input-wrapper message-form__input' },
   }),

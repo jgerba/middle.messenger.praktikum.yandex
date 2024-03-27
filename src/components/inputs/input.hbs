@@ -6,7 +6,7 @@
       name='{{name}}' placeholder='{{text}}' accept='.jpeg, .jpg, .png, .gif, .webp'/>
   {{else}}
     <input class='input {{#if centeredInput}}centered-input{{/if}}' id='{{name}}-id' type='{{#if type}}{{type}}{{else}}text{{/if}}'
-    name='{{name}}' placeholder='{{text}}' value='{{value}}'/>
+    name='{{name}}' placeholder='{{text}}' value='{{value}}' autocomplete="{{autocomplete}}"/>
   {{/if}}
 
   <p class='error hidden'></p>
