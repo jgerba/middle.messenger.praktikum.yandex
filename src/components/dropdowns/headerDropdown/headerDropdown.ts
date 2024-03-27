@@ -24,29 +24,26 @@ export default class HeaderDropdown extends Dropdown {
   }
 
   initOptions() {
-    (this.children.addUserBtn as Block).addEvent('click', (event: Event) =>
-      this.addUserHandler.bind(this, event)(),
+    (this.children.addUserBtn as Block).addEvent('click', () =>
+      this.addUserHandler.bind(this)(),
     );
-    (this.children.removeUserBtn as Block).addEvent('click', (event: Event) =>
-      this.removeUserHandler.bind(this, event)(),
+    (this.children.removeUserBtn as Block).addEvent('click', () =>
+      this.removeUserHandler.bind(this)(),
     );
-    (this.children.removeChatBtn as Block).addEvent('click', (event: Event) =>
-      this.removeChatHandler.bind(this, event)(),
+    (this.children.removeChatBtn as Block).addEvent('click', () =>
+      this.removeChatHandler.bind(this)(),
     );
   }
 
-  addUserHandler(e: Event) {
-    e.stopPropagation();
+  addUserHandler() {
     this.createModal('Add');
   }
 
-  removeUserHandler(e: Event) {
-    e.stopPropagation();
+  removeUserHandler() {
     this.createModal('Remove');
   }
 
-  removeChatHandler(e: Event) {
-    e.stopPropagation();
+  removeChatHandler() {
     this.createModal('Remove chat');
   }
 
