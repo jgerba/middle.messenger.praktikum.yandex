@@ -68,8 +68,6 @@ export default class SearchForm extends Block {
     this.filterBadge = this.children.clearBtn as Block;
     this.filterBadge.addEvent('click', this.resetFilterHandler.bind(this));
 
-    console.log(this.filterBadge);
-
     this.handleBadge();
   }
 
@@ -82,8 +80,6 @@ export default class SearchForm extends Block {
   handleBadge() {
     const state = store.getState();
     const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
-
-    console.log(filterVal);
 
     filterVal ? this.filterBadge.show() : this.filterBadge.hide();
   }
