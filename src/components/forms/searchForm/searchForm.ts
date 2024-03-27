@@ -38,7 +38,7 @@ export default class SearchForm extends Block {
       return;
     }
 
-    console.log(`Searching ${searchString}`);
+    (this.element! as HTMLFormElement).reset();
   }
 
   handleInput(event: InputEvent) {
