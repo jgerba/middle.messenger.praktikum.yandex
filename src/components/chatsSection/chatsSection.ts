@@ -10,6 +10,7 @@ import formatDate from '../../utils/formatDate.ts';
 import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 import { BASE_URL } from '../../core/const.ts';
 import isEqual from '../../utils/isEqual.ts';
+import connect from '../../core/connect.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
@@ -162,17 +163,37 @@ export default class ChatsSection extends Block {
     console.log(store.getState().currentChat);
   }
 
+  anchorHandler(event: MouseEvent) {
+    if (!(event.target as HTMLElement).classList.contains('settings-link')) {
+      return;
+    }
+    event.preventDefault();
+    store.getRouter().go('/settings');
+  }
+
   chatPreviewConstructor(chatData: PropsType): HTMLElement {
-    return new ChatPreview('article', {
-      avatar: (chatData.avatar as string)
-        ? `${BASE_URL}/resources/${chatData.avatar}`
-        : fallbackImg,
-      title: chatData.title,
-      time: (chatData.last_message as PropsType)
-        ? formatDate((chatData.last_message as PropsType).time as string)
-        : '',
-      unreadCount: chatData.unread_count,
-      lastMessage: chatData.lastMessage,
+    const ConnectedPreview = connect(ChatPreview, getChatData);
+
+    function getChatData(state: IndexedType): PropsType {
+      const chats = state.chats as unknown;
+      const currentChat = (chats as IndexedType[]).find(
+        (chat) => chat.id === chatData.id,
+      )!;
+
+      return {
+        avatar: (currentChat.avatar as string)
+          ? `${BASE_URL}/resources/${currentChat.avatar}`
+          : fallbackImg,
+        title: currentChat.title as string,
+        time: (currentChat.last_message as PropsType)
+          ? formatDate((currentChat.last_message as PropsType).time as string)
+          : '',
+        unreadCount: currentChat.unread_count as string,
+        lastMessage: currentChat.lastMessage as string,
+      };
+    }
+
+    return new ConnectedPreview('article', {
       attr: {
         class: 'chat-preview',
         title: chatData.title as string,
@@ -187,13 +208,5 @@ export default class ChatsSection extends Block {
         ),
       },
     }).getContent() as HTMLElement;
-  }
-
-  anchorHandler(event: MouseEvent) {
-    if (!(event.target as HTMLElement).classList.contains('settings-link')) {
-      return;
-    }
-    event.preventDefault();
-    store.getRouter().go('/settings');
   }
 }
