@@ -10,7 +10,9 @@
     width: 47px;
     height: 47px;
     border-radius: 50%;
-    background-color: $back-el-color;
+    object-fit: contain;
+    background-color: $back-text-color;
+    aspect-ratio: 1/1;
   }
 
   &__message-wrapper {
