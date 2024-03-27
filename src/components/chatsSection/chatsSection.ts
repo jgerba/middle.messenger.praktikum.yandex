@@ -176,20 +176,21 @@ export default class ChatsSection extends Block {
 
     function getChatData(state: IndexedType): PropsType {
       const chats = state.chats as unknown;
-      const currentChat = (chats as IndexedType[]).find(
+
+      const currentChat = (chats as IndexedType[])?.find(
         (chat) => chat.id === chatData.id,
-      )!;
+      );
 
       return {
-        avatar: (currentChat.avatar as string)
-          ? `${BASE_URL}/resources/${currentChat.avatar}`
+        avatar: (currentChat?.avatar as string)
+          ? `${BASE_URL}/resources/${currentChat?.avatar}`
           : fallbackImg,
-        title: currentChat.title as string,
-        time: (currentChat.last_message as PropsType)
-          ? formatDate((currentChat.last_message as PropsType).time as string)
+        title: currentChat?.title as string,
+        time: (currentChat?.last_message as PropsType)
+          ? formatDate((currentChat?.last_message as PropsType).time as string)
           : '',
-        unreadCount: currentChat.unread_count as string,
-        lastMessage: currentChat.lastMessage as string,
+        unreadCount: currentChat?.unread_count as string,
+        lastMessage: currentChat?.lastMessage as string,
       };
     }
 
