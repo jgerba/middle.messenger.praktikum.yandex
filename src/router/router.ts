@@ -51,7 +51,7 @@ export default class Router {
 
   // inner method for route handle
   _onRoute(pathname: string) {
-    let route = this.getRoute(pathname);
+    const route = this.getRoute(pathname);
 
     if (!route) {
       // route = this.getRoute('/404')!;
