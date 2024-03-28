@@ -32,6 +32,6 @@ class App {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* eslint no-new: 0 */
+  // eslint-disable-next-line no-new
   new App();
 });

@@ -56,17 +56,17 @@ class AuthController {
         }
 
         store.setState('user', response);
+
         chatsController.getChats();
 
         store.getRouter().use('/messenger', messenger);
         store.getRouter().use('/settings', settings);
+
         store.getRouter().go('/messenger');
       })
       .catch((error) => {
         console.log(error);
-        setTimeout(() => {
-          store.getRouter().go('/');
-        }, 3000);
+        store.getRouter().go('/');
       });
   }
 
