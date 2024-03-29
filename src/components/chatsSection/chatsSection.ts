@@ -149,8 +149,25 @@ export default class ChatsSection extends Block {
           ? formatDate((currentChat?.last_message as PropsType).time as string)
           : '',
         unreadCount: currentChat?.unread_count as string,
-        lastMessage: currentChat?.lastMessage as string,
+        lastMessage: handleMessage(currentChat?.last_message as PropsType),
       };
+    }
+
+    function handleMessage(data: PropsType): string {
+      const msgData = data.content as string;
+      const msgUser = (data.user as PropsType).login as string;
+      const currentUser = (store.getState().user as IndexedType)
+        .login as string;
+
+      let user;
+      msgUser === currentUser ? (user = 'You') : (user = msgUser);
+
+      let message = `${user}: ${msgData}`;
+      if (message.length > 64) {
+        message = `${message.slice(0, 64)}...`;
+      }
+
+      return message;
     }
 
     return new ConnectedPreview('article', {
