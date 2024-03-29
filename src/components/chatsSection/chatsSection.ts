@@ -154,6 +154,10 @@ export default class ChatsSection extends Block {
     }
 
     function handleMessage(data: PropsType): string {
+      if (!data) {
+        return '';
+      }
+
       const msgData = data.content as string;
       const msgUser = (data.user as PropsType).login as string;
       const currentUser = (store.getState().user as IndexedType)
