@@ -86,7 +86,13 @@ export default class textModal extends Modal {
       data: { chatId: currentId },
     });
 
-    status === 200 ? this.closeModal() : this.handleError();
+    if (status === 200) {
+      // clear chat rendered messages
+      store.clearStatePath('currentChat');
+      this.closeModal();
+      return;
+    }
+    this.handleError();
   }
 
   handleError() {

@@ -11,7 +11,6 @@ class WSController {
       const { status, response }: ResponseType = (await WSApi.getToken(
         data,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -19,6 +18,7 @@ class WSController {
         );
       }
 
+      store.clearStatePath('currentChat');
       store.setState('currentChat', response);
 
       return status;
