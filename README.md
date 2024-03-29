@@ -1,5 +1,15 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3182eb1c-219a-4f0a-aef6-91bf21039bf5/deploy-status)](https://app.netlify.com/sites/jugermessenger/deploys)
 
+https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+
+https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white
+
+https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white
+
+https://img.shields.io/badge/stylelint-000?style=for-the-badge&logo=stylelint&logoColor=white
+
+https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E
+
 # Мессенджер
 
 Проект по созданию мэссенджера, в рамках курса по фронтенд-разработке.
@@ -15,6 +25,13 @@ https://www.figma.com/file/jX0PPV9INgyvigFhhqxuAb/Chat_external_link-(Copy)?type
 - handlebars @4.7.8
 - express @4.19.1
 - uuid @9.0.1
+
+- sass @1.72.0
+- chai @5.1.0
+- mocha @10.3.0
+- eslint @8.57.0
+- stylelint @16.2.1
+- husky @9.0.11
 
 ### Установка проекта
 
