@@ -69,8 +69,6 @@ class Store extends EventBus {
   private updateState: StateMethodType = (path, value) => {
     this.state = setObjectValue(this.state, path, value);
 
-    console.log('store upd');
-
     this.emit(StoreEvents.Updated);
   };
 

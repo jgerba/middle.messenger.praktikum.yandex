@@ -10,8 +10,6 @@ class UserController {
     userApi
       .changeUser(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -28,7 +26,6 @@ class UserController {
       const { status, response }: ResponseType = (await userApi.changeAvatar(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -47,8 +44,6 @@ class UserController {
     userApi
       .changePassword(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -63,7 +58,6 @@ class UserController {
       const { status, response }: ResponseType = (await userApi.searchUser(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(

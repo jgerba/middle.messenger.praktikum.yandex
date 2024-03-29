@@ -70,11 +70,10 @@ export default class WSTransport extends EventBus {
       if (!data || ['pong', 'user connected'].includes(data.type)) {
         return;
       }
-      console.log(data);
 
       let dataToStore = data;
 
-      // временное решение для нового сообщения ??
+      // if is new message
       if (dataToStore.id) {
         const state = store.getState();
         const currentMessages = (state.currentChat as IndexedType)

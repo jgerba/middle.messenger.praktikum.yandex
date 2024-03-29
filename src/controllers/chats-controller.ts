@@ -17,8 +17,6 @@ class ChatsController {
     chatApi
       .getChats()
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -58,7 +56,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.createChat(
         data,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -80,7 +77,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.addUsers(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -99,7 +95,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.removeUsers(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -118,7 +113,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.changeAvatar(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -139,7 +133,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.removeChat(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
