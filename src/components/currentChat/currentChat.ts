@@ -6,17 +6,25 @@ import Message from '../message/message.ts';
 import isReadSvg from './svg/isRead.svg';
 
 import formatDate from '../../utils/formatDate.ts';
+import isEqual from '../../utils/isEqual.ts';
+import getDataToUpdate from '../../utils/getUpdateData.ts';
 import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
 
 export default class CurrentChat extends Block {
+  prevMessages: PropsType[] | [] = [];
+
+  chatRoot: HTMLElement;
+
   constructor(props: PropsType | ChildrenType) {
     super('section', props);
 
-    this.renderChat();
-    store.on(StoreEvents.Updated, this.renderChat.bind(this));
+    this.chatRoot = this.element!.querySelector('.current-chat__dialog')!;
+
+    this.updateMessages();
+    store.on(StoreEvents.Updated, this.updateMessages.bind(this));
   }
 
   render(): DocumentFragment {
@@ -27,27 +35,66 @@ export default class CurrentChat extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  renderChat() {
-    const chatRoot = this.element!.querySelector(
-      '.current-chat__dialog',
-    ) as HTMLElement;
+  private updateMessages() {
+    const newData = this.getData();
 
-    const state = store.getState();
-
-    if (!state.currentChat) {
-      chatRoot.innerHTML = '';
+    if (!newData) {
       return;
     }
 
-    const messages = (state.currentChat as IndexedType).messages as unknown;
-
-    if (!messages) {
+    if (this.prevMessages.length === 0) {
+      this.prevMessages = [...newData];
+      this.renderChat(this.prevMessages);
       return;
     }
 
-    chatRoot.innerHTML = '';
+    const dataToAdd = getDataToUpdate(newData, this.prevMessages);
 
-    (messages as PropsType[])
+    if (dataToAdd.length > 0) {
+      // prepend new chat to previous rendered chats
+      this.renderChat(dataToAdd);
+    }
+
+    this.prevMessages = [...newData];
+  }
+
+  private getData(): PropsType[] | null {
+    const currentChat = store.getState().currentChat as IndexedType;
+
+    if (!currentChat || !currentChat.id) {
+      // clear chat rendered messages when del chat/switch between chats
+      this.prevMessages = [];
+      this.chatRoot.innerHTML = '';
+      return null;
+    }
+
+    const newMessages = currentChat?.messages as unknown;
+
+    if (!newMessages || (newMessages as PropsType[]).length === 0) {
+      return null;
+    }
+
+    const isSameData = isEqual(
+      newMessages as PropsType[],
+      this.prevMessages as PropsType[],
+    );
+
+    if (isSameData) {
+      return null;
+    }
+
+    return newMessages as PropsType[];
+  }
+
+  renderChat(messages: PropsType[]) {
+    if (!messages || messages.length === 0) {
+      this.chatRoot.innerHTML = '';
+      return;
+    }
+
+    const user = store.getState().user as IndexedType;
+
+    messages
       .sort((a, b) => {
         const bTime = new Date(b.time as string) as unknown;
         const aTime = new Date(a.time as string) as unknown;
@@ -55,17 +102,16 @@ export default class CurrentChat extends Block {
         return (aTime as number) - (bTime as number);
       })
       .forEach((message) => {
-        const isPersonalMsg =
-          message.user_id === (state.user as IndexedType).id;
+        const isPersonalMsg = message.user_id === user.id;
 
-        chatRoot.prepend(
+        this.chatRoot.prepend(
           new Message({
             content: message.content,
             time: formatDate(message.time as string),
             isRead: message.isRead,
             isReadSvg,
             attr: {
-              class: `message ${isPersonalMsg ? 'personal-message' : ''}`,
+              class: `message${isPersonalMsg ? ' personal-message' : ''}`,
             },
           }).getContent() as HTMLElement,
         );
