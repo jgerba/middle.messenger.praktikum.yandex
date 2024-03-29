@@ -18,17 +18,25 @@
   &__message-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 4px;
     width: 193px;
     margin-left: 10px;
   }
 
   &__message {
     font-size: 12px;
+    height: 30px;
     color: $back-text-color;
+    overflow: hidden;
+    word-break: break-all;
   }
 
   &__info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
     text-align: end;
   }
 
