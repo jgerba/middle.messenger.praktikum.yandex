@@ -1,0 +1,15 @@
+.remove-user {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: center;
+  width: 100px;
+  padding: 12px 0;
+  border: 1px solid transparent;
+  border-top: 1px solid $borders-color;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $warning-color;
+  }
+}
