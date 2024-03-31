@@ -17,14 +17,8 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{scss,css}": [
-      "stylelint --fix",
-      "git add"
-    ]
+    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{scss,css}": "stylelint --fix"
   },
   "husky": {
     "hooks": {
