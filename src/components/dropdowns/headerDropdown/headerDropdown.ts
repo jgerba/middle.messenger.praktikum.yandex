@@ -7,6 +7,7 @@ import FormInput from '../../inputs/formInput.ts';
 import Button from '../../button/button.ts';
 
 import { PropsType, ChildrenType } from '../../../core/types.ts';
+import RemoveUserModal from '../../modals/removeUserModal/removeUserModal.ts';
 
 export default class HeaderDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {
@@ -27,8 +28,9 @@ export default class HeaderDropdown extends Dropdown {
     (this.children.addUserBtn as Block).addEvent('click', () =>
       this.addUserHandler.bind(this)(),
     );
-    (this.children.removeUserBtn as Block).addEvent('click', () =>
-      this.removeUserHandler.bind(this)(),
+    (this.children.removeUserBtn as Block).addEvent(
+      'click',
+      this.createRemoveUserModal,
     );
     (this.children.removeChatBtn as Block).addEvent('click', () =>
       this.removeChatHandler.bind(this)(),
@@ -37,10 +39,6 @@ export default class HeaderDropdown extends Dropdown {
 
   addUserHandler() {
     this.createModal('Add');
-  }
-
-  removeUserHandler() {
-    this.createModal('Remove');
   }
 
   removeChatHandler() {
@@ -62,6 +60,16 @@ export default class HeaderDropdown extends Dropdown {
       }),
 
       modalHeader: type === 'Remove chat' ? type : `${type} user`,
+      attr: { class: 'modal' },
+      events: {},
+    });
+  }
+
+  createRemoveUserModal() {
+    /* eslint no-new: 0 */
+
+    new RemoveUserModal({
+      modalHeader: 'Remove user',
       attr: { class: 'modal' },
       events: {},
     });
