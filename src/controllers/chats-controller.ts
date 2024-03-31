@@ -148,6 +148,24 @@ class ChatsController {
       console.log(error);
     }
   }
+
+  async getChatUsers(submitData: AddUsersDataType) {
+    try {
+      const { status, response }: ResponseType = (await chatApi.getChatUsers(
+        submitData,
+      )) as ResponseType;
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new ChatsController();

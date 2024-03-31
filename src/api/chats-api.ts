@@ -5,6 +5,8 @@ import { DataType, AddUsersDataType } from '../core/types.ts';
 
 const api = new HTTPTransport(`${BASE_URL}/chats`);
 
+/* eslint consistent-return:0 */
+
 class ChatsApi {
   async getChats() {
     return api.get('');
@@ -32,6 +34,12 @@ class ChatsApi {
 
   async removeChat(options: AddUsersDataType) {
     return api.delete('', options);
+  }
+
+  async getChatUsers(options: AddUsersDataType) {
+    if ('chatId' in options.data) {
+      return api.get(`/${options.data.chatId}/users`);
+    }
   }
 }
 
