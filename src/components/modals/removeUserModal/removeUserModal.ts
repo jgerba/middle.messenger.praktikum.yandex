@@ -99,8 +99,4 @@ export default class RemoveUserModal extends Modal {
       this.usersList.innerHTML = 'No users...';
     }
   }
-
-  handleError() {
-    console.log('Error handling...');
-  }
 }

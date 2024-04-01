@@ -2,13 +2,13 @@ import ChatsSection from './chatsSection.ts';
 
 import Button from '../button/button.ts';
 import searchForm from '../forms/searchForm/index.ts';
-import Modal from '../modals/textModal/textModal.ts';
+import AddChatModal from '../modals/addChatModal/addChatModal.ts';
 import FormInput from '../inputs/formInput.ts';
 
 function openCreateChatModal() {
   /* eslint no-new: 0 */
 
-  new Modal({
+  new AddChatModal({
     textInput: new FormInput('div', {
       name: 'title',
       text: 'Chat title',
