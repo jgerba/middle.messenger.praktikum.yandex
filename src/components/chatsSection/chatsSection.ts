@@ -65,23 +65,26 @@ export default class ChatsSection extends Block {
     if (chatToAdd.length > 0) {
       const { newChat } = store.getState();
 
-      if (newChat) {
+      if ((newChat as IndexedType)?.id) {
         // append new chat to previous rendered chats
         this.renderPreviews(chatToAdd, true);
+        this.prevChats = [...newChatsData];
         store.clearStatePath('newChat');
-      } else {
-        // prepend chat to previous rendered chats
-        this.renderPreviews(chatToAdd);
+        return;
       }
+
+      // prepend chat to previous rendered chats
+      this.renderPreviews(chatToAdd);
     }
 
     this.prevChats = [...newChatsData];
   }
 
   private getChats(): PropsType[] | null {
-    const newChatsData = store.getState().chats as unknown;
+    const chatsData = store.getState().chats as unknown;
+
     const isSameData = isEqual(
-      newChatsData as PropsType[],
+      chatsData as PropsType[],
       this.prevChats as PropsType[],
     );
 
@@ -89,7 +92,7 @@ export default class ChatsSection extends Block {
       return null;
     }
 
-    return newChatsData as PropsType[];
+    return chatsData as PropsType[];
   }
 
   removePreview(chatData: PropsType[]) {

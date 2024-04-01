@@ -27,6 +27,7 @@ class ChatsController {
 
         const state = store.getState();
 
+        // upd chat avatar
         if (state.currentChat) {
           const currentId = (state.currentChat as IndexedType).id;
           const storedChats = state.chats as unknown;
@@ -66,6 +67,7 @@ class ChatsController {
       // need to append new chat to already rendered chats
       store.setState('newChat', response);
       this.getChats();
+
       return status;
     } catch (error) {
       console.log(error);
