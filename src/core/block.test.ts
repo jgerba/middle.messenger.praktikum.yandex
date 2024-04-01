@@ -45,7 +45,7 @@ describe('Block', () => {
   });
 
   it('should render element', () => {
-    expect(block._element!.innerHTML).to.equal('<p>Test Block</p>');
+    expect(block.getContent().innerHTML).to.equal('<p>Test Block</p>');
   });
 
   it('should add events', () => {
@@ -54,10 +54,9 @@ describe('Block', () => {
       isClicked = true;
     });
 
-    block._element!.click();
+    block.getContent().click();
 
     /* eslint-disable-next-line no-unused-expressions */
     expect(isClicked).to.be.true;
   });
 });
-

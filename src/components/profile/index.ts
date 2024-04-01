@@ -19,7 +19,7 @@ function getFieldData(state: IndexedType, fieldType: string): PropsType {
 function createNewConnectedField(fieldType: string, props: PropsType) {
   const ConnectedField = connect(ProfileField, (state) =>
     getFieldData(state, fieldType),
-  ) as { new (tagName: string, props: PropsType): ProfileField };
+  );
 
   return new ConnectedField('div', props);
 }
