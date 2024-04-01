@@ -1,9 +1,11 @@
 import tpl from './signUpForm.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block from '../../../core/block.ts';
 import ValidationForm from '../validationForm.ts';
 
 import authController from '../../../controllers/auth-controller.ts';
 import store from '../../../core/store.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class SignUpForm extends ValidationForm {
   constructor(props: PropsType | ChildrenType) {

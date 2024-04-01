@@ -1,9 +1,12 @@
 import tpl from './fileModal.hbs?raw';
+import Block from '../../../core/block.ts';
 import Modal from '../modal.ts';
-import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
-import userController from '../../../controllers/user-controller.ts';
+
 import store from '../../../core/store.ts';
+import userController from '../../../controllers/user-controller.ts';
 import chatsController from '../../../controllers/chats-controller.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class FileModal extends Modal {
   // define origin of modal: chat/user

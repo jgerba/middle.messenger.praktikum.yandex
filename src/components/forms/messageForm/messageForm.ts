@@ -1,7 +1,9 @@
 import tpl from './messageForm.hbs?raw';
-import { PropsType, ChildrenType } from '../../../core/block.ts';
+
 import ValidationForm from '../validationForm.ts';
 import WSController from '../../../controllers/WS-controller.ts';
+
+import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class MessageForm extends ValidationForm {
   constructor(tagName: string, props: PropsType | ChildrenType) {
@@ -22,7 +24,8 @@ export default class MessageForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-
     WSController.sendMessage(formData as { [key: string]: string });
+
+    (this.element! as HTMLFormElement).reset();
   }
 }

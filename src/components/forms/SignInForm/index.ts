@@ -6,6 +6,7 @@ export default new SignInForm({
   nameInput: new FormInput('div', {
     name: 'login',
     text: 'Login',
+    autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper ' },
   }),
@@ -13,19 +14,19 @@ export default new SignInForm({
     name: 'password',
     text: 'Password',
     type: 'password',
+    autocomplete: 'current-password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Enter',
     attr: { class: 'btn', type: 'submit' },
   }),
-  signUpBtn: new Button({
+  signUpBtn: new Button('button', {
     text: 'Sign up',
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
   }),
   attr: { class: 'form' },
 });
-

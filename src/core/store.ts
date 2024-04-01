@@ -1,11 +1,11 @@
 import EventBus from './event-bus.ts';
+import Router from '../router/router.ts';
 
+import isEqual from '../utils/isEqual.ts';
 import setObjectValue from '../utils/setObjectValue.ts';
-import Router from './Router.ts';
+import { IndexedType } from './types.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+type StateMethodType = (path: string, value: unknown) => void;
 
 /* eslint-disable no-shadow */
 export enum StoreEvents {
@@ -45,28 +45,39 @@ class Store extends EventBus {
     return this.state;
   }
 
-  public setState(path: string, value: unknown) {
-    this.updateState(path, value);
-  }
+  public setState: StateMethodType = (path, value) => {
+    const statesAreEqual = isEqual(
+      this.state[path] as IndexedType,
+      value as IndexedType,
+    );
+
+    if (!statesAreEqual) {
+      this.updateState(path, value);
+    }
+  };
 
   public clearState() {
     this.state = {};
     localStorage.clear();
   }
 
-  public clearCurrentChat() {
-    delete this.state.currentChat;
-  }
-
-  private updateState(path: string, value: unknown) {
-    this.state = setObjectValue(this.state, path, value);
-
+  public clearStatePath(path: string) {
+    delete this.state[path];
     this.emit(StoreEvents.Updated);
   }
 
+  private updateState: StateMethodType = (path, value) => {
+    this.state = setObjectValue(this.state, path, value);
+
+    this.emit(StoreEvents.Updated);
+  };
+
   private updateStorage() {
+    // while adding new chat - chatsReviews rerender cancel
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const localState = (({ currentChat, ...rest }) => rest)(this.state);
+    const localState = (({ currentChat, newChat, ...rest }) => rest)(
+      this.state,
+    );
 
     localStorage.setItem('My store', JSON.stringify(localState));
   }

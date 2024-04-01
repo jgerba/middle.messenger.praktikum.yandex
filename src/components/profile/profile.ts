@@ -1,5 +1,7 @@
 import tpl from './profile.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class Profile extends Block {
   constructor(props: PropsType | ChildrenType) {

@@ -1,9 +1,7 @@
-import Block, { PropValue, PropsType } from './block.ts';
+import Block from './block.ts';
 import store, { StoreEvents } from './store.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { PropValue, PropsType, IndexedType } from './types.ts';
 
 export default function connect(
   Component: typeof Block,

@@ -1,13 +1,13 @@
 import tpl from './textModal.hbs?raw';
 import Modal from '../modal.js';
-import ValidationInput from '../../inputs/validationInput.js';
+
 import chatsController from '../../../controllers/chats-controller.js';
 import userController from '../../../controllers/user-controller.js';
 import store from '../../../core/store.js';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import ValidationInput from '../../inputs/validationInput.js';
+
+import { IndexedType } from '../../../core/types.js';
 
 export default class textModal extends Modal {
   render(): DocumentFragment {
@@ -37,10 +37,7 @@ export default class textModal extends Modal {
       this.userHandler(inputData);
       return;
     }
-    if (modalTitle.includes('Remove user')) {
-      this.userHandler(inputData, false);
-      return;
-    }
+
     if (modalTitle.includes('Remove chat')) {
       this.chatRemoveHandler();
       return;
@@ -50,7 +47,7 @@ export default class textModal extends Modal {
     status === 200 ? this.closeModal() : this.handleError();
   }
 
-  async userHandler(data: { [key: string]: string }, isAdd: boolean = true) {
+  async userHandler(data: { [key: string]: string }) {
     const user = (await userController.searchUser({
       data: { login: data.title },
     })) as unknown;
@@ -69,11 +66,7 @@ export default class textModal extends Modal {
       },
     };
 
-    let status;
-
-    isAdd
-      ? (status = await chatsController.addUsers(dataToSend))
-      : (status = await chatsController.removeUsers(dataToSend));
+    const status = await chatsController.addUsers(dataToSend);
 
     status === 200 ? this.closeModal() : this.handleError();
   }
@@ -86,7 +79,13 @@ export default class textModal extends Modal {
       data: { chatId: currentId },
     });
 
-    status === 200 ? this.closeModal() : this.handleError();
+    if (status === 200) {
+      // clear chat rendered messages
+      store.clearStatePath('currentChat');
+      this.closeModal();
+      return;
+    }
+    this.handleError();
   }
 
   handleError() {

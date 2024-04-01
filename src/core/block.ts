@@ -3,20 +3,8 @@ import Handlebars from 'handlebars';
 import EventBus from './event-bus.ts';
 
 import { setStubs, replaceStubs } from '../utils/handleStubs.ts';
-
-/* eslint no-use-before-define:0 */
-export type PropValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | EventListener
-  | Record<string, string>
-  | Record<string, EventListener>
-  | Block;
-
-export type PropsType = Record<string, PropValue | PropValue[]>;
-export type ChildrenType = Record<string, Block | Block[]>;
+import { PropsType, ChildrenType } from './types.ts';
+import isEqual from '../utils/isEqual.ts';
 
 export default class Block {
   props: PropsType;
@@ -146,8 +134,6 @@ export default class Block {
   }
 
   _render() {
-    // console.log('render ' + this._meta.tagName);
-
     const hasEvents =
       this.props.events && Object.keys(this.props.events).length > 0;
 
@@ -251,11 +237,9 @@ export default class Block {
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
-    // console.log('update' + this._meta.tagName);
+    const propsAreEqual = this.componentDidUpdate(oldProps, newProps);
 
-    const update = this.componentDidUpdate(oldProps, newProps);
-
-    if (update) {
+    if (!propsAreEqual) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -264,8 +248,7 @@ export default class Block {
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
-    // make compare logic
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
   // call in removeComponent func

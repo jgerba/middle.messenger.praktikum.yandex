@@ -1,4 +1,4 @@
-import { ChildrenType, PropsType } from '../core/block.ts';
+import { PropsType, ChildrenType } from '../core/types.ts';
 
 type BlockType = {
   _id: string;

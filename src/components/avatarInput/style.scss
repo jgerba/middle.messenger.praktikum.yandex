@@ -44,4 +44,13 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+
+.avatar-pic img,
+.userpic img,
+.chatpic img {
+  object-fit: contain;
+  background-color: $back-text-color;
+  aspect-ratio: 1/1;
 }

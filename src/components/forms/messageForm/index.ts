@@ -1,13 +1,11 @@
-import ValidationInput from '../../inputs/validationInput.ts';
-import messageDropdown from '../../dropdowns/messageDropdown/index.ts';
 import MessageForm from './messageForm.ts';
-import sendSvg from './svg/send.svg';
-import { PropsType } from '../../../core/block.ts';
 import connect from '../../../core/connect.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import ValidationInput from '../../inputs/validationInput.ts';
+import messageDropdown from '../../dropdowns/messageDropdown/index.ts';
+import sendSvg from './svg/send.svg';
+
+import { PropsType, IndexedType } from '../../../core/types.ts';
 
 function checkChat(state: IndexedType): PropsType {
   return {
@@ -23,6 +21,7 @@ export default new ConnectedChatHead('form', {
   messageInput: new ValidationInput('div', {
     name: 'message',
     text: 'Message',
+    autocomplete: 'off',
     centeredInput: true,
     attr: { class: 'input-wrapper message-form__input' },
   }),
@@ -30,4 +29,3 @@ export default new ConnectedChatHead('form', {
   sendIcon: sendSvg,
   attr: { class: 'message-form' },
 });
-

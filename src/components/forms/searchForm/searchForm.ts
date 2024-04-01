@@ -1,16 +1,24 @@
 import tpl from './searchForm.hbs?raw';
-import Block, { PropsType, ChildrenType } from '../../../core/block.ts';
+import Block from '../../../core/block.ts';
+
+import { PropsType, ChildrenType, IndexedType } from '../../../core/types.ts';
+import store from '../../../core/store.ts';
 
 export default class SearchForm extends Block {
+  filterBadge: Block;
+
   constructor(props: PropsType | ChildrenType) {
-    const onTouch = (event: Event) => this.handleIcon.bind(this)(event);
+    const onFocus = (event: Event) => this.handleIcon.bind(this)(event);
+    const onInput = (event: Event) => this.handleInput.bind(this)(event);
     const onSubmit = (event: SubmitEvent) =>
       this.submitSearch.bind(this)(event);
 
     super('form', {
       ...props,
-      events: { focusin: onTouch, input: onTouch, submit: onSubmit },
+      events: { focusin: onFocus, input: onInput, submit: onSubmit },
     });
+
+    this.initBadge();
   }
 
   render(): DocumentFragment {
@@ -30,7 +38,16 @@ export default class SearchForm extends Block {
       return;
     }
 
-    console.log(`Searching ${searchString}`);
+    (this.element! as HTMLFormElement).reset();
+  }
+
+  handleInput(event: InputEvent) {
+    this.handleIcon(event);
+
+    const filterVal = (event.target as HTMLInputElement).value.trim();
+    store.setState('chatsFilter', { filterVal });
+
+    this.handleBadge();
   }
 
   handleIcon(event: Event) {
@@ -45,5 +62,25 @@ export default class SearchForm extends Block {
       return;
     }
     icon!.classList.remove('hidden');
+  }
+
+  initBadge() {
+    this.filterBadge = this.children.clearBtn as Block;
+    this.filterBadge.addEvent('click', this.resetFilterHandler.bind(this));
+
+    this.handleBadge();
+  }
+
+  resetFilterHandler() {
+    (this.element! as HTMLFormElement).reset();
+    store.clearStatePath('chatsFilter');
+    this.handleBadge();
+  }
+
+  handleBadge() {
+    const state = store.getState();
+    const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
+
+    filterVal ? this.filterBadge.show() : this.filterBadge.hide();
   }
 }

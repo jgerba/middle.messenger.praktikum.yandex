@@ -1,13 +1,7 @@
 import WSApi from '../api/WS-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { DataType, ResponseType, IndexedType } from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 
@@ -17,7 +11,6 @@ class WSController {
       const { status, response }: ResponseType = (await WSApi.getToken(
         data,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -25,6 +18,7 @@ class WSController {
         );
       }
 
+      store.clearStatePath('currentChat');
       store.setState('currentChat', response);
 
       return status;
@@ -35,8 +29,13 @@ class WSController {
 
   connect(data: DataType) {
     const userId = (store.getState().user as IndexedType).id;
+    const WStoken = (store.getState().currentChat as IndexedType).token;
 
-    const sendData: { [key: string]: string } = { ...data, userId } as {
+    const sendData: { [key: string]: string } = {
+      ...data,
+      userId,
+      WStoken,
+    } as {
       [key: string]: string;
     };
 

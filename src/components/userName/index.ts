@@ -1,11 +1,8 @@
 import UserPic from './username.ts';
+
 import connect from '../../core/connect.ts';
 import findValueByKey from '../../utils/findValueByKey.ts';
-import { PropValue, PropsType } from '../../core/block.ts';
-
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { PropValue, PropsType, IndexedType } from '../../core/types.ts';
 
 function getUsername(state: IndexedType): PropsType {
   const userName = findValueByKey(state, 'display_name') as PropValue;

@@ -1,10 +1,7 @@
 import userApi from '../api/user-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
+import { DataType, ResponseType } from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 
@@ -13,8 +10,6 @@ class UserController {
     userApi
       .changeUser(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -31,7 +26,6 @@ class UserController {
       const { status, response }: ResponseType = (await userApi.changeAvatar(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -50,8 +44,6 @@ class UserController {
     userApi
       .changePassword(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -66,7 +58,6 @@ class UserController {
       const { status, response }: ResponseType = (await userApi.searchUser(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(

@@ -1,25 +1,55 @@
-import Block, { PropsType, ChildrenType } from '../../core/block.ts';
+import Block from '../../core/block.ts';
+
+import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class Dropdown extends Block {
+  dropdown: HTMLElement;
+
+  icon: HTMLElement;
+
+  // for listener removing
+  bindedCloseHandler: (event: MouseEvent) => void;
+
   constructor(props: PropsType | ChildrenType) {
-    super('article', props);
+    const onClick = () => this.openDropdownHandler.bind(this)();
 
-    this.initOpenDropBtn();
+    super('article', { ...props, events: { click: onClick } });
+
+    this.bindedCloseHandler = this.closeDropdownHandler.bind(this);
+
+    this.dropdown = this.element!.querySelector('.dropdown')!;
+    this.icon = this.element!.querySelector('img')!;
   }
 
-  initOpenDropBtn() {
-    this.addEvent('click', (event: Event) =>
-      this.openDropdown.bind(this, event)(),
-    );
+  openDropdownHandler() {
+    // click on dropdown btn toggle dropdown view
+    if (this.dropdown.classList.contains('hidden')) {
+      this.openDropdown();
+      return;
+    }
+
+    this.closeDropdown();
   }
 
-  openDropdown(event: Event) {
-    if ((event.target as HTMLElement).title !== 'Open dropdown') return;
+  openDropdown() {
+    this.dropdown.classList.remove('hidden');
+    this.icon.classList.add('active');
 
-    const dropdown = this.element!.querySelector('.dropdown')!;
-    const icon = this.element!.querySelector('img')!;
+    document.addEventListener('click', this.bindedCloseHandler);
+  }
 
-    dropdown.classList.toggle('hidden');
-    icon.classList.toggle('active');
+  closeDropdown() {
+    this.dropdown.classList.add('hidden');
+    this.icon.classList.remove('active');
+
+    document.removeEventListener('click', this.bindedCloseHandler);
+  }
+
+  closeDropdownHandler(event: MouseEvent) {
+    if (this.element?.contains(event.target as Node)) {
+      return;
+    }
+
+    this.closeDropdown();
   }
 }

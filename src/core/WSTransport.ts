@@ -1,10 +1,7 @@
 import EventBus from './event-bus.ts';
 import store from './store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { IndexedType, DataType } from './types.ts';
 
 export default class WSTransport extends EventBus {
   api: string;
@@ -73,11 +70,10 @@ export default class WSTransport extends EventBus {
       if (!data || ['pong', 'user connected'].includes(data.type)) {
         return;
       }
-      console.log(data);
 
       let dataToStore = data;
 
-      // временное решение для нового сообщения ??
+      // if is new message
       if (dataToStore.id) {
         const state = store.getState();
         const currentMessages = (state.currentChat as IndexedType)

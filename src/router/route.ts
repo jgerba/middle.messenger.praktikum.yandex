@@ -1,4 +1,4 @@
-import Block from './block.ts';
+import Block from '../core/block.ts';
 
 export default class Route {
   _block: Block | null;
@@ -37,11 +37,13 @@ export default class Route {
 
   render() {
     // Создает новый экземпляр блока, если он еще не создан
+
     if (!this._block) {
       this._block = this._blockClass;
 
       // Отрисовывает блок
       const rootEl = document.getElementById(this.rootId) as HTMLElement;
+
       rootEl.append(this._block.getContent());
 
       return;

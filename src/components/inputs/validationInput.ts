@@ -1,5 +1,6 @@
-import { PropsType } from '../../core/block.js';
 import Input from './input.ts';
+
+import { PropsType } from '../../core/types.ts';
 
 export default class ValidationInput extends Input {
   constructor(tagName: string, props: PropsType) {
@@ -90,4 +91,3 @@ export default class ValidationInput extends Input {
     errorEl.innerText = errorMessage;
   }
 }
-

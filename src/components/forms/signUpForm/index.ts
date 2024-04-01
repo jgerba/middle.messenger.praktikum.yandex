@@ -7,24 +7,28 @@ export default new SignUpForm({
     name: 'email',
     text: 'Email',
     type: 'email',
+    autocomplete: 'email',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
     attr: { class: 'input-wrapper' },
   }),
   loginInput: new FormInput('div', {
     name: 'login',
     text: 'Login',
+    autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
   nameInput: new FormInput('div', {
     name: 'first_name',
     text: 'Name',
+    autocomplete: 'given-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
   surnameInput: new FormInput('div', {
     name: 'second_name',
     text: 'Surname',
+    autocomplete: 'family-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
@@ -32,6 +36,7 @@ export default new SignUpForm({
     name: 'phone',
     text: 'Phone',
     type: 'phone',
+    autocomplete: 'tel',
     regExpString: '^\\+?\\d{10,15}$',
     attr: { class: 'input-wrapper' },
   }),
@@ -39,6 +44,7 @@ export default new SignUpForm({
     name: 'password',
     text: 'Password',
     type: 'password',
+    autocomplete: 'new-password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
@@ -46,19 +52,19 @@ export default new SignUpForm({
     name: 'password-confirm',
     text: 'Confirm password',
     type: 'password',
+    autocomplete: 'new-password',
     regExpString: '^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$',
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Enter',
     attr: { class: 'btn', type: 'submit' },
   }),
-  logInBtn: new Button({
+  logInBtn: new Button('button', {
     text: 'Log in',
     attr: { class: 'btn btn--extra', type: 'button' },
     events: {},
   }),
   attr: { class: 'form form--signUp' },
 });
-

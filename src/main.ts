@@ -1,4 +1,4 @@
-import Router from './core/Router.ts';
+import Router from './router/router.ts';
 import authController from './controllers/auth-controller.ts';
 import store from './core/store.ts';
 
@@ -32,6 +32,6 @@ class App {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* eslint no-new: 0 */
+  // eslint-disable-next-line no-new
   new App();
 });

@@ -1,9 +1,7 @@
 import isObject from './isObject.ts';
 import mergeObjects from './mergeObjects.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { IndexedType } from '../core/types.ts';
 
 export default function setObjectValue(
   object: IndexedType,

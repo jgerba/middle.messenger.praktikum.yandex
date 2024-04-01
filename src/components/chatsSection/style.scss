@@ -9,7 +9,6 @@
   width: 25vw;
   max-width: 500px;
   min-width: 290px;
-  left: 0px;
   padding: 40px 10px 0px;
   border-right: 1px solid $borders-color;
   overflow: hidden auto;
@@ -35,6 +34,8 @@
   }
 
   .btn {
+    position: relative;
     width: 300px;
+    top: 5px;
   }
 }

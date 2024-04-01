@@ -1,22 +1,12 @@
 import chatApi from '../api/chats-api.ts';
 import store from '../core/store.ts';
 
-type DataType = { [key: string]: Record<string, string> | FormData | string };
-type AddUsersDataType = {
-  data:
-    | {
-        users?: number[];
-        chatId: number;
-      }
-    | FormData;
-};
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
-
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import {
+  DataType,
+  AddUsersDataType,
+  IndexedType,
+  ResponseType,
+} from '../core/types.ts';
 
 /* eslint consistent-return:0 */
 
@@ -27,8 +17,6 @@ class ChatsController {
     chatApi
       .getChats()
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -68,7 +56,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.createChat(
         data,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -76,6 +63,8 @@ class ChatsController {
         );
       }
 
+      // need to append new chat to already rendered chats
+      store.setState('newChat', response);
       this.getChats();
       return status;
     } catch (error) {
@@ -88,7 +77,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.addUsers(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -107,7 +95,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.removeUsers(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -126,7 +113,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.changeAvatar(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -147,7 +133,6 @@ class ChatsController {
       const { status, response }: ResponseType = (await chatApi.removeChat(
         submitData,
       )) as ResponseType;
-      console.log(status, response);
 
       if (status !== 200) {
         throw new Error(
@@ -156,9 +141,27 @@ class ChatsController {
       }
 
       this.getChats();
-      store.clearCurrentChat();
+      store.clearStatePath('currentChat');
 
       return status;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getChatUsers(submitData: AddUsersDataType) {
+    try {
+      const { status, response }: ResponseType = (await chatApi.getChatUsers(
+        submitData,
+      )) as ResponseType;
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      return response;
     } catch (error) {
       console.log(error);
     }

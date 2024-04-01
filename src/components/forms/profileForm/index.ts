@@ -3,11 +3,8 @@ import connect from '../../../core/connect.ts';
 
 import Button from '../../button/button.ts';
 import FormInput from '../../inputs/formInput.ts';
-import { PropsType } from '../../../core/block.ts';
 
-type IndexedType = {
-  [key: string]: string | number | IndexedType;
-};
+import { PropsType, IndexedType } from '../../../core/types.ts';
 
 function getDefaultVal(state: IndexedType, type: string): PropsType {
   const user = state.user as IndexedType;
@@ -30,30 +27,35 @@ export default new ProfileForm({
     name: 'email',
     text: 'Email',
     type: 'email',
+    autocomplete: 'email',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
     attr: { class: 'input-wrapper' },
   }),
   loginInput: createNewInput('login', {
     name: 'login',
     text: 'Login',
+    autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
   nameInput: createNewInput('first_name', {
     name: 'first_name',
     text: 'Name',
+    autocomplete: 'given-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
   surnameInput: createNewInput('second_name', {
     name: 'second_name',
     text: 'Surname',
+    autocomplete: 'family-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
     attr: { class: 'input-wrapper' },
   }),
   displayNameInput: createNewInput('display_name', {
     name: 'display_name',
     text: 'Username',
+    autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
     attr: { class: 'input-wrapper' },
   }),
@@ -61,11 +63,12 @@ export default new ProfileForm({
     name: 'phone',
     text: 'Phone',
     type: 'phone',
+    autocomplete: 'tel',
     regExpString: '^\\+?\\d{10,15}$',
     attr: { class: 'input-wrapper' },
   }),
 
-  submitBtn: new Button({
+  submitBtn: new Button('button', {
     text: 'Save changes',
     attr: { class: 'btn', type: 'submit' },
   }),

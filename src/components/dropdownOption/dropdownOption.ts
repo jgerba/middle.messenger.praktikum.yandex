@@ -1,5 +1,7 @@
 import tpl from './dropdownOption.hbs?raw';
-import Block, { PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType } from '../../core/types.ts';
 
 export default class DropdownOption extends Block {
   constructor(props: PropsType) {

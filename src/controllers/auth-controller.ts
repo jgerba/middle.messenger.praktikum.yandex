@@ -6,18 +6,13 @@ import messenger from '../pages/messenger/index.ts';
 import settings from '../pages/settings/index.ts';
 import chatsController from './chats-controller.ts';
 
-type DataType = { [key: string]: Record<string, string> };
-type ResponseType = {
-  [key: string]: Record<string, string | { [key: string]: string }> | number;
-};
+import { DataType, ResponseType } from '../core/types.ts';
 
 class AuthController {
   async createUser(submitData: DataType) {
     authApi
       .createUser(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -33,8 +28,6 @@ class AuthController {
     authApi
       .logIn(submitData)
       .then(({ status, response }: ResponseType) => {
-        console.log(status);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -50,8 +43,6 @@ class AuthController {
     authApi
       .getUser()
       .then(({ status, response }: ResponseType) => {
-        console.log(status, response);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,
@@ -59,17 +50,17 @@ class AuthController {
         }
 
         store.setState('user', response);
+
         chatsController.getChats();
 
         store.getRouter().use('/messenger', messenger);
         store.getRouter().use('/settings', settings);
+
         store.getRouter().go('/messenger');
       })
       .catch((error) => {
         console.log(error);
-        setTimeout(() => {
-          store.getRouter().go('/');
-        }, 3000);
+        store.getRouter().go('/');
       });
   }
 
@@ -77,8 +68,6 @@ class AuthController {
     authApi
       .logOut()
       .then(({ status, response }: ResponseType) => {
-        console.log(status);
-
         if (status !== 200) {
           throw new Error(
             `${status} ${(response as { [key: string]: string }).reason}`,

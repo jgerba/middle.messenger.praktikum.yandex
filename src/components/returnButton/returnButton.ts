@@ -1,5 +1,7 @@
 import tpl from './returnButton.hbs?raw';
-import Block, { PropsType } from '../../core/block.js';
+import Block from '../../core/block.js';
+
+import { PropsType } from '../../core/types.ts';
 
 export default class ReturnButton extends Block {
   constructor(props: PropsType) {
