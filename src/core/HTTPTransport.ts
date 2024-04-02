@@ -18,30 +18,33 @@ type Options = {
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export default class HTTPTransport {
-  _api;
+  private _api;
 
   constructor(endpoint: string) {
     this._api = endpoint;
   }
 
   /* eslint-disable arrow-body-style */
-  get: HTTPMethod = (url, options = {}) => {
-    return this.request(this._api + url, { ...options, method: METHOD.GET });
+  public get: HTTPMethod = (url, options = {}) => {
+    return this._request(this._api + url, { ...options, method: METHOD.GET });
   };
 
-  post: HTTPMethod = (url, options = {}) => {
-    return this.request(this._api + url, { ...options, method: METHOD.POST });
+  public post: HTTPMethod = (url, options = {}) => {
+    return this._request(this._api + url, { ...options, method: METHOD.POST });
   };
 
-  put: HTTPMethod = (url, options = {}) => {
-    return this.request(this._api + url, { ...options, method: METHOD.PUT });
+  public put: HTTPMethod = (url, options = {}) => {
+    return this._request(this._api + url, { ...options, method: METHOD.PUT });
   };
 
-  delete: HTTPMethod = (url, options = {}) => {
-    return this.request(this._api + url, { ...options, method: METHOD.DELETE });
+  public delete: HTTPMethod = (url, options = {}) => {
+    return this._request(this._api + url, {
+      ...options,
+      method: METHOD.DELETE,
+    });
   };
 
-  request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
+  private _request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
     const { headers, method, data } = options;
 
     return new Promise((resolve, reject) => {

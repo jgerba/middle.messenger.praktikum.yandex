@@ -4,66 +4,66 @@ import store from './store.ts';
 import { IndexedType, DataType } from './types.ts';
 
 export default class WSTransport extends EventBus {
-  api: string;
+  private _api: string;
 
-  socket: WebSocket;
+  private _socket: WebSocket;
 
-  pingInterval: ReturnType<typeof setInterval> | null;
+  private _pingInterval: ReturnType<typeof setInterval> | null;
 
   constructor(api: string) {
     super();
 
-    this.api = api;
+    this._api = api;
   }
 
-  connect() {
-    if (this.socket) {
+  public connect() {
+    if (this._socket) {
       this.close();
     }
 
-    this.socket = new WebSocket(this.api);
+    this._socket = new WebSocket(this._api);
 
-    this.subscribe();
-    this.setupPing();
+    this._subscribe();
+    this._setupPing();
   }
 
-  close() {
-    if (!this.socket) {
+  public close() {
+    if (!this._socket) {
       throw new Error('No Socket');
     }
 
-    this.socket.close(1000, 'Chat closed');
-    clearInterval(this.pingInterval!);
-    this.pingInterval = null;
+    this._socket.close(1000, 'Chat closed');
+    clearInterval(this._pingInterval!);
+    this._pingInterval = null;
   }
 
-  subscribe() {
-    this.socket.addEventListener('open', () => {
+  private _subscribe() {
+    this._socket.addEventListener('open', () => {
       this.send({
         content: '0',
         type: 'get old',
       });
     });
-    this.socket.addEventListener('close', () => {
+    this._socket.addEventListener('_close', () => {
       console.log('closed');
     });
-    this.socket.addEventListener('error', () => {
+    this._socket.addEventListener('error', () => {
       console.log('error');
     });
-    this.socket.addEventListener('message', (event) => {
-      this.get(event);
+    this._socket.addEventListener('message', (event) => {
+      this._get(event);
     });
   }
 
-  send(data: DataType) {
-    if (!this.socket) {
+  public send(data: DataType) {
+    if (!this._socket) {
       throw new Error('No Socket');
     }
 
-    this.socket.send(JSON.stringify(data));
+    this._socket.send(JSON.stringify(data));
   }
 
-  get(event: MessageEvent) {
+  private _get(event: MessageEvent) {
     try {
       const data = JSON.parse(event.data);
 
@@ -89,8 +89,8 @@ export default class WSTransport extends EventBus {
     }
   }
 
-  setupPing() {
-    this.pingInterval = setInterval(() => {
+  private _setupPing() {
+    this._pingInterval = setInterval(() => {
       this.send({ type: 'ping' });
     }, 30000);
   }

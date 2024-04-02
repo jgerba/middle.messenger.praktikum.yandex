@@ -14,40 +14,38 @@ export enum StoreEvents {
 
 /* eslint no-use-before-define:0 */
 class Store extends EventBus {
-  private static __instance: Store;
+  private static _instance: Store;
 
-  private state: IndexedType = {};
+  private _state: IndexedType = {};
 
-  eventBus: EventBus;
-
-  router: Router;
+  private _router: Router;
 
   constructor() {
-    if (Store.__instance) {
+    if (Store._instance) {
       // eslint-disable-next-line no-constructor-return
-      return Store.__instance;
+      return Store._instance;
     }
 
     super();
 
-    Store.__instance = this;
+    Store._instance = this;
 
     const initState = localStorage.getItem('My store');
     if (initState) {
-      this.state = JSON.parse(initState);
+      this._state = JSON.parse(initState);
     }
 
     this.on(StoreEvents.Updated, this.updateStorage.bind(this));
   }
 
   public getState() {
-    // return findValueByKey(this.state, key);
-    return this.state;
+    // return findValueByKey(this._state, key);
+    return this._state;
   }
 
   public setState: StateMethodType = (path, value) => {
     const statesAreEqual = isEqual(
-      this.state[path] as IndexedType,
+      this._state[path] as IndexedType,
       value as IndexedType,
     );
 
@@ -57,17 +55,17 @@ class Store extends EventBus {
   };
 
   public clearState() {
-    this.state = {};
+    this._state = {};
     localStorage.clear();
   }
 
   public clearStatePath(path: string) {
-    delete this.state[path];
+    delete this._state[path];
     this.emit(StoreEvents.Updated);
   }
 
   private updateState: StateMethodType = (path, value) => {
-    this.state = setObjectValue(this.state, path, value);
+    this._state = setObjectValue(this._state, path, value);
 
     this.emit(StoreEvents.Updated);
   };
@@ -76,18 +74,18 @@ class Store extends EventBus {
     // while adding new chat - chatsReviews rerender cancel
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const localState = (({ currentChat, newChat, ...rest }) => rest)(
-      this.state,
+      this._state,
     );
 
     localStorage.setItem('My store', JSON.stringify(localState));
   }
 
   public setRouter(router: Router) {
-    this.router = router;
+    this._router = router;
   }
 
   public getRouter() {
-    return this.router;
+    return this._router;
   }
 }
 
