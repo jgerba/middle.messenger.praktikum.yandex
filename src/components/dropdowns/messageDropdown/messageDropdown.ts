@@ -12,7 +12,7 @@ export default class MessageDropdown extends Dropdown {
     this.initOptions();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -20,7 +20,7 @@ export default class MessageDropdown extends Dropdown {
     return this.compile(tpl, propsToRender);
   }
 
-  initOptions() {
+  private initOptions() {
     (this.children.photoVideoBtn as Block).addEvent(
       'click',
       this.addMedia.bind(this),
@@ -32,15 +32,15 @@ export default class MessageDropdown extends Dropdown {
     );
   }
 
-  addMedia() {
+  private addMedia() {
     console.log('Adding media...');
   }
 
-  addFile() {
+  private addFile() {
     console.log('Adding file...');
   }
 
-  addLocation() {
+  private addLocation() {
     console.log('Adding location...');
   }
 }

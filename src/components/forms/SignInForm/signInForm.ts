@@ -16,7 +16,7 @@ export default class SignInForm extends ValidationForm {
     this.initSignUpBtn();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -24,7 +24,7 @@ export default class SignInForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  private submitHandler(event: SubmitEvent): void {
     event.preventDefault();
 
     const formData = this.submitForm();
@@ -35,14 +35,14 @@ export default class SignInForm extends ValidationForm {
     }
   }
 
-  initSignUpBtn() {
+  private initSignUpBtn() {
     const signUpBtn = this.children.signUpBtn as Block;
 
     // put listener inside btn props.event & add event
     signUpBtn.addEvent('click', this.changeFormHandler.bind(this));
   }
 
-  changeFormHandler() {
+  private changeFormHandler() {
     store.getRouter().go('/sign-up');
   }
 }

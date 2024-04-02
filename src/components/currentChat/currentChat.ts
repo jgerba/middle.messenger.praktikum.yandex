@@ -14,20 +14,20 @@ import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 /* eslint prefer-template:0 */
 
 export default class CurrentChat extends Block {
-  prevMessages: PropsType[] | [] = [];
+  private _prevMessages: PropsType[] | [] = [];
 
-  chatRoot: HTMLElement;
+  private _chatRoot: HTMLElement;
 
   constructor(props: PropsType | ChildrenType) {
     super('section', props);
 
-    this.chatRoot = this.element!.querySelector('.current-chat__dialog')!;
+    this._chatRoot = this.element!.querySelector('.current-chat__dialog')!;
 
     this.updateMessages();
     store.on(StoreEvents.Updated, this.updateMessages.bind(this));
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -42,20 +42,20 @@ export default class CurrentChat extends Block {
       return;
     }
 
-    if (this.prevMessages.length === 0) {
-      this.prevMessages = [...newData];
-      this.renderChat(this.prevMessages);
+    if (this._prevMessages.length === 0) {
+      this._prevMessages = [...newData];
+      this.renderChat(this._prevMessages);
       return;
     }
 
-    const dataToAdd = getDataToUpdate(newData, this.prevMessages);
+    const dataToAdd = getDataToUpdate(newData, this._prevMessages);
 
     if (dataToAdd.length > 0) {
       // prepend new chat to previous rendered chats
       this.renderChat(dataToAdd);
     }
 
-    this.prevMessages = [...newData];
+    this._prevMessages = [...newData];
   }
 
   private getData(): PropsType[] | null {
@@ -63,8 +63,8 @@ export default class CurrentChat extends Block {
 
     if (!currentChat || !currentChat.id) {
       // clear chat rendered messages when del chat/switch between chats
-      this.prevMessages = [];
-      this.chatRoot.innerHTML = '';
+      this._prevMessages = [];
+      this._chatRoot.innerHTML = '';
       return null;
     }
 
@@ -76,7 +76,7 @@ export default class CurrentChat extends Block {
 
     const isSameData = isEqual(
       newMessages as PropsType[],
-      this.prevMessages as PropsType[],
+      this._prevMessages as PropsType[],
     );
 
     if (isSameData) {
@@ -88,7 +88,7 @@ export default class CurrentChat extends Block {
 
   renderChat(messages: PropsType[]) {
     if (!messages || messages.length === 0) {
-      this.chatRoot.innerHTML = '';
+      this._chatRoot.innerHTML = '';
       return;
     }
 
@@ -104,7 +104,7 @@ export default class CurrentChat extends Block {
       .forEach((message) => {
         const isPersonalMsg = message.user_id === user.id;
 
-        this.chatRoot.prepend(
+        this._chatRoot.prepend(
           new Message({
             content: message.content,
             time: formatDate(message.time as string),

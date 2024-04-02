@@ -12,7 +12,7 @@ export default class MessageForm extends ValidationForm {
     super(tagName, { ...props, events: { submit: onSubmit } });
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -20,7 +20,7 @@ export default class MessageForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  private submitHandler(event: SubmitEvent): void {
     event.preventDefault();
 
     const formData = this.submitForm();

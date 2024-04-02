@@ -3,12 +3,12 @@ import Block from '../../core/block.ts';
 import { PropsType, ChildrenType } from '../../core/types.ts';
 
 export default class Dropdown extends Block {
-  dropdown: HTMLElement;
+  private dropdown: HTMLElement;
 
-  icon: HTMLElement;
+  private icon: HTMLElement;
 
   // for listener removing
-  bindedCloseHandler: (event: MouseEvent) => void;
+  private bindedCloseHandler: (event: MouseEvent) => void;
 
   constructor(props: PropsType | ChildrenType) {
     const onClick = () => this.openDropdownHandler.bind(this)();
@@ -21,7 +21,7 @@ export default class Dropdown extends Block {
     this.icon = this.element!.querySelector('img')!;
   }
 
-  openDropdownHandler() {
+  protected openDropdownHandler() {
     // click on dropdown btn toggle dropdown view
     if (this.dropdown.classList.contains('hidden')) {
       this.openDropdown();
@@ -31,21 +31,21 @@ export default class Dropdown extends Block {
     this.closeDropdown();
   }
 
-  openDropdown() {
+  protected openDropdown() {
     this.dropdown.classList.remove('hidden');
     this.icon.classList.add('active');
 
     document.addEventListener('click', this.bindedCloseHandler);
   }
 
-  closeDropdown() {
+  protected closeDropdown() {
     this.dropdown.classList.add('hidden');
     this.icon.classList.remove('active');
 
     document.removeEventListener('click', this.bindedCloseHandler);
   }
 
-  closeDropdownHandler(event: MouseEvent) {
+  protected closeDropdownHandler(event: MouseEvent) {
     if (this.element?.contains(event.target as Node)) {
       return;
     }

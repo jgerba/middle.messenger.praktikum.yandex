@@ -20,7 +20,7 @@ export default class AvatarInput extends Block {
     ).class.includes('chatpic');
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -28,7 +28,7 @@ export default class AvatarInput extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  openModal() {
+  private openModal() {
     /* eslint no-new: 0 */
 
     // use to define endpoint for pic upload

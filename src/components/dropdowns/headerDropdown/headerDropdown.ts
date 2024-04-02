@@ -19,7 +19,7 @@ export default class HeaderDropdown extends Dropdown {
     this.initOptions();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -27,7 +27,7 @@ export default class HeaderDropdown extends Dropdown {
     return this.compile(tpl, propsToRender);
   }
 
-  initOptions() {
+  private initOptions() {
     (this.children.addUserBtn as Block).addEvent(
       'click',
       this.createAddUserModal,
@@ -42,7 +42,7 @@ export default class HeaderDropdown extends Dropdown {
     );
   }
 
-  createAddUserModal() {
+  private createAddUserModal() {
     new AddUserModal({
       textInput: new FormInput('div', {
         name: 'login',
@@ -60,7 +60,7 @@ export default class HeaderDropdown extends Dropdown {
     });
   }
 
-  createRemoveUserModal() {
+  private createRemoveUserModal() {
     new RemoveUserModal({
       modalHeader: 'Remove user',
       attr: { class: 'modal' },
@@ -68,7 +68,7 @@ export default class HeaderDropdown extends Dropdown {
     });
   }
 
-  createRemoveChatModal() {
+  private createRemoveChatModal() {
     new RemoveChatModal({
       submitBtn: new Button('button', {
         text: 'Remove',

@@ -2,7 +2,7 @@ import Block from '../../core/block.ts';
 import ValidationInput from '../inputs/validationInput.ts';
 
 export default class ValidationForm extends Block {
-  submitForm() {
+  protected submitForm() {
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
@@ -20,7 +20,7 @@ export default class ValidationForm extends Block {
     return formObject;
   }
 
-  validateForm(): boolean {
+  protected validateForm(): boolean {
     let isValid: boolean = true;
 
     Object.values(this.children).forEach((child: Block) => {

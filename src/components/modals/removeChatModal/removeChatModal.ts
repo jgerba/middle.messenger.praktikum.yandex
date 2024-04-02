@@ -7,7 +7,7 @@ import store from '../../../core/store.js';
 import { IndexedType } from '../../../core/types.js';
 
 export default class RemoveChatModal extends Modal {
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -15,13 +15,13 @@ export default class RemoveChatModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  async submitHandler(event: SubmitEvent) {
+  protected async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     this.chatRemoveHandler();
   }
 
-  async chatRemoveHandler() {
+  private async chatRemoveHandler() {
     const state = store.getState();
     const currentId = (state.currentChat as IndexedType).id as number;
 

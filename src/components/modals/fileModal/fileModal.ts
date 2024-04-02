@@ -9,17 +9,17 @@ import chatsController from '../../../controllers/chats-controller.ts';
 import { PropsType, ChildrenType } from '../../../core/types.ts';
 
 export default class FileModal extends Modal {
-  // define origin of modal: chat/user
-  origin: string;
+  // define _origin of modal: chat/user
+  private _origin: string;
 
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
-    this.origin = props.origin as string;
+    this._origin = props.origin as string;
     this.initFileInput();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -27,14 +27,14 @@ export default class FileModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  initFileInput() {
+  private initFileInput() {
     (this.children.fileInput as Block).addEvent(
       'change',
       this.changeLabelHandler.bind(this),
     );
   }
 
-  changeLabelHandler() {
+  private changeLabelHandler() {
     const input = this.element!.querySelector('input')!;
 
     if (!input.value) {
@@ -47,7 +47,7 @@ export default class FileModal extends Modal {
     label.innerText = fileName;
   }
 
-  submitHandler(event: SubmitEvent) {
+  protected submitHandler(event: SubmitEvent) {
     super.submitHandler(event);
 
     const inputFiles: FileList = (event.target as HTMLFormElement).avatar.files;
@@ -60,13 +60,13 @@ export default class FileModal extends Modal {
     this.fetchHandler(inputFiles);
   }
 
-  async fetchHandler(inputFiles: FileList) {
+  private async fetchHandler(inputFiles: FileList) {
     const formData = new FormData();
     let status: number;
 
     formData.append('avatar', inputFiles[0]);
 
-    if (this.origin === 'chat') {
+    if (this._origin === 'chat') {
       const chatId = (store.getState().currentChat as { [key: string]: number })
         .id;
 

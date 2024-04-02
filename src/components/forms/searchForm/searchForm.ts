@@ -5,7 +5,7 @@ import { PropsType, ChildrenType, IndexedType } from '../../../core/types.ts';
 import store from '../../../core/store.ts';
 
 export default class SearchForm extends Block {
-  filterBadge: Block;
+  private _filterBadge: Block;
 
   constructor(props: PropsType | ChildrenType) {
     const onFocus = (event: Event) => this.handleIcon.bind(this)(event);
@@ -21,7 +21,7 @@ export default class SearchForm extends Block {
     this.initBadge();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -29,7 +29,7 @@ export default class SearchForm extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  submitSearch(event: SubmitEvent) {
+  private submitSearch(event: SubmitEvent) {
     event.preventDefault();
     const searchString = (event.target as HTMLFormElement).search.value.trim();
 
@@ -41,7 +41,7 @@ export default class SearchForm extends Block {
     (this.element! as HTMLFormElement).reset();
   }
 
-  handleInput(event: InputEvent) {
+  private handleInput(event: InputEvent) {
     this.handleIcon(event);
 
     const filterVal = (event.target as HTMLInputElement).value.trim();
@@ -50,7 +50,7 @@ export default class SearchForm extends Block {
     this.handleBadge();
   }
 
-  handleIcon(event: Event) {
+  private handleIcon(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
     const icon = this.element!.querySelector('img');
 
@@ -64,23 +64,23 @@ export default class SearchForm extends Block {
     icon!.classList.remove('hidden');
   }
 
-  initBadge() {
-    this.filterBadge = this.children.clearBtn as Block;
-    this.filterBadge.addEvent('click', this.resetFilterHandler.bind(this));
+  private initBadge() {
+    this._filterBadge = this.children.clearBtn as Block;
+    this._filterBadge.addEvent('click', this.resetFilterHandler.bind(this));
 
     this.handleBadge();
   }
 
-  resetFilterHandler() {
+  private resetFilterHandler() {
     (this.element! as HTMLFormElement).reset();
     store.clearStatePath('chatsFilter');
     this.handleBadge();
   }
 
-  handleBadge() {
+  private handleBadge() {
     const state = store.getState();
     const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
 
-    filterVal ? this.filterBadge.show() : this.filterBadge.hide();
+    filterVal ? this._filterBadge.show() : this._filterBadge.hide();
   }
 }

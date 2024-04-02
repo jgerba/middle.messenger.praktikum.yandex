@@ -15,7 +15,7 @@ export default class ValidationInput extends Input {
     });
   }
 
-  validateInput(): boolean {
+  public validateInput(): boolean {
     const inputEl = this.element!.querySelector('input') as HTMLInputElement;
 
     let isValid;
@@ -56,7 +56,7 @@ export default class ValidationInput extends Input {
   }
 
   // check if 2 passes available and compare them
-  matchPasswords(): boolean {
+  private matchPasswords(): boolean {
     const formEl = this.element?.closest('form');
 
     const passInputs = formEl?.querySelectorAll(
@@ -74,7 +74,7 @@ export default class ValidationInput extends Input {
   }
 
   // show/hide error message
-  handleError(isValid: boolean, passesAreEqual: boolean = true) {
+  private handleError(isValid: boolean, passesAreEqual: boolean = true) {
     const errorEl = this.element!.querySelector('.error') as HTMLElement;
 
     if (isValid) {

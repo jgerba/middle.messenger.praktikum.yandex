@@ -8,9 +8,9 @@ import authController from '../../controllers/auth-controller.js';
 import store from '../../core/store.js';
 
 export default class Settings extends Block {
-  btns: Block[];
+  private _btns: Block[];
 
-  forms: HTMLElement[];
+  private _forms: HTMLElement[];
 
   constructor(props: PropsType | ChildrenType) {
     super('div', props);
@@ -19,7 +19,7 @@ export default class Settings extends Block {
     this.addEvents();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -27,29 +27,29 @@ export default class Settings extends Block {
     return this.compile(tpl, propsToRender);
   }
 
-  addEvents() {
+  private addEvents() {
     // put listener inside btn's props.event & add event
-    this.btns.forEach((btn) =>
+    this._btns.forEach((btn) =>
       btn.addEvent('click', (event: MouseEvent) => this.changePage(event)),
     );
   }
 
-  initElems() {
-    this.btns = [
+  private initElems() {
+    this._btns = [
       (this.children.profile as Block).children.changeProfileBtn as Block,
       (this.children.profile as Block).children.changePassBtn as Block,
       (this.children.profile as Block).children.logOutBtn as Block,
       this.children.returnBtn as Block,
     ];
 
-    this.forms = [
+    this._forms = [
       (this.children.profile as Block).element!,
       (this.children.profileForm as Block).element!,
       (this.children.passwordForm as Block).element!,
     ];
   }
 
-  changePage(event: MouseEvent) {
+  private changePage(event: MouseEvent) {
     const clickBtn = event.currentTarget as HTMLElement;
     let { title: btnTitle } = clickBtn;
 
@@ -59,7 +59,7 @@ export default class Settings extends Block {
     }
     if (btnTitle === 'Step back') {
       // case when already in settings root
-      if (!this.forms[0].classList.contains('hidden')) {
+      if (!this._forms[0].classList.contains('hidden')) {
         store.getRouter().go('/messenger');
         return;
       }
@@ -67,7 +67,7 @@ export default class Settings extends Block {
       btnTitle = 'Profile';
     }
 
-    this.forms.forEach((form) => {
+    this._forms.forEach((form) => {
       if (form.title === btnTitle) {
         form.classList.remove('hidden');
         return;
@@ -77,7 +77,7 @@ export default class Settings extends Block {
     });
   }
 
-  logOutHandler() {
+  private logOutHandler() {
     authController.logOut();
   }
 }

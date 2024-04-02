@@ -7,7 +7,7 @@ import userController from '../../../controllers/user-controller.js';
 import ValidationInput from '../../inputs/validationInput.js';
 
 export default class AddUserModal extends Modal {
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -15,7 +15,7 @@ export default class AddUserModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  async submitHandler(event: SubmitEvent) {
+  protected async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const input = this.children.textInput as ValidationInput;
@@ -30,7 +30,7 @@ export default class AddUserModal extends Modal {
     this.userHandler(inputData);
   }
 
-  async userHandler(data: { [key: string]: string }) {
+  private async userHandler(data: { [key: string]: string }) {
     const user = (await userController.searchUser({
       data: { login: data.title },
     })) as unknown;

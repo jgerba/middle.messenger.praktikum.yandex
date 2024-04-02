@@ -5,7 +5,7 @@ import chatsController from '../../../controllers/chats-controller.js';
 import ValidationInput from '../../inputs/validationInput.js';
 
 export default class AddChatModal extends Modal {
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -13,7 +13,7 @@ export default class AddChatModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  async submitHandler(event: SubmitEvent) {
+  protected async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const input = this.children.textInput as ValidationInput;

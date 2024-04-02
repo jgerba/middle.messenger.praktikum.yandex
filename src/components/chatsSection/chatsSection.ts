@@ -17,23 +17,25 @@ import { BASE_URL } from '../../core/const.ts';
 /* eslint prefer-template:0 */
 
 export default class ChatsSection extends Block {
-  prevChats: PropsType[] | undefined;
+  private _prevChats: PropsType[] | undefined;
 
-  previewRoot: HTMLElement;
+  private _previewRoot: HTMLElement;
 
   constructor(tagName: string, props: PropsType | ChildrenType) {
     const onAnchorClick = (event: MouseEvent) => this.anchorHandler(event);
 
     super(tagName, { ...props, events: { click: onAnchorClick } });
 
-    this.previewRoot = this.element!.querySelector('.chats-section__previews')!;
+    this._previewRoot = this.element!.querySelector(
+      '.chats-section__previews',
+    )!;
 
     this.updateChats();
 
     store.on(StoreEvents.Updated, this.updateChats.bind(this));
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -49,14 +51,14 @@ export default class ChatsSection extends Block {
       return;
     }
 
-    if (!this.prevChats) {
-      this.prevChats = [...newChatsData];
+    if (!this._prevChats) {
+      this._prevChats = [...newChatsData];
       this.renderPreviews();
       return;
     }
 
-    const chatToAdd = getDataToUpdate(newChatsData, this.prevChats);
-    const chatToRemove = getDataToUpdate(this.prevChats, newChatsData);
+    const chatToAdd = getDataToUpdate(newChatsData, this._prevChats);
+    const chatToRemove = getDataToUpdate(this._prevChats, newChatsData);
 
     if (chatToRemove.length > 0) {
       this.removePreview(chatToRemove);
@@ -68,7 +70,7 @@ export default class ChatsSection extends Block {
       if ((newChat as IndexedType)?.id) {
         // append new chat to previous rendered chats
         this.renderPreviews(chatToAdd, true);
-        this.prevChats = [...newChatsData];
+        this._prevChats = [...newChatsData];
         store.clearStatePath('newChat');
         return;
       }
@@ -77,7 +79,7 @@ export default class ChatsSection extends Block {
       this.renderPreviews(chatToAdd);
     }
 
-    this.prevChats = [...newChatsData];
+    this._prevChats = [...newChatsData];
   }
 
   private getChats(): PropsType[] | null {
@@ -85,7 +87,7 @@ export default class ChatsSection extends Block {
 
     const isSameData = isEqual(
       chatsData as PropsType[],
-      this.prevChats as PropsType[],
+      this._prevChats as PropsType[],
     );
 
     if (isSameData) {
@@ -95,34 +97,34 @@ export default class ChatsSection extends Block {
     return chatsData as PropsType[];
   }
 
-  removePreview(chatData: PropsType[]) {
-    const chatToDelete = this.previewRoot.querySelector(
+  private removePreview(chatData: PropsType[]) {
+    const chatToDelete = this._previewRoot.querySelector(
       `article[data-id="${chatData[0].id}"]`,
     );
     chatToDelete?.remove();
   }
 
-  renderPreviews(chatsData = this.prevChats, prepend = false) {
+  private renderPreviews(chatsData = this._prevChats, prepend = false) {
     if (!chatsData) {
-      this.previewRoot.innerHTML = '';
+      this._previewRoot.innerHTML = '';
       return;
     }
 
     chatsData.forEach((chat) => {
       prepend
-        ? this.previewRoot.prepend(this.chatPreviewConstructor(chat))
-        : this.previewRoot.append(this.chatPreviewConstructor(chat));
+        ? this._previewRoot.prepend(this.chatPreviewConstructor(chat))
+        : this._previewRoot.append(this.chatPreviewConstructor(chat));
     });
 
     this.filterPreviews();
   }
 
-  filterPreviews() {
+  private filterPreviews() {
     const state = store.getState();
     const filterVal = (state.chatsFilter as IndexedType)?.filterVal as string;
     // compare filterVal with prevFilterVal
 
-    this.previewRoot.querySelectorAll('article').forEach((el) => {
+    this._previewRoot.querySelectorAll('article').forEach((el) => {
       const hasMatch = (el.title as string).toLowerCase().includes(filterVal);
 
       if (hasMatch || !filterVal) {
@@ -133,7 +135,7 @@ export default class ChatsSection extends Block {
     });
   }
 
-  chatPreviewConstructor(chatData: PropsType): HTMLElement {
+  private chatPreviewConstructor(chatData: PropsType): HTMLElement {
     const ConnectedPreview = connect(ChatPreview, getChatData);
 
     function getChatData(state: IndexedType): PropsType {
@@ -194,7 +196,11 @@ export default class ChatsSection extends Block {
     }).getContent() as HTMLElement;
   }
 
-  async openChatHandler(chatId: string, chatAvatar: string, chatTitle: string) {
+  private async openChatHandler(
+    chatId: string,
+    chatAvatar: string,
+    chatTitle: string,
+  ) {
     // if the same chat return
     if ((store.getState().currentChat as IndexedType)?.id === chatId) {
       return;
@@ -213,7 +219,7 @@ export default class ChatsSection extends Block {
     }
   }
 
-  anchorHandler(event: MouseEvent) {
+  private anchorHandler(event: MouseEvent) {
     if (!(event.target as HTMLElement).classList.contains('settings-link')) {
       return;
     }

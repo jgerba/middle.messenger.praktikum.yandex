@@ -17,26 +17,26 @@ export default class Modal extends Block {
     this.initModal();
   }
 
-  initModal() {
+  private initModal() {
     const modalRoot = document.getElementById('modal-root')!;
     modalRoot.append(this.element!);
   }
 
-  clickHandler(event: Event) {
+  private clickHandler(event: Event) {
     if ((event.target as HTMLElement).title === 'Backdrop') {
       this.closeModal();
     }
   }
 
-  closeModal() {
+  protected closeModal() {
     this.element!.remove();
   }
 
-  submitHandler(event: SubmitEvent) {
+  protected submitHandler(event: SubmitEvent) {
     event.preventDefault();
   }
 
-  handleError() {
+  protected handleError() {
     console.log('Error handling...');
   }
 }

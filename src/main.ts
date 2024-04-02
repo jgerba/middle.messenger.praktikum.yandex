@@ -16,7 +16,7 @@ class App {
     this.checkAuth();
   }
 
-  initRouter() {
+  private initRouter() {
     this.router = new Router();
     this.router.use('/', signInPage);
     this.router.use('/sign-up', signUpPage);
@@ -26,7 +26,7 @@ class App {
     store.setRouter(this.router);
   }
 
-  async checkAuth() {
+  private async checkAuth() {
     await authController.getUser();
   }
 }
