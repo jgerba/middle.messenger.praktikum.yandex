@@ -1,4 +1,5 @@
 import userApi from '../api/user-api.ts';
+import { MSGS } from '../core/const.ts';
 import store from '../core/store.ts';
 
 import { DataType, ResponseType } from '../core/types.ts';
@@ -15,10 +16,12 @@ class UserController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
-
+        store.setState('popUp', { message: MSGS.USER_UPDATE });
         store.setState('user', response);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        store.setState('popUp', { message: error, isError: true });
+      });
   }
 
   async changeAvatar(submitData: DataType) {
@@ -33,24 +36,31 @@ class UserController {
         );
       }
 
+      store.setState('popUp', { message: MSGS.IMG_UPDATE });
       store.setState('user', response);
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
   async changePassword(submitData: DataType) {
-    userApi
-      .changePassword(submitData)
-      .then(({ status, response }: ResponseType) => {
-        if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
-        }
-      })
-      .catch((error) => console.log(error));
+    try {
+      const { status, response }: ResponseType = (await userApi.changePassword(
+        submitData,
+      )) as ResponseType;
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+
+      store.setState('popUp', { message: MSGS.PSW_CHANGE });
+      return status;
+    } catch (error) {
+      store.setState('popUp', { message: error, isError: true });
+    }
   }
 
   async searchUser(submitData: DataType) {
@@ -67,7 +77,7 @@ class UserController {
 
       return response;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 }

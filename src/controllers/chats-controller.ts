@@ -1,4 +1,5 @@
 import chatApi from '../api/chats-api.ts';
+import { MSGS } from '../core/const.ts';
 import store from '../core/store.ts';
 
 import {
@@ -18,9 +19,7 @@ class ChatsController {
       .getChats()
       .then(({ status, response }: ResponseType) => {
         if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
+          throw new Error(`${status} Something went wrong`);
         }
 
         store.setState('chats', response);
@@ -49,7 +48,9 @@ class ChatsController {
 
         return response;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        store.setState('popUp', { message: error, isError: true });
+      });
   }
 
   async createChat(data: DataType) {
@@ -64,13 +65,15 @@ class ChatsController {
         );
       }
 
-      // need to append new chat to already rendered chats
+      store.setState('popUp', { message: MSGS.CHAT_CREATE });
+
+      // need for appending new chat to already rendered chats
       store.setState('newChat', response);
       this.getChats();
 
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
@@ -86,9 +89,11 @@ class ChatsController {
         );
       }
 
+      store.setState('popUp', { message: MSGS.USER_ADD });
+
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
@@ -104,9 +109,11 @@ class ChatsController {
         );
       }
 
+      store.setState('popUp', { message: MSGS.USER_REMOVE });
+
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
@@ -122,32 +129,34 @@ class ChatsController {
         );
       }
 
+      store.setState('popUp', { message: MSGS.IMG_UPDATE });
+
       this.getChats();
 
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
   async removeChat(submitData: AddUsersDataType) {
     try {
-      const { status, response }: ResponseType = (await chatApi.removeChat(
+      const { status }: ResponseType = (await chatApi.removeChat(
         submitData,
       )) as ResponseType;
 
       if (status !== 200) {
-        throw new Error(
-          `${status} ${(response as { [key: string]: string }).reason}`,
-        );
+        throw new Error(`${status} Something went wrong`);
       }
 
-      this.getChats();
+      store.setState('popUp', { message: MSGS.CHAT_DELETE });
       store.clearStatePath('currentChat');
+
+      this.getChats();
 
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 
@@ -158,14 +167,12 @@ class ChatsController {
       )) as ResponseType;
 
       if (status !== 200) {
-        throw new Error(
-          `${status} ${(response as { [key: string]: string }).reason}`,
-        );
+        throw new Error(`${status} Something went wrong`);
       }
 
       return response;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
     }
   }
 }
