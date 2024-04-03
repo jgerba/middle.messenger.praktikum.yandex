@@ -1,4 +1,5 @@
 import chatApi from '../api/chats-api.ts';
+import loader from '../components/loader/index.ts';
 import { MSGS } from '../core/const.ts';
 import store from '../core/store.ts';
 
@@ -15,6 +16,8 @@ class ChatsController {
   // to do - set chats offset & limit
 
   async getChats() {
+    loader.show();
+
     chatApi
       .getChats()
       .then(({ status, response }: ResponseType) => {
@@ -46,15 +49,20 @@ class ChatsController {
           }
         }
 
+        loader.hide();
+
         return response;
       })
       .catch((error) => {
         store.setState('popUp', { message: error, isError: true });
+        loader.hide();
       });
   }
 
   async createChat(data: DataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await chatApi.createChat(
         data,
       )) as ResponseType;
@@ -69,16 +77,22 @@ class ChatsController {
 
       // need for appending new chat to already rendered chats
       store.setState('newChat', response);
+
+      loader.hide();
+
       this.getChats();
 
       return status;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async addUsers(submitData: AddUsersDataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await chatApi.addUsers(
         submitData,
       )) as ResponseType;
@@ -91,14 +105,19 @@ class ChatsController {
 
       store.setState('popUp', { message: MSGS.USER_ADD });
 
+      loader.hide();
+
       return status;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async removeUsers(submitData: AddUsersDataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await chatApi.removeUsers(
         submitData,
       )) as ResponseType;
@@ -111,14 +130,19 @@ class ChatsController {
 
       store.setState('popUp', { message: MSGS.USER_REMOVE });
 
+      loader.hide();
+
       return status;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async changeAvatar(submitData: AddUsersDataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await chatApi.changeAvatar(
         submitData,
       )) as ResponseType;
@@ -131,16 +155,21 @@ class ChatsController {
 
       store.setState('popUp', { message: MSGS.IMG_UPDATE });
 
+      loader.hide();
+
       this.getChats();
 
       return status;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async removeChat(submitData: AddUsersDataType) {
     try {
+      loader.show();
+
       const { status }: ResponseType = (await chatApi.removeChat(
         submitData,
       )) as ResponseType;
@@ -152,16 +181,21 @@ class ChatsController {
       store.setState('popUp', { message: MSGS.CHAT_DELETE });
       store.clearStatePath('currentChat');
 
+      loader.hide();
+
       this.getChats();
 
       return status;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async getChatUsers(submitData: AddUsersDataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await chatApi.getChatUsers(
         submitData,
       )) as ResponseType;
@@ -170,9 +204,12 @@ class ChatsController {
         throw new Error(`${status} Something went wrong`);
       }
 
+      loader.hide();
+
       return response;
     } catch (error) {
       store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 }
