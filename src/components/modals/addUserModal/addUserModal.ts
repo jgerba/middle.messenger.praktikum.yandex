@@ -36,7 +36,6 @@ export default class AddUserModal extends Modal {
     })) as unknown;
 
     if (!user) {
-      this.handleError();
       return;
     }
 
@@ -51,6 +50,8 @@ export default class AddUserModal extends Modal {
 
     const status = await chatsController.addUsers(dataToSend);
 
-    status === 200 ? this.closeModal() : this.handleError();
+    if (status === 200) {
+      this.closeModal();
+    }
   }
 }

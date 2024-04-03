@@ -26,6 +26,8 @@ export default class AddChatModal extends Modal {
     const inputData = { title: input.element!.querySelector('input')!.value };
 
     const status = await chatsController.createChat({ data: inputData });
-    status === 200 ? this.closeModal() : this.handleError();
+    if (status === 200) {
+      this.closeModal();
+    }
   }
 }

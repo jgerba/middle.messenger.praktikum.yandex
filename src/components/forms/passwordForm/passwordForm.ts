@@ -20,7 +20,7 @@ export default class PasswordForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  private submitHandler(event: SubmitEvent): void {
+  private async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const formData = this.submitForm();
@@ -28,7 +28,14 @@ export default class PasswordForm extends ValidationForm {
 
     if (formData && Object.keys(formData).length > 0) {
       const { oldPassword, newPassword } = formData;
-      userController.changePassword({ data: { oldPassword, newPassword } });
+
+      const status = await userController.changePassword({
+        data: { oldPassword, newPassword },
+      });
+
+      if (status === 200) {
+        (this.element! as HTMLFormElement).reset();
+      }
     }
   }
 }

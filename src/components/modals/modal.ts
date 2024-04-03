@@ -35,8 +35,4 @@ export default class Modal extends Block {
   protected submitHandler(event: SubmitEvent) {
     event.preventDefault();
   }
-
-  protected handleError() {
-    console.log('Error handling...');
-  }
 }

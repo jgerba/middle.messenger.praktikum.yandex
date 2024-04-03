@@ -88,7 +88,10 @@ export default class RemoveUserModal extends Modal {
     };
 
     const status = await chatsController.removeUsers(dataToSend);
-    status === 200 ? this.removeUser(id) : this.handleError();
+
+    if (status === 200) {
+      this.removeUser(id);
+    }
   }
 
   private removeUser(id: number) {

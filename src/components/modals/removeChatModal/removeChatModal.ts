@@ -30,11 +30,7 @@ export default class RemoveChatModal extends Modal {
     });
 
     if (status === 200) {
-      // clear chat rendered messages
-      store.clearStatePath('currentChat');
       this.closeModal();
-      return;
     }
-    this.handleError();
   }
 }

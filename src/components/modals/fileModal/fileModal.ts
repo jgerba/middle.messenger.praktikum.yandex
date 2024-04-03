@@ -81,6 +81,8 @@ export default class FileModal extends Modal {
       })) as number;
     }
 
-    status === 200 ? this.closeModal() : this.handleError();
+    if (status === 200) {
+      this.closeModal();
+    }
   }
 }
