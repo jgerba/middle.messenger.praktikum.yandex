@@ -1,0 +1,21 @@
+.pop-up {
+  padding-right: 15px;
+  border-right: 3px solid $highlight-color;
+
+  & .error {
+    border-right: 3px solid $warning-color;
+  }
+
+  &__message {
+    font-size: 16px;
+    text-align: end;
+  }
+}
+
+.pop-up::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}

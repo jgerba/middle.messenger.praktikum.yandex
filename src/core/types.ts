@@ -15,7 +15,7 @@ export type PropsType = Record<string, PropValue | PropValue[]>;
 export type ChildrenType = Record<string, Block | Block[]>;
 
 export type IndexedType = {
-  [key: string]: string | number | IndexedType;
+  [key: string]: string | number | boolean | IndexedType;
 };
 
 export type DataType = {
@@ -34,3 +34,5 @@ export type AddUsersDataType = {
 export type ResponseType = {
   [key: string]: Record<string, string | { [key: string]: string }> | number;
 };
+
+export type PopUpType = { message: string; isError?: boolean };

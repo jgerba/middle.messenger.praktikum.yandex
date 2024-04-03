@@ -32,6 +32,18 @@ a:active {
   text-decoration: none;
 }
 
+#popup-root {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 300px;
+  right: 50px;
+  bottom: 65px;
+  z-index: 101;
+}
+
 .hidden {
   display: none;
 }
