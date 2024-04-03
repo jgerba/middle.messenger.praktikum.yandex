@@ -13,5 +13,5 @@ export enum MSGS {
   USER_CREATE = 'User has been successfully created',
   USER_LOGIN = 'Successfully logged in',
   USER_LOGOUT = 'Successfully logged out',
-  USER_REDIRECT = 'Redirected',
+  USER_REDIRECT = 'Redirected to messenger',
 }
