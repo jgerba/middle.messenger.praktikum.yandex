@@ -51,9 +51,9 @@ class App {
 
     store.clearStatePath('popUp');
 
-    // setTimeout(() => {
-    //   this.closePopup(newPopUpEl);
-    // }, 3000);
+    setTimeout(() => {
+      this.closePopup(newPopUpEl);
+    }, 3000);
   }
 
   private popUpConstructor(data: PopUpType) {
