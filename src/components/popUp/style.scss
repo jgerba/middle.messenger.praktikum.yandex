@@ -1,8 +1,9 @@
 .pop-up {
   padding-right: 15px;
   border-right: 3px solid $highlight-color;
+  cursor: pointer;
 
-  & .error {
+  &.error {
     border-right: 3px solid $warning-color;
   }
 
