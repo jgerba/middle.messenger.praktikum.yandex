@@ -20,6 +20,12 @@ export default class Modal extends Block {
   private initModal() {
     const modalRoot = document.getElementById('modal-root')!;
     modalRoot.append(this.element!);
+
+    // add form & backdrop transition
+    setTimeout(() => {
+      this.element!.querySelector('.modal__form')!.classList.add('open');
+      this.element!.querySelector('.modal__backdrop')!.classList.add('open');
+    }, 0);
   }
 
   private clickHandler(event: Event) {

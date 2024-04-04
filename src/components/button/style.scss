@@ -4,6 +4,7 @@
   border-radius: 8px;
   color: $white-color;
   background-color: $highlight-color;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &--extra {
     color: $highlight-color;

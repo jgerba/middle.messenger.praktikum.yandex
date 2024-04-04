@@ -48,6 +48,10 @@ class App {
     const newPopUpEl = this.popUpConstructor(popUpData);
 
     this.popUpRoot.prepend(newPopUpEl);
+    // add transition
+    setTimeout(() => {
+      newPopUpEl.classList.add('show');
+    }, 0);
 
     store.clearStatePath('popUp');
 

@@ -4,10 +4,6 @@
   flex-direction: column;
   height: 50px;
 
-  .input {
-    border-bottom: 1px solid $highlight-color;
-  }
-
   .label,
   .input::placeholder {
     color: $back-text-color;
@@ -16,6 +12,15 @@
   .input,
   .input::placeholder {
     padding: 7px 0;
+  }
+
+  .input {
+    border-bottom: 1px solid $highlight-color;
+    transition: border-bottom 0.3s ease;
+
+    &:focus-within {
+      border-bottom: 1px solid $back-text-color;
+    }
   }
 
   .label {
