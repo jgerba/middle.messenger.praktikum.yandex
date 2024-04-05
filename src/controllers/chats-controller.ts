@@ -1,6 +1,6 @@
 import chatApi from '../api/chats-api.ts';
 import loader from '../components/loader/index.ts';
-import { MSGS } from '../core/const.ts';
+import { POP_MSG } from '../core/const.ts';
 import store from '../core/store.ts';
 
 import {
@@ -73,7 +73,7 @@ class ChatsController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.CHAT_CREATE });
+      store.setState('popUp', { message: POP_MSG.CHAT_CREATE });
 
       // need for appending new chat to already rendered chats
       store.setState('newChat', response);
@@ -103,7 +103,7 @@ class ChatsController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.USER_ADD });
+      store.setState('popUp', { message: POP_MSG.USER_ADD });
 
       loader.hide();
 
@@ -128,7 +128,7 @@ class ChatsController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.USER_REMOVE });
+      store.setState('popUp', { message: POP_MSG.USER_REMOVE });
 
       loader.hide();
 
@@ -153,7 +153,7 @@ class ChatsController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.IMG_UPDATE });
+      store.setState('popUp', { message: POP_MSG.IMG_UPDATE });
 
       loader.hide();
 
@@ -178,7 +178,7 @@ class ChatsController {
         throw new Error(`${status} Something went wrong`);
       }
 
-      store.setState('popUp', { message: MSGS.CHAT_DELETE });
+      store.setState('popUp', { message: POP_MSG.CHAT_DELETE });
       store.clearStatePath('currentChat');
 
       loader.hide();

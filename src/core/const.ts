@@ -2,7 +2,7 @@
 
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
-export enum MSGS {
+export enum POP_MSG {
   USER_ADD = 'User has been added to chat',
   USER_REMOVE = 'User has been removed from chat',
   CHAT_CREATE = 'Chat has been created',
@@ -14,4 +14,9 @@ export enum MSGS {
   USER_LOGIN = 'Successfully logged in',
   USER_LOGOUT = 'Successfully logged out',
   USER_REDIRECT = 'Redirected to messenger',
+  GEO_FAIL = 'Unable to get geolocation',
+}
+
+export enum MSG {
+  GEO = 'My coordinates are: ',
 }

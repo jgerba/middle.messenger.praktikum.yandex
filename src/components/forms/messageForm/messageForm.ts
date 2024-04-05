@@ -23,8 +23,8 @@ export default class MessageForm extends ValidationForm {
   private submitHandler(event: SubmitEvent): void {
     event.preventDefault();
 
-    const formData = this.submitForm();
-    WSController.sendMessage(formData as { [key: string]: string });
+    const data = this.submitForm();
+    WSController.sendMessage(data as { [key: string]: string });
 
     (this.element! as HTMLFormElement).reset();
   }

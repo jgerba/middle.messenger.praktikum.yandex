@@ -8,7 +8,7 @@ import loader from '../components/loader/index.ts';
 import chatsController from './chats-controller.ts';
 
 import { DataType, ResponseType } from '../core/types.ts';
-import { MSGS } from '../core/const.ts';
+import { POP_MSG } from '../core/const.ts';
 
 class AuthController {
   async createUser(submitData: DataType) {
@@ -23,7 +23,7 @@ class AuthController {
           );
         }
 
-        store.setState('popUp', { message: MSGS.USER_CREATE });
+        store.setState('popUp', { message: POP_MSG.USER_CREATE });
 
         loader.hide();
 
@@ -47,7 +47,7 @@ class AuthController {
           );
         }
 
-        store.setState('popUp', { message: MSGS.USER_LOGIN });
+        store.setState('popUp', { message: POP_MSG.USER_LOGIN });
         this.getUser();
 
         loader.hide();
@@ -73,7 +73,7 @@ class AuthController {
         store.setState('user', response);
         chatsController.getChats();
 
-        store.setState('popUp', { message: MSGS.USER_REDIRECT });
+        store.setState('popUp', { message: POP_MSG.USER_REDIRECT });
 
         store.getRouter().use('/messenger', messenger);
         store.getRouter().use('/settings', settings);
@@ -98,7 +98,7 @@ class AuthController {
           throw new Error(`${status} Something went wrong`);
         }
 
-        store.setState('popUp', { message: MSGS.USER_LOGOUT });
+        store.setState('popUp', { message: POP_MSG.USER_LOGOUT });
         store.clearState();
         store.getRouter().go('/');
 

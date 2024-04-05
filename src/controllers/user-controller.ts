@@ -1,6 +1,6 @@
 import userApi from '../api/user-api.ts';
 import loader from '../components/loader/index.ts';
-import { MSGS } from '../core/const.ts';
+import { POP_MSG } from '../core/const.ts';
 import store from '../core/store.ts';
 
 import { DataType, ResponseType } from '../core/types.ts';
@@ -19,7 +19,7 @@ class UserController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
-        store.setState('popUp', { message: MSGS.USER_UPDATE });
+        store.setState('popUp', { message: POP_MSG.USER_UPDATE });
         store.setState('user', response);
 
         loader.hide();
@@ -44,7 +44,7 @@ class UserController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.IMG_UPDATE });
+      store.setState('popUp', { message: POP_MSG.IMG_UPDATE });
       store.setState('user', response);
 
       loader.hide();
@@ -70,7 +70,7 @@ class UserController {
         );
       }
 
-      store.setState('popUp', { message: MSGS.PSW_CHANGE });
+      store.setState('popUp', { message: POP_MSG.PSW_CHANGE });
 
       loader.hide();
 
