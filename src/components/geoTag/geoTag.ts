@@ -2,7 +2,6 @@ import * as leaflet from 'leaflet';
 import tpl from './geoTag.hbs?raw';
 import Block from '../../core/block.js';
 
-
 import { PropsType } from '../../core/types.ts';
 
 export default class GeoTag extends Block {
