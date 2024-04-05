@@ -1,3 +1,5 @@
+// switched off because of the mixed content http/https
+// only for local-server use
 export default function checkIP(): Promise<boolean> {
   return fetch('http://ip-api.com/json/')
     .then((response) => response.json())

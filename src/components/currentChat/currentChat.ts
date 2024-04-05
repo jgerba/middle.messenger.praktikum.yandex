@@ -11,7 +11,7 @@ import isEqual from '../../utils/isEqual.ts';
 import getDataToUpdate from '../../utils/getUpdateData.ts';
 import checkGeo from '../../utils/checkGeo.ts';
 import getCoordsFromString from '../../utils/getCoordsFromString.ts';
-import checkIP from '../../utils/checkIP.ts';
+// import checkIP from '../../utils/checkIP.ts';
 
 import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
 
@@ -129,10 +129,12 @@ export default class CurrentChat extends Block {
         },
       });
 
-      const isDemocracy = await checkIP();
-      if (isDemocracy) {
-        geoTag.element?.classList.remove('censorship');
-      }
+      // switched off because of the mixed content http/https
+      // only for local-server use
+      // const isDemocracy = await checkIP();
+      // if (isDemocracy) {
+      //   geoTag.element?.classList.remove('censorship');
+      // }
 
       this._chatRoot.prepend(geoTag.getContent() as HTMLElement);
 
