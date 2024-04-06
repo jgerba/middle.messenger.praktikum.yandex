@@ -1,4 +1,4 @@
-import FileModal from '../fileModal/fileModal.ts';
+import FileModal from './fileModal.ts';
 
 import store from '../../../core/store.ts';
 import chatsController from '../../../controllers/chats-controller.ts';

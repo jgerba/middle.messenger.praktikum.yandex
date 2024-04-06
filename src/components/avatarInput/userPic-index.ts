@@ -2,7 +2,7 @@ import AvatarInput from './avatarInput.ts';
 import connect from '../../core/connect.ts';
 
 import fallbackImg from '../../static/svg/fallback-img.svg';
-import AvatarModal from '../modals/avatarModal/avatarModal.ts';
+import AvatarModal from '../modals/fileModal/avatarModal.ts';
 import Input from '../inputs/input.ts';
 import Button from '../button/button.ts';
 

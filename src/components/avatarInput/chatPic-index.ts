@@ -3,7 +3,7 @@ import connect from '../../core/connect.ts';
 import { BASE_URL } from '../../core/const.ts';
 
 import fallbackImg from '../../static/svg/fallback-img.svg';
-import ChatImageModal from '../modals/chatImageModal/chatImageModal.ts';
+import ChatImageModal from '../modals/fileModal/chatImageModal.ts';
 import Input from '../inputs/input.ts';
 import Button from '../button/button.ts';
 

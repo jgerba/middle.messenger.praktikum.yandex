@@ -1,4 +1,4 @@
-import FileModal from '../fileModal/fileModal.ts';
+import FileModal from './fileModal.ts';
 
 import userController from '../../../controllers/user-controller.ts';
 
