@@ -8,9 +8,14 @@
     border-bottom: none;
     border-radius: 5px;
     background-color: $back-el-color;
+    transition: box-shadow 0.2s ease;
 
     &::placeholder {
       text-align: center;
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 5px rgb(0 0 0 / 10%);
     }
   }
 
@@ -33,13 +38,5 @@
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-  }
-
-  &__input {
-    transition: box-shadow 0.2s ease;
-
-    &:focus-within {
-      box-shadow: 0 0 5px rgb(0 0 0 / 10%);
-    }
   }
 }

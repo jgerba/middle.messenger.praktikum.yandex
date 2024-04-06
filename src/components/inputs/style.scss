@@ -14,7 +14,7 @@
     padding: 7px 0;
   }
 
-  .input {
+  .input:not(.message-form__input .input) {
     border-bottom: 1px solid $highlight-color;
     transition: border-bottom 0.3s ease;
 

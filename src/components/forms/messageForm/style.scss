@@ -14,6 +14,11 @@
     margin-left: auto;
     border-radius: 30px;
     background-color: $back-el-color;
+    transition: box-shadow 0.2s ease;
+
+    &:focus-within {
+      box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    }
 
     & label {
       position: absolute;
@@ -51,4 +56,3 @@
     left: 10px;
   }
 }
-
