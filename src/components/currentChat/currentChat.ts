@@ -9,11 +9,13 @@ import isReadSvg from './svg/isRead.svg';
 import formatDate from '../../utils/formatDate.ts';
 import isEqual from '../../utils/isEqual.ts';
 import getDataToUpdate from '../../utils/getUpdateData.ts';
-import checkGeo from '../../utils/checkGeo.ts';
 import getCoordsFromString from '../../utils/getCoordsFromString.ts';
 // import checkIP from '../../utils/checkIP.ts';
 
 import { PropsType, ChildrenType, IndexedType } from '../../core/types.ts';
+import ImageMessage from '../imageMessage/imageMessage.ts';
+import { BASE_URL } from '../../core/const.ts';
+import getImagePath from '../../utils/getImagePath.ts';
 
 /* eslint no-use-before-define:0 */
 /* eslint prefer-template:0 */
@@ -112,37 +114,66 @@ export default class CurrentChat extends Block {
   async messageConstructor(message: PropsType) {
     const user = store.getState().user as IndexedType;
     const isPersonalMsg = message.user_id === user.id;
-    const hasCoords = checkGeo(message.content as string);
-
-    let coords;
-    if (hasCoords) {
-      coords = getCoordsFromString(message.content as string);
-    }
+    const coords = getCoordsFromString(message.content as string);
 
     if (coords) {
-      const geoTag = new GeoTag({
-        time: formatDate(message.time as string),
-        attr: {
-          class: `geo-tag censorship${
-            isPersonalMsg ? ' personal-message' : ''
-          }`,
-        },
-      });
-
-      // switched off because of the mixed content http/https
-      // only for local-server use
-      // const isDemocracy = await checkIP();
-      // if (isDemocracy) {
-      //   geoTag.element?.classList.remove('censorship');
-      // }
-
-      this._chatRoot.prepend(geoTag.getContent() as HTMLElement);
-
-      geoTag.renderMap(coords.latitude, coords.longitude);
-
+      this.createGeoMessage(message, coords, isPersonalMsg);
       return;
     }
 
+    const imagePath = getImagePath(message.content as string);
+    if (imagePath) {
+      this.createImageMessage(message, imagePath, isPersonalMsg);
+      return;
+    }
+
+    this.createTextMessage(message, isPersonalMsg);
+  }
+
+  createGeoMessage(
+    message: PropsType,
+    coords: {
+      latitude: number;
+      longitude: number;
+    },
+    isPersonalMsg: boolean,
+  ) {
+    const geoTag = new GeoTag({
+      time: formatDate(message.time as string),
+      attr: {
+        class: `geo-tag censorship${isPersonalMsg ? ' personal-message' : ''}`,
+      },
+    });
+
+    // switched off because of the mixed content http/https
+    // only for local-server use
+    // const isDemocracy = await checkIP();
+    // if (isDemocracy) {
+    //   geoTag.element?.classList.remove('censorship');
+    // }
+
+    this._chatRoot.prepend(geoTag.getContent() as HTMLElement);
+
+    geoTag.renderMap(coords.latitude, coords.longitude);
+  }
+
+  createImageMessage(
+    message: PropsType,
+    imagePath: string,
+    isPersonalMsg: boolean,
+  ) {
+    this._chatRoot.prepend(
+      new ImageMessage({
+        path: `${BASE_URL}/resources/${imagePath}`,
+        time: formatDate(message.time as string),
+        attr: {
+          class: `image-message${isPersonalMsg ? ' personal-message' : ''}`,
+        },
+      }).getContent() as HTMLElement,
+    );
+  }
+
+  createTextMessage(message: PropsType, isPersonalMsg: boolean) {
     this._chatRoot.prepend(
       new Message({
         content: message.content,

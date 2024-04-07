@@ -5,9 +5,12 @@ import store from '../../../core/store.ts';
 import WSController from '../../../controllers/WS-controller.ts';
 
 import Dropdown from '../dropdown.ts';
+import ImageModal from '../../modals/fileModal/imageModal.ts';
+import Input from '../../inputs/input.ts';
+import Button from '../../button/button.ts';
 
 import { PropsType, ChildrenType } from '../../../core/types.ts';
-import { MSG, POP_MSG } from '../../../core/const.ts';
+import { MSG_KEYS, POP_MSG } from '../../../core/const.ts';
 
 export default class MessageDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {
@@ -27,21 +30,34 @@ export default class MessageDropdown extends Dropdown {
   private initOptions() {
     (this.children.photoVideoBtn as Block).addEvent(
       'click',
-      this.addMedia.bind(this),
+      this.addImage.bind(this),
     );
-    (this.children.fileBtn as Block).addEvent('click', this.addFile.bind(this));
-    (this.children.locationBtn as Block).addEvent('click', this.sendLocation);
+    (this.children.locationBtn as Block).addEvent('click', this.addLocation);
   }
 
-  private addMedia() {
-    console.log('Adding media...');
+  private addImage() {
+    /* eslint no-new: 0 */
+
+    new ImageModal({
+      fileInput: new Input('div', {
+        name: 'avatar',
+        text: 'Choose image on PC',
+        upload: true,
+        type: 'file',
+        attr: { class: 'input-wrapper', title: 'Add image' },
+        events: {},
+      }),
+      submitBtn: new Button('button', {
+        text: 'Upload',
+        attr: { class: 'btn', type: 'submit' },
+      }),
+
+      attr: { class: 'modal' },
+      events: {},
+    });
   }
 
-  private addFile() {
-    console.log('Adding file...');
-  }
-
-  private sendLocation() {
+  private addLocation() {
     /* eslint no-inner-declarations: 0 */
 
     if (navigator.geolocation) {
@@ -54,7 +70,7 @@ export default class MessageDropdown extends Dropdown {
       const success = (pos: GeolocationPosition) => {
         const crd = pos.coords as GeolocationCoordinates;
         WSController.sendMessage({
-          message: `${MSG.GEO}latitude: ${crd.latitude}, longitude: ${crd.longitude}`,
+          message: `${MSG_KEYS.GEO_KEY}latitude: ${crd.latitude}, longitude: ${crd.longitude}`,
         });
       };
 

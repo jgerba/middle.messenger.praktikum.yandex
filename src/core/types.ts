@@ -26,7 +26,8 @@ export type AddUsersDataType = {
   data:
     | {
         users?: number[];
-        chatId: number;
+        chatId?: number;
+        path?: string;
       }
     | FormData;
 };
