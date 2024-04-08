@@ -1,7 +1,10 @@
-.main--profile {
+.main--settings {
   flex-direction: column;
+  justify-content: flex-start;
+  gap: 5%;
 
   &__header-wrapper {
+    margin-top: 15%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,4 +12,3 @@
     top: 0px;
   }
 }
-

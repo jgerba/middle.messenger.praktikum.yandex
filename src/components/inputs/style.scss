@@ -14,18 +14,31 @@
     padding: 7px 0;
   }
 
+  .input::placeholder {
+    pointer-events: none;
+  }
+
+  .input--shifted {
+    text-align: right;
+  }
+
   .input:not(.message-form__input .input) {
     border-bottom: 1px solid $highlight-color;
     transition: border-bottom 0.3s ease;
 
     &:focus-within {
       border-bottom: 1px solid $back-text-color;
+
+      &.input--shifted {
+        text-align: left;
+      }
     }
   }
 
   .label {
     position: absolute;
     top: -10px;
+    pointer-events: none;
 
     &--small {
       font-size: 9px;
@@ -33,6 +46,10 @@
 
     &--hidden {
       color: transparent;
+    }
+
+    &--shifted {
+      top: 7px;
     }
   }
 
@@ -42,22 +59,5 @@
     right: 0px;
     font-size: 8px;
     color: $warning-color;
-  }
-
-  .upload-label {
-    position: relative;
-    align-self: center;
-    top: 0px;
-    cursor: pointer;
-    text-decoration: underline;
-    color: $highlight-color;
-  }
-
-  .upload-input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    z-index: -1;
   }
 }

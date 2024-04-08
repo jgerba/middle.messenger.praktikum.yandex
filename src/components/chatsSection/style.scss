@@ -3,13 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: auto;
   gap: 20px;
   height: 100%;
   width: 25vw;
   max-width: 500px;
-  min-width: 290px;
-  padding: 40px 10px 0px;
+  min-width: 300px;
+  padding: 20px 10px 0px;
   border-right: 1px solid $borders-color;
   overflow: hidden auto;
 
@@ -36,6 +35,5 @@
   .btn {
     position: relative;
     width: 300px;
-    top: 5px;
   }
 }

@@ -1,6 +1,8 @@
-.form--profile {
-  width: 340px;
-  height: 355px;
+.form--settings {
+  gap: 60px;
+  width: 35%;
+  height: 415px;
+  padding: 30px;
   box-shadow: none;
 
   &__btn {
@@ -18,6 +20,10 @@
   }
 
   &-change {
-    height: 400px;
+    height: auto;
+
+    .input::placeholder {
+      color: transparent;
+    }
   }
 }

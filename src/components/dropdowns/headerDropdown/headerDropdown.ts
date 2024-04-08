@@ -72,11 +72,11 @@ export default class HeaderDropdown extends Dropdown {
     new RemoveChatModal({
       submitBtn: new Button('button', {
         text: 'Remove',
-        attr: { class: 'btn', type: 'submit' },
+        attr: { class: 'btn btn--warning', type: 'submit' },
       }),
 
       modalHeader: 'Remove chat',
-      attr: { class: 'modal' },
+      attr: { class: 'modal modal-remove-chat' },
       events: {},
     });
   }

@@ -33,7 +33,7 @@ export default new PasswordForm({
     attr: { class: 'btn', type: 'submit' },
   }),
   attr: {
-    class: 'form form--profile hidden form--profile-password',
+    class: 'form form--settings hidden form--settings-password',
     title: 'Change password',
   },
 });

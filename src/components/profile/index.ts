@@ -49,7 +49,7 @@ export default new Profile({
   changeProfileBtn: new Button('button', {
     text: 'Change profile',
     attr: {
-      class: 'btn btn--extra form--profile__btn',
+      class: 'btn btn--extra form--settings__btn',
       type: 'button',
       title: 'Change profile',
     },
@@ -58,7 +58,7 @@ export default new Profile({
   changePassBtn: new Button('button', {
     text: 'Change password',
     attr: {
-      class: 'btn btn--extra form--profile__btn',
+      class: 'btn btn--extra form--settings__btn',
       type: 'button',
       title: 'Change password',
     },
@@ -67,11 +67,11 @@ export default new Profile({
   logOutBtn: new Button('button', {
     text: 'Log Out',
     attr: {
-      class: 'btn form--profile__btn btn--warning ',
+      class: 'btn form--settings__btn btn--warning ',
       type: 'button',
       title: 'Log out',
     },
     events: {},
   }),
-  attr: { class: 'form form--profile', title: 'Profile' },
+  attr: { class: 'form form--settings', title: 'Profile' },
 });
