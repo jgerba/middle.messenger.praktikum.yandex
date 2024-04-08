@@ -22,6 +22,14 @@
     }
   }
 
+  &__header {
+    font-size: 15px;
+
+    &--upload-fail {
+      color: $warning-color;
+    }
+  }
+
   &__form {
     position: relative;
     align-items: center;
@@ -41,16 +49,38 @@
     }
 
     .input-wrapper {
-      justify-content: center;
-      top: 40px;
+      justify-content: flex-end;
+      width: 100%;
+
+      .label {
+        top: 8px;
+      }
+
+      .upload-label {
+        position: relative;
+        align-self: center;
+        top: 0px;
+        cursor: pointer;
+        text-decoration: underline;
+        color: $highlight-color;
+        pointer-events: auto;
+
+        &--upload-success {
+          color: $back-text-color;
+        }
+      }
+
+      .upload-input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        z-index: -1;
+      }
     }
 
     .error {
-      top: 19px;
+      top: 29px;
     }
-  }
-
-  &__header {
-    font-size: 15px;
   }
 }

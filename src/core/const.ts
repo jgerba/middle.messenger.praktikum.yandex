@@ -17,10 +17,17 @@ export enum POP_MSG {
   USER_LOGOUT = 'Successfully logged out',
   USER_REDIRECT = 'Redirected to messenger',
   GEO_FAIL = 'Unable to get geolocation',
+  FORM_INVALID = 'Wrong input values',
 }
 
 // keys to get if msg is geotag/image
 export enum MSG_KEYS {
   GEO_KEY = 'My coordinates are: ',
   IMAGE_KEY = 'Path to uploaded image: ',
+}
+
+// file modal header text content
+export enum MODAL_HEAD {
+  SUCCESS = 'File is uploaded',
+  FAIL = 'Error, try again',
 }
