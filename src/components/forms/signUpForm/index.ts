@@ -41,7 +41,7 @@ export default new SignUpForm({
     attr: { class: 'input-wrapper' },
   }),
   passInput: new FormInput('div', {
-    name: 'password',
+    name: 'newPassword',
     text: 'Password',
     type: 'password',
     autocomplete: 'new-password',

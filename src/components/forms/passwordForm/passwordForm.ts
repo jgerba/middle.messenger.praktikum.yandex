@@ -24,7 +24,6 @@ export default class PasswordForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
 
     if (formData && Object.keys(formData).length > 0) {
       const { oldPassword, newPassword } = formData;

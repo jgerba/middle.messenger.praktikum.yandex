@@ -17,77 +17,106 @@ export default class ValidationInput extends Input {
 
   public validateInput(): boolean {
     const inputEl = this.element!.querySelector('input') as HTMLInputElement;
-
     let isValid;
 
-    // message form case
-    if (
-      (inputEl.name === 'message' && inputEl.value.trim()) ||
-      (inputEl.name === 'title' && inputEl.value.trim())
-    ) {
-      isValid = true;
-      this.handleError(isValid);
-      return isValid;
-    }
+    // if no pattern check empty string
+    const regExpPattern = (this.props.regExpString as string)
+      ? (this.props.regExpString as string)
+      : '^.+$';
+    const regExp = new RegExp(regExpPattern);
 
-    // message form case
-    if (
-      (inputEl.name === 'message' && !inputEl.value.trim()) ||
-      (inputEl.name === 'title' && !inputEl.value.trim())
-    ) {
-      isValid = false;
-      this.handleError(isValid);
-      return isValid;
-    }
-
-    const regExp = new RegExp(this.props.regExpString as string);
     isValid = regExp.test(inputEl.value);
 
     // compare pass & confirmPass (signup, change passes forms)
     let passesAreEqual: boolean = true;
 
-    if (inputEl.type === 'password') {
-      passesAreEqual = this.matchPasswords();
+    if (
+      (isValid && inputEl.name === 'newPassword') ||
+      (isValid && inputEl.name === 'password-confirm')
+    ) {
+      passesAreEqual = this.handlePassConfirm();
       if (isValid && !passesAreEqual) isValid = false;
+
+      return isValid;
     }
-    this.handleError(isValid, passesAreEqual);
+
+    isValid ? this.hideError() : this.showError();
 
     return isValid;
   }
 
   // check if 2 passes available and compare them
-  private matchPasswords(): boolean {
-    const formEl = this.element?.closest('form');
+  private handlePassConfirm(): boolean {
+    const {
+      newPass, newErorrEl, confirmPass, confirmErorrEl,
+    } =
+      this.getPassElements();
 
-    const passInputs = formEl?.querySelectorAll(
-      // "not" belongs to profile change passes form case
-      'input[type="password"]:not([name="oldPassword"])',
-    ) as NodeList;
+    const isEqual = newPass.value === confirmPass.value;
 
-    // only one pass field case
-    if (passInputs.length < 2) return true;
+    if (isEqual) {
+      this.hideError(newErorrEl);
+      this.hideError(confirmErorrEl);
+    } else {
+      this.showError(newErorrEl);
+      this.showError(confirmErorrEl);
+    }
 
-    return (
-      (passInputs![0] as HTMLInputElement).value ===
-      (passInputs![1] as HTMLInputElement).value
-    );
+    return isEqual;
+  }
+
+  private getPassElements(): {
+    newPass: HTMLInputElement;
+    newErorrEl: HTMLParagraphElement;
+    confirmPass: HTMLInputElement;
+    confirmErorrEl: HTMLParagraphElement;
+    } {
+    const formEl = this.element?.closest('form') as HTMLFormElement;
+
+    const newPass = formEl.querySelector('#newPassword-id') as HTMLInputElement;
+    const newErorrEl = newPass
+      .closest('div')!
+      .querySelector('p') as HTMLParagraphElement;
+
+    const confirmPass = formEl.querySelector(
+      '#password-confirm-id',
+    ) as HTMLInputElement;
+    const confirmErorrEl = confirmPass
+      .closest('div')!
+      .querySelector('p') as HTMLParagraphElement;
+
+    return {
+      newPass,
+      newErorrEl,
+      confirmPass,
+      confirmErorrEl,
+    };
   }
 
   // show/hide error message
-  private handleError(isValid: boolean, passesAreEqual: boolean = true) {
-    const errorEl = this.element!.querySelector('.error') as HTMLElement;
+  private showError(el: HTMLParagraphElement | null = null) {
+    let errorEl;
+    let errorMsg;
 
-    if (isValid) {
-      errorEl.classList.add('hidden');
-      return;
+    if (el) {
+      errorEl = el;
+      errorMsg = 'Passwords are not equal!';
+    } else {
+      errorEl = this.element!.querySelector('.error') as HTMLElement;
+      errorMsg = `Wrong ${(this.props.text as string).toLowerCase()}`;
     }
 
     errorEl.classList.remove('hidden');
-    let errorMessage = `Wrong ${(this.props.text as string).toLowerCase()}`;
+    errorEl.innerText = errorMsg;
+  }
 
-    if (!passesAreEqual) {
-      errorMessage = 'Passwords are not equal!';
-    }
-    errorEl.innerText = errorMessage;
+  private hideError(el: HTMLParagraphElement | null = null) {
+    let errorEl;
+    el
+      ? (errorEl = el)
+      : (errorEl = this.element!.querySelector('.error') as HTMLElement);
+
+    errorEl.classList.add('hidden');
+    errorEl.innerText = '';
   }
 }

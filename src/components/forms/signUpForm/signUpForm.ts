@@ -34,6 +34,10 @@ export default class SignUpForm extends ValidationForm {
     console.log(formData);
 
     if (formData) {
+      // change after validation to match api rule
+      formData.password = formData.newPassword;
+      delete formData.newPassword;
+
       authController.createUser({ data: formData });
     }
   }
