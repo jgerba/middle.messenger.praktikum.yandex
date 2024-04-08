@@ -1,8 +1,9 @@
 import tpl from './searchForm.hbs?raw';
 import Block from '../../../core/block.ts';
 
-import { PropsType, ChildrenType, IndexedType } from '../../../core/types.ts';
 import store from '../../../core/store.ts';
+import { PropsType, ChildrenType, IndexedType } from '../../../core/types.ts';
+import { POP_MSG } from '../../../core/const.ts';
 
 export default class SearchForm extends Block {
   private _filterBadge: Block;
@@ -34,7 +35,7 @@ export default class SearchForm extends Block {
     const searchString = (event.target as HTMLFormElement).search.value.trim();
 
     if (!searchString) {
-      console.log('Empty search string');
+      store.setState('popUp', { message: POP_MSG.SEARCH_EMPTY, isError: true });
       return;
     }
 

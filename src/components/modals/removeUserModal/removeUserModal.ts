@@ -55,8 +55,6 @@ export default class RemoveUserModal extends Modal {
   }
 
   private renderUsers(users: PropsType[] | undefined) {
-    console.log(users);
-
     if (!users || users.length === 0) {
       this._usersList.innerHTML = 'No users...';
       return;

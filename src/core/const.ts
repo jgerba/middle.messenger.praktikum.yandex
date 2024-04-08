@@ -18,6 +18,8 @@ export enum POP_MSG {
   USER_REDIRECT = 'Redirected to messenger',
   GEO_FAIL = 'Unable to get geolocation',
   FORM_INVALID = 'Wrong input values',
+  SEARCH_EMPTY = 'Empty search string',
+  FILES_EMPTY = 'No files',
 }
 
 // keys to get if msg is geotag/image

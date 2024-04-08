@@ -31,7 +31,6 @@ export default class SignUpForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
 
     if (formData) {
       // change after validation to match api rule

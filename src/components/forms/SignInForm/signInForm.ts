@@ -28,7 +28,6 @@ export default class SignInForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
 
     if (formData && Object.keys(formData).length === 2) {
       authController.logIn({ data: formData });

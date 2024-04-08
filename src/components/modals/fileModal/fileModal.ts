@@ -2,8 +2,9 @@ import tpl from './fileModal.hbs?raw';
 import Block from '../../../core/block.ts';
 import Modal from '../modal.ts';
 
+import store from '../../../core/store.ts';
 import { PropsType, ChildrenType } from '../../../core/types.ts';
-import { MODAL_HEAD } from '../../../core/const.ts';
+import { MODAL_HEAD, POP_MSG } from '../../../core/const.ts';
 
 export default class FileModal extends Modal {
   constructor(props: PropsType | ChildrenType) {
@@ -56,7 +57,7 @@ export default class FileModal extends Modal {
     const inputFiles: FileList = (event.target as HTMLFormElement).avatar.files;
 
     if (inputFiles.length === 0) {
-      console.log('No files');
+      store.setState('popUp', { message: POP_MSG.FILES_EMPTY, isError: true });
       return;
     }
 

@@ -23,8 +23,6 @@ export default class ProfileForm extends ValidationForm {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
-
     if (formData && Object.keys(formData).length > 0) {
       userController.changeUser({ data: formData });
     }
