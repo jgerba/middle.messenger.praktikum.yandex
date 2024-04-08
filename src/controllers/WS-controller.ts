@@ -53,8 +53,6 @@ class WSController {
   }
 
   sendMessage(data: { [key: string]: string }) {
-    console.log(data);
-
     WSApi.send({ content: data.message, type: 'message' });
   }
 }
