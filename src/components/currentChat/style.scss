@@ -19,5 +19,20 @@
     padding: 20px;
     overflow: hidden auto;
   }
-}
 
+  @media (width <= 878px) {
+    width: 100vw;
+    height: calc(100% - 160px);
+    top: 160px;
+
+    &__dialog {
+      gap: 10px;
+      width: 100%;
+      padding: 20px;
+    }
+  }
+
+  @media (width <= 568px) {
+    padding: 0px 10px;
+  }
+}

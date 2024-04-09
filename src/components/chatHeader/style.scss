@@ -22,4 +22,8 @@
   &__dropdown-btn {
     width: 30px;
   }
+
+  @media (width <= 878px) {
+    border-top: 1px solid $borders-color;
+  }
 }

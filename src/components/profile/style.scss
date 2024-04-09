@@ -1,9 +1,11 @@
 .form--settings {
+  position: relative;
   gap: 60px;
   width: 35%;
   height: 415px;
   padding: 30px;
   box-shadow: none;
+  left: 32px;
 
   &__btn {
     text-align: start;
@@ -25,5 +27,18 @@
     .input::placeholder {
       color: transparent;
     }
+  }
+
+  @media (width <= 1200px) {
+    width: 50%;
+  }
+
+  @media (width <= 600px) {
+    width: 80%;
+    left: 16px;
+  }
+
+  @media (width <= 500px) {
+    width: 96%;
   }
 }

@@ -8,6 +8,10 @@
   left: 0;
   border-right: 1px solid $borders-color;
   background-color: $back-color;
+
+  @media (width <= 600px) {
+    width: 32px;
+  }
 }
 
 .btn-return {

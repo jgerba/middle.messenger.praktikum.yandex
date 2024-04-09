@@ -4,11 +4,16 @@
   gap: 5%;
 
   &__header-wrapper {
-    margin-top: 15%;
+    margin-top: 15vh;
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 21px;
     top: 0px;
+    left: 32px;
+
+    @media (width <= 600px) {
+      left: 16px;
+    }
   }
 }

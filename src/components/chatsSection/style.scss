@@ -10,7 +10,17 @@
   min-width: 300px;
   padding: 20px 10px 0px;
   border-right: 1px solid $borders-color;
-  overflow: hidden auto;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__previews {
+    overflow: hidden auto;
+  }
 
   .settings-link {
     position: relative;
@@ -34,6 +44,71 @@
 
   .btn {
     position: relative;
-    width: 300px;
+    width: 280px;
+  }
+
+  @media (width <= 878px) {
+    position: fixed;
+    gap: 10px;
+    height: 150px;
+    width: 100vw;
+    top: 0px;
+    max-width: none;
+    min-width: 300px;
+    padding: 10px 10px 0px;
+    border-right: none;
+    z-index: 20;
+
+    &__head {
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+
+    &__previews {
+      display: flex;
+      width: 100vw;
+      overflow: auto hidden;
+    }
+
+    .settings-link {
+      align-self: unset;
+      right: 0px;
+    }
+  }
+
+  @media (width <= 700px) {
+    &__head {
+      .btn {
+        width: 150px;
+        padding: 10px;
+      }
+
+      .search-form__input {
+        width: 140px;
+        padding: 0px 0px 0px 10px;
+      }
+
+      .search-form__icon {
+        display: none;
+      }
+    }
+  }
+
+  @media (width <= 426px) {
+    &__head {
+      .btn {
+        width: 100px;
+        padding: 10px 5px;
+      }
+
+      .search-form__input {
+        width: 100px;
+        padding: 0px 0px 0px 10px;
+      }
+
+      .search-form__icon {
+        display: none;
+      }
+    }
   }
 }

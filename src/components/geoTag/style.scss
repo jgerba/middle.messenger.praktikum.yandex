@@ -50,4 +50,20 @@
       z-index: 6;
     }
   }
+
+  @media (width <= 444px) {
+    min-width: 300px;
+  }
+
+  @media (width <= 344px) {
+    min-width: 200px;
+    min-height: 200px;
+
+    &.censorship {
+      &::after {
+        right: 177px;
+        top: 252px;
+      }
+    }
+  }
 }

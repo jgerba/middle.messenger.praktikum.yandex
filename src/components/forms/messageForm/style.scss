@@ -55,4 +55,8 @@
     height: 28px;
     left: 10px;
   }
+
+  @media (width <= 600px) {
+    width: 90%;
+  }
 }
