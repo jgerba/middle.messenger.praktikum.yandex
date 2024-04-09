@@ -11,7 +11,7 @@ export default class ProfileForm extends ValidationForm {
     super('form', { ...props, events: { submit: onSubmit } });
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -19,12 +19,10 @@ export default class ProfileForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  private submitHandler(event: SubmitEvent): void {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
-
     if (formData && Object.keys(formData).length > 0) {
       userController.changeUser({ data: formData });
     }

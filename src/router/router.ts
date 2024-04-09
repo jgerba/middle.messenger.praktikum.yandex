@@ -6,14 +6,14 @@ export default class Router {
   private static __instance: Router;
 
   // routes list
-  routes: Route[] = [];
+  private _routes: Route[] = [];
 
   // browser history interface
-  history = window.history;
+  private _history = window.history;
 
-  _currentRoute: Route | null;
+  private _currentRoute: Route | null;
 
-  rootId;
+  private _rootId;
 
   constructor(rootId: string = 'app-root') {
     if (Router.__instance) {
@@ -27,21 +27,21 @@ export default class Router {
     // current active route
     this._currentRoute = null;
     // root el for render
-    this.rootId = rootId;
+    this._rootId = rootId;
   }
 
   // add route method
-  use(pathname: string, block: Block) {
-    const route = new Route(pathname, block, this.rootId!);
+  public use(pathname: string, block: Block) {
+    const route = new Route(pathname, block, this._rootId!);
 
-    this.routes.push(route);
+    this._routes.push(route);
 
     // возврат экземпляра Router для цепочечного вызова
     return this;
   }
 
   // start Router & handle URL changes
-  start() {
+  public start() {
     window.onpopstate = (event: PopStateEvent) => {
       this._onRoute((event.currentTarget as Window).location.pathname);
     };
@@ -50,11 +50,12 @@ export default class Router {
   }
 
   // inner method for route handle
-  _onRoute(pathname: string) {
-    let route = this.getRoute(pathname);
+  private _onRoute(pathname: string) {
+    const route = this.getRoute(pathname);
 
     if (!route) {
-      route = this.getRoute('/404')!;
+      return;
+      // route = this.getRoute('/404')!;
     }
 
     // leave current route
@@ -68,24 +69,25 @@ export default class Router {
   }
 
   // go to new selected route
-  go(pathname: string) {
-    this.history!.pushState({}, pathname, pathname);
+  public go(pathname: string) {
+    this._history!.pushState({}, pathname, pathname);
 
-    this._onRoute(pathname); // handle routing
+    // handle routing
+    this._onRoute(pathname);
   }
 
   // return prev route handler
-  back() {
-    this.history!.back();
+  public back() {
+    this._history!.back();
   }
 
   // forw route handler
-  forward() {
-    this.history!.forward();
+  public forward() {
+    this._history!.forward();
   }
 
   // вспомогательный метод для получения маршрута по указанному пути ??
-  getRoute(pathname: string): Route | undefined {
-    return this.routes.find((route) => route.match(pathname));
+  public getRoute(pathname: string): Route | undefined {
+    return this._routes.find((route) => route.match(pathname));
   }
 }

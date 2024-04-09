@@ -1,4 +1,5 @@
 import WSApi from '../api/WS-api.ts';
+import loader from '../components/loader/index.ts';
 import store from '../core/store.ts';
 
 import { DataType, ResponseType, IndexedType } from '../core/types.ts';
@@ -8,6 +9,8 @@ import { DataType, ResponseType, IndexedType } from '../core/types.ts';
 class WSController {
   async getToken(data: DataType): Promise<number | undefined> {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await WSApi.getToken(
         data,
       )) as ResponseType;
@@ -21,9 +24,12 @@ class WSController {
       store.clearStatePath('currentChat');
       store.setState('currentChat', response);
 
+      loader.hide();
+
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 

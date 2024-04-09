@@ -2,12 +2,15 @@ import tpl from './headerDropdown.hbs?raw';
 import Block from '../../../core/block.ts';
 
 import Dropdown from '../dropdown.ts';
-import Modal from '../../modals/textModal/textModal.ts';
+import RemoveUserModal from '../../modals/removeUserModal/removeUserModal.ts';
+import AddUserModal from '../../modals/addUserModal/addUserModal.ts';
+import RemoveChatModal from '../../modals/removeChatModal/removeChatModal.ts';
 import FormInput from '../../inputs/formInput.ts';
 import Button from '../../button/button.ts';
 
 import { PropsType, ChildrenType } from '../../../core/types.ts';
-import RemoveUserModal from '../../modals/removeUserModal/removeUserModal.ts';
+
+/* eslint no-new: 0 */
 
 export default class HeaderDropdown extends Dropdown {
   constructor(props: PropsType | ChildrenType) {
@@ -16,7 +19,7 @@ export default class HeaderDropdown extends Dropdown {
     this.initOptions();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -24,53 +27,56 @@ export default class HeaderDropdown extends Dropdown {
     return this.compile(tpl, propsToRender);
   }
 
-  initOptions() {
-    (this.children.addUserBtn as Block).addEvent('click', () =>
-      this.addUserHandler.bind(this)(),
+  private initOptions() {
+    (this.children.addUserBtn as Block).addEvent(
+      'click',
+      this.createAddUserModal,
     );
     (this.children.removeUserBtn as Block).addEvent(
       'click',
       this.createRemoveUserModal,
     );
-    (this.children.removeChatBtn as Block).addEvent('click', () =>
-      this.removeChatHandler.bind(this)(),
+    (this.children.removeChatBtn as Block).addEvent(
+      'click',
+      this.createRemoveChatModal,
     );
   }
 
-  addUserHandler() {
-    this.createModal('Add');
-  }
-
-  removeChatHandler() {
-    this.createModal('Remove chat');
-  }
-
-  createModal(type: string) {
-    /* eslint no-new: 0 */
-
-    new Modal({
+  private createAddUserModal() {
+    new AddUserModal({
       textInput: new FormInput('div', {
-        name: type === 'Remove chat' ? 'chatId' : 'login',
-        text: type === 'Remove chat' ? 'Chat ID' : 'Login',
-        attr: { class: type === 'Remove chat' ? 'hidden' : 'input-wrapper ' },
+        name: 'login',
+        text: 'Login',
+        attr: { class: 'input-wrapper ' },
       }),
       submitBtn: new Button('button', {
-        text: type === 'Add' ? type : 'Remove',
+        text: 'Add',
         attr: { class: 'btn', type: 'submit' },
       }),
 
-      modalHeader: type === 'Remove chat' ? type : `${type} user`,
+      modalHeader: 'Add user',
       attr: { class: 'modal' },
       events: {},
     });
   }
 
-  createRemoveUserModal() {
-    /* eslint no-new: 0 */
-
+  private createRemoveUserModal() {
     new RemoveUserModal({
       modalHeader: 'Remove user',
       attr: { class: 'modal' },
+      events: {},
+    });
+  }
+
+  private createRemoveChatModal() {
+    new RemoveChatModal({
+      submitBtn: new Button('button', {
+        text: 'Remove',
+        attr: { class: 'btn btn--warning', type: 'submit' },
+      }),
+
+      modalHeader: 'Remove chat',
+      attr: { class: 'modal modal-remove-chat' },
       events: {},
     });
   }

@@ -7,17 +7,17 @@ import { PropsType, ChildrenType } from './types.ts';
 import isEqual from '../utils/isEqual.ts';
 
 export default class Block {
-  props: PropsType;
+  public props: PropsType;
 
-  children: ChildrenType;
+  public children: ChildrenType;
 
-  eventBus: EventBus;
+  private _eventBus: EventBus;
 
-  _id: string;
+  private _id: string;
 
-  _meta: { tagName: string; props: PropsType };
+  private _meta: { tagName: string; props: PropsType };
 
-  _element: HTMLElement | null;
+  private _element: HTMLElement | null;
 
   static EVENTS = {
     INIT: 'init',
@@ -40,12 +40,12 @@ export default class Block {
     this.props = this._makePropsProxy({ ...props, _id: this._id });
     this.children = this._makePropsProxy(children); // need to make proxy?
 
-    this.eventBus = new EventBus();
-    this._registerEvents(this.eventBus);
-    this.eventBus.emit(Block.EVENTS.INIT);
+    this._eventBus = new EventBus();
+    this._registerEvents(this._eventBus);
+    this._eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getPropsAndChildren(propsAndChildren: PropsType | ChildrenType): {
+  private _getPropsAndChildren(propsAndChildren: PropsType | ChildrenType): {
     props: PropsType;
     children: ChildrenType;
   } {
@@ -67,7 +67,7 @@ export default class Block {
     return { props, children };
   }
 
-  _makePropsProxy<T extends object>(props: T): T {
+  private _makePropsProxy<T extends object>(props: T): T {
     /* eslint @typescript-eslint/no-this-alias:0 */
 
     // reference to the current Block instance for proxy
@@ -96,7 +96,7 @@ export default class Block {
           // emit 'component-did-update' event
           // "self" gives reference to current Block instance
           // else "this" will give reference to proxy obj
-          self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+          self._eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return success;
       },
@@ -109,36 +109,37 @@ export default class Block {
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+  private _registerEvents(_eventBus: EventBus) {
+    _eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
+    _eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    _eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    _eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
+    _eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _init() {
+  private _init() {
     this._createResources();
-    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+    this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _createResources() {
+  private _createResources() {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     const el = document.createElement(tagName);
     el.setAttribute('data-id', this._id);
     return el;
   }
 
-  _render() {
+  private _render() {
     const hasEvents =
       this.props.events && Object.keys(this.props.events).length > 0;
 
     const block = this.render();
     this._element!.innerHTML = '';
+    this.element?.removeAttribute('data-id');
 
     if (hasEvents) {
       this._removeEvents();
@@ -147,18 +148,18 @@ export default class Block {
     this._element!.appendChild(block);
 
     if (this.props.attr && Object.keys(this.props.attr).length > 0) {
-      this.addAttributes();
+      this._addAttributes();
     }
     if (hasEvents) {
       this._addEvents();
     }
   }
 
-  render() {
+  protected render() {
     return new DocumentFragment();
   }
 
-  compile(tpl: string, props: PropsType): DocumentFragment {
+  protected compile(tpl: string, props: PropsType): DocumentFragment {
     const hasChildren = Object.keys(this.children).length > 0;
 
     let propsCopy = { ...props, ...this.children };
@@ -180,7 +181,7 @@ export default class Block {
     return fragment.content;
   }
 
-  _addEvents() {
+  private _addEvents() {
     Object.entries(this.props.events).forEach(([event, callback]) => {
       if (event === 'blur') {
         this._element!.addEventListener(event, callback, { capture: true });
@@ -190,18 +191,18 @@ export default class Block {
     });
   }
 
-  addEvent(event: string, callback: EventListener) {
+  public addEvent(event: string, callback: EventListener) {
     (this.props.events as Record<string, EventListener>)[event] = callback;
     this._element!.addEventListener(event, callback);
   }
 
-  _removeEvents() {
+  private _removeEvents() {
     Object.entries(this.props.events).forEach(([event, callback]) =>
       this._element!.removeEventListener(event, callback),
     );
   }
 
-  removeEvent(event: string) {
+  public removeEvent(event: string) {
     const callback = (this.props.events as Record<string, EventListener>)[
       event
     ];
@@ -209,42 +210,42 @@ export default class Block {
     this._element!.removeEventListener(event, callback);
   }
 
-  addAttributes() {
+  private _addAttributes() {
     Object.entries(this.props.attr).forEach(([attr, value]) => {
       this._element!.setAttribute(attr, value);
     });
   }
 
   // logic after mounting
-  _componentDidMount() {
+  private _componentDidMount() {
     this.componentDidMount();
   }
 
   // logic for subclasses
-  componentDidMount() {}
+  protected componentDidMount() {}
 
   // call after appending to a parent container in the DOM
   // end of _render method?
-  dispatchComponentDidMount() {
-    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
+  protected dispatchComponentDidMount() {
+    this._eventBus.emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach((child: Block) => {
       child.dispatchComponentDidMount();
     });
   }
 
-  _componentDidUpdate(
+  private _componentDidUpdate(
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
     const propsAreEqual = this.componentDidUpdate(oldProps, newProps);
 
     if (!propsAreEqual) {
-      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+      this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(
+  protected componentDidUpdate(
     oldProps: PropsType | ChildrenType,
     newProps: PropsType | ChildrenType,
   ) {
@@ -252,8 +253,8 @@ export default class Block {
   }
 
   // call in removeComponent func
-  dispatchComponentWillUnmount() {
-    this.eventBus.emit(Block.EVENTS.FLOW_CWU);
+  protected dispatchComponentWillUnmount() {
+    this._eventBus.emit(Block.EVENTS.FLOW_CWU);
 
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
@@ -266,7 +267,7 @@ export default class Block {
     });
   }
 
-  _componentWillUnmount() {
+  private _componentWillUnmount() {
     this.componentWillUnmount();
     this._removeEvents();
 
@@ -275,15 +276,15 @@ export default class Block {
   }
 
   // logic for subclasses
-  componentWillUnmount() {}
+  protected componentWillUnmount() {}
 
   // call before removing?
-  removeComponent() {
+  protected removeComponent() {
     this.dispatchComponentWillUnmount();
   }
 
   // remove child logic?
-  removeChildComponent(child: Block) {
+  protected removeChildComponent(child: Block) {
     child.dispatchComponentWillUnmount();
   }
 
@@ -291,16 +292,20 @@ export default class Block {
     return this._element;
   }
 
-  getContent() {
+  public getContent() {
     return this.element!;
   }
 
-  show() {
+  public getId() {
+    return this._id!;
+  }
+
+  public show() {
     const el = this.getContent();
     el!.classList.remove('hidden');
   }
 
-  hide() {
+  public hide() {
     const el = this.getContent();
     el!.classList.add('hidden');
   }

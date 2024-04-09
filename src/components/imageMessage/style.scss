@@ -1,0 +1,32 @@
+.image-message {
+  position: relative;
+  align-self: flex-start;
+  max-width: 70%;
+  padding: 5px 5px 15px;
+  border-radius: 12px;
+  background-color: $back-message-color;
+
+  &__image {
+    position: relative;
+    border-radius: 12px;
+    width: 100%;
+    background-size: contain;
+  }
+
+  &__time {
+    position: absolute;
+    right: 7px;
+    bottom: 2px;
+    font-size: 9px;
+    color: $back-text-color;
+  }
+
+  &.personal-message {
+    align-self: flex-end;
+    background-color: $personal-message-color;
+
+    .image-message__time {
+      color: $highlight-color;
+    }
+  }
+}

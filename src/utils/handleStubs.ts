@@ -1,9 +1,5 @@
+import Block from '../core/block.ts';
 import { PropsType, ChildrenType } from '../core/types.ts';
-
-type BlockType = {
-  _id: string;
-  getContent(): HTMLElement;
-};
 
 export function setStubs(
   children: ChildrenType,
@@ -13,9 +9,9 @@ export function setStubs(
 
   Object.entries(children).forEach(([key, child]) => {
     if (Array.isArray(child)) {
-      props[key] = child.map((item) => `<div data-id="${item._id}"></div>`);
+      props[key] = child.map((item) => `<div data-id="${item.getId()}"></div>`);
     } else {
-      props[key] = `<div data-id="${child._id}"></div>`;
+      props[key] = `<div data-id="${child.getId()}"></div>`;
     }
   });
 
@@ -26,8 +22,8 @@ export function replaceStubs(
   fragment: HTMLTemplateElement,
   children: ChildrenType,
 ) {
-  function stubHandler(child: BlockType): void {
-    const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+  function stubHandler(child: Block): void {
+    const stub = fragment.content.querySelector(`[data-id="${child.getId()}"]`);
 
     if (stub) {
       stub.replaceWith(child.getContent()!);

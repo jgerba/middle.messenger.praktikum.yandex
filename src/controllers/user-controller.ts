@@ -1,4 +1,6 @@
 import userApi from '../api/user-api.ts';
+import loader from '../components/loader/index.ts';
+import { POP_MSG } from '../core/const.ts';
 import store from '../core/store.ts';
 
 import { DataType, ResponseType } from '../core/types.ts';
@@ -7,6 +9,8 @@ import { DataType, ResponseType } from '../core/types.ts';
 
 class UserController {
   async changeUser(submitData: DataType) {
+    loader.show();
+
     userApi
       .changeUser(submitData)
       .then(({ status, response }: ResponseType) => {
@@ -15,14 +19,21 @@ class UserController {
             `${status} ${(response as { [key: string]: string }).reason}`,
           );
         }
-
+        store.setState('popUp', { message: POP_MSG.USER_UPDATE });
         store.setState('user', response);
+
+        loader.hide();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        store.setState('popUp', { message: error, isError: true });
+        loader.hide();
+      });
   }
 
   async changeAvatar(submitData: DataType) {
     try {
+      loader.show();
+
       const { status, response }: ResponseType = (await userApi.changeAvatar(
         submitData,
       )) as ResponseType;
@@ -33,29 +44,23 @@ class UserController {
         );
       }
 
+      store.setState('popUp', { message: POP_MSG.IMG_UPDATE });
       store.setState('user', response);
+
+      loader.hide();
+
       return status;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 
   async changePassword(submitData: DataType) {
-    userApi
-      .changePassword(submitData)
-      .then(({ status, response }: ResponseType) => {
-        if (status !== 200) {
-          throw new Error(
-            `${status} ${(response as { [key: string]: string }).reason}`,
-          );
-        }
-      })
-      .catch((error) => console.log(error));
-  }
-
-  async searchUser(submitData: DataType) {
     try {
-      const { status, response }: ResponseType = (await userApi.searchUser(
+      loader.show();
+
+      const { status, response }: ResponseType = (await userApi.changePassword(
         submitData,
       )) as ResponseType;
 
@@ -65,9 +70,36 @@ class UserController {
         );
       }
 
+      store.setState('popUp', { message: POP_MSG.PSW_CHANGE });
+
+      loader.hide();
+
+      return status;
+    } catch (error) {
+      store.setState('popUp', { message: error, isError: true });
+      loader.hide();
+    }
+  }
+
+  async searchUser(submitData: DataType) {
+    try {
+      loader.show();
+
+      const { status, response }: ResponseType = (await userApi.searchUser(
+        submitData,
+      )) as ResponseType;
+
+      if (status !== 200) {
+        throw new Error(
+          `${status} ${(response as { [key: string]: string }).reason}`,
+        );
+      }
+      loader.hide();
+
       return response;
     } catch (error) {
-      console.log(error);
+      store.setState('popUp', { message: error, isError: true });
+      loader.hide();
     }
   }
 }

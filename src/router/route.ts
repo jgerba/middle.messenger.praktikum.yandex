@@ -1,22 +1,22 @@
 import Block from '../core/block.ts';
 
 export default class Route {
-  _block: Block | null;
+  private _block: Block | null;
 
-  _pathname;
+  private _pathname;
 
-  _blockClass;
+  private _blockClass;
 
-  rootId;
+  private _rootId;
 
   constructor(pathname: string, view: Block, rootId: string) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
-    this.rootId = rootId;
+    this._rootId = rootId;
   }
 
-  navigate(pathname: string) {
+  public navigate(pathname: string) {
     if (this.match(pathname)) {
       this._pathname = pathname;
       this.render();
@@ -24,29 +24,27 @@ export default class Route {
   }
 
   // Скрывает текущий блок при переходе
-  leave() {
+  public leave() {
     if (this._block) {
       this._block.hide();
     }
   }
 
   // Сравнивает текущий путь с путем маршрута
-  match(pathname: string) {
+  public match(pathname: string) {
     return pathname === this._pathname;
   }
 
-  render() {
+  public render() {
     // Создает новый экземпляр блока, если он еще не создан
 
     if (!this._block) {
       this._block = this._blockClass;
 
       // Отрисовывает блок
-      const rootEl = document.getElementById(this.rootId) as HTMLElement;
+      const rootEl = document.getElementById(this._rootId) as HTMLElement;
 
       rootEl.append(this._block.getContent());
-
-      return;
     }
 
     // Показывает блок, если он уже создан

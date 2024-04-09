@@ -19,7 +19,7 @@ export default class SignUpForm extends ValidationForm {
     this.initLogInBtn();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -27,25 +27,28 @@ export default class SignUpForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  private submitHandler(event: SubmitEvent): void {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
 
     if (formData) {
+      // change after validation to match api rule
+      formData.password = formData.newPassword;
+      delete formData.newPassword;
+
       authController.createUser({ data: formData });
     }
   }
 
-  initLogInBtn() {
+  private initLogInBtn() {
     const logInBtn = this.children.logInBtn as Block;
 
     // put listener inside btn props.event & add event
     logInBtn.addEvent('click', this.changeFormHandler.bind(this));
   }
 
-  changeFormHandler() {
+  private changeFormHandler() {
     store.getRouter().go('/');
   }
 }

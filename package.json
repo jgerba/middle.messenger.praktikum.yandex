@@ -7,26 +7,32 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "tsc && vite",
+    "dev": "tsc && vite --force",
     "build": "tsc && vite build",
     "start": "tsc && vite build && node server.js",
+    "lint-staged": "lint-staged",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint:css": "stylelint \"**/*.(scss|css)\" --fix",
     "test": "mocha",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix",
-    "*.{scss,css}": "stylelint --fix"
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint:js"
+    ],
+    "*.{scss,css}": [
+      "npm run lint:css"
+    ]
   },
   "devDependencies": {
     "@types/chai": "4.3.14",
+    "@types/leaflet": "1.9.9",
     "@types/mocha": "10.0.6",
     "@types/sinon": "17.0.3",
     "@types/uuid": "9.0.8",
@@ -38,7 +44,7 @@
     "eslint-plugin-import": "2.29.1",
     "husky": "9.0.11",
     "jsdom": "24.0.0",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "15.2.2",
     "mocha": "10.3.0",
     "sass": "1.72.0",
     "sinon": "17.0.1",
@@ -47,12 +53,13 @@
     "stylelint-scss": "6.2.1",
     "ts-node": "10.9.2",
     "typescript": "5.4.3",
-    "vite": "5.2.4",
+    "vite": "5.2.8",
     "vite-plugin-handlebars": "2.0.0"
   },
   "dependencies": {
     "express": "4.19.2",
     "handlebars": "4.7.8",
+    "leaflet": "1.9.4",
     "uuid": "9.0.1"
   }
 }

@@ -16,5 +16,5 @@ export default new Settings({
   profileForm,
   passwordForm,
 
-  attr: { class: 'main main--profile' },
+  attr: { class: 'main main-settings' },
 });

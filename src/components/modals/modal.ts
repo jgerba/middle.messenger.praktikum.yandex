@@ -17,22 +17,28 @@ export default class Modal extends Block {
     this.initModal();
   }
 
-  initModal() {
+  private initModal() {
     const modalRoot = document.getElementById('modal-root')!;
     modalRoot.append(this.element!);
+
+    // add form & backdrop transition
+    setTimeout(() => {
+      this.element!.querySelector('.modal__form')!.classList.add('open');
+      this.element!.querySelector('.modal__backdrop')!.classList.add('open');
+    }, 0);
   }
 
-  clickHandler(event: Event) {
+  private clickHandler(event: Event) {
     if ((event.target as HTMLElement).title === 'Backdrop') {
       this.closeModal();
     }
   }
 
-  closeModal() {
+  protected closeModal() {
     this.element!.remove();
   }
 
-  submitHandler(event: SubmitEvent) {
+  protected submitHandler(event: SubmitEvent) {
     event.preventDefault();
   }
 }

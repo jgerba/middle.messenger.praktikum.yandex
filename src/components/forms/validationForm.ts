@@ -1,12 +1,16 @@
 import Block from '../../core/block.ts';
+import store from '../../core/store.ts';
+
 import ValidationInput from '../inputs/validationInput.ts';
 
+import { POP_MSG } from '../../core/const.ts';
+
 export default class ValidationForm extends Block {
-  submitForm() {
+  protected submitForm() {
     const formIsValid = this.validateForm();
 
     if (!formIsValid) {
-      console.log('Wrong input values!');
+      store.setState('popUp', { message: POP_MSG.FORM_INVALID, isError: true });
       return null;
     }
 
@@ -20,7 +24,7 @@ export default class ValidationForm extends Block {
     return formObject;
   }
 
-  validateForm(): boolean {
+  protected validateForm(): boolean {
     let isValid: boolean = true;
 
     Object.values(this.children).forEach((child: Block) => {

@@ -1,0 +1,30 @@
+.pop-up {
+  padding-right: 15px;
+  border-right: 3px solid $highlight-color;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.error {
+    border-right: 3px solid $warning-color;
+  }
+
+  &__message {
+    font-size: 16px;
+    text-align: end;
+  }
+}
+
+.pop-up::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}

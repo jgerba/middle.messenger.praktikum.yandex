@@ -12,7 +12,7 @@ export default class PasswordForm extends ValidationForm {
     super('form', { ...props, events: { submit: onSubmit } });
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -20,15 +20,21 @@ export default class PasswordForm extends ValidationForm {
     return this.compile(tpl, propsToRender);
   }
 
-  submitHandler(event: SubmitEvent): void {
+  private async submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const formData = this.submitForm();
-    console.log(formData);
 
     if (formData && Object.keys(formData).length > 0) {
       const { oldPassword, newPassword } = formData;
-      userController.changePassword({ data: { oldPassword, newPassword } });
+
+      const status = await userController.changePassword({
+        data: { oldPassword, newPassword },
+      });
+
+      if (status === 200) {
+        (this.element! as HTMLFormElement).reset();
+      }
     }
   }
 }

@@ -2,28 +2,34 @@
   position: relative;
 
   .centered-input {
-    width: 290px;
+    box-sizing: border-box;
+    width: 280px;
     height: 32px;
     padding: 0px 10px;
     border-bottom: none;
     border-radius: 5px;
     background-color: $back-el-color;
+    transition: box-shadow 0.2s ease;
 
     &::placeholder {
       text-align: center;
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 5px rgb(0 0 0 / 10%);
     }
   }
 
   &__icon {
     position: absolute;
-    left: 95px;
+    left: 166px;
     top: 7px;
   }
 
   &__filter-badge {
     position: absolute;
     max-width: 150px;
-    left: 10px;
+    left: 0px;
     top: -42px;
     padding: 5px;
     border: 1px solid $highlight-color;

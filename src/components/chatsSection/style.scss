@@ -3,15 +3,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: auto;
   gap: 20px;
   height: 100%;
   width: 25vw;
   max-width: 500px;
-  min-width: 290px;
-  padding: 40px 10px 0px;
+  min-width: 300px;
+  padding: 20px 10px 0px;
   border-right: 1px solid $borders-color;
-  overflow: hidden auto;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__previews {
+    overflow: hidden auto;
+  }
 
   .settings-link {
     position: relative;
@@ -35,7 +44,94 @@
 
   .btn {
     position: relative;
-    width: 300px;
-    top: 5px;
+    width: 280px;
+  }
+
+  @media (width <= 878px) {
+    position: fixed;
+    gap: 10px;
+    height: 150px;
+    width: 100vw;
+    top: 0px;
+    max-width: none;
+    min-width: 300px;
+    padding: 10px 10px 0px;
+    border-right: none;
+    z-index: 20;
+
+    &__head {
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+
+    &__previews {
+      display: flex;
+      width: 100vw;
+      overflow: auto hidden;
+    }
+
+    .settings-link {
+      align-self: unset;
+      right: 0px;
+    }
+
+    .search-form__filter-badge {
+      position: relative;
+      max-width: 56px;
+      left: 2px;
+      top: 0px;
+    }
+  }
+
+  @media (width <= 752px) {
+    &__head {
+      .btn {
+        width: 150px;
+        padding: 10px;
+      }
+
+      .search-form__input {
+        width: 140px;
+        padding: 0px 0px 0px 10px;
+      }
+
+      .search-form__icon {
+        display: none;
+      }
+    }
+  }
+
+  @media (width <= 480px) {
+    &__head {
+      gap: 5px;
+
+      .btn {
+        width: 100px;
+        padding: 10px 5px;
+      }
+
+      .search-form__input {
+        width: 100px;
+      }
+
+      .settings-link {
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media (width <= 380px) {
+    &__head {
+      .btn {
+        width: 75px;
+        padding: 10px 2px;
+      }
+
+      .search-form__input {
+        width: 75px;
+      }
+    }
   }
 }

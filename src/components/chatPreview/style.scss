@@ -58,4 +58,28 @@
     font-size: 12px;
     color: $white-color;
   }
+
+  @media (width <= 878px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 150px;
+    padding: 10px 0;
+
+    &__message-wrapper {
+      align-items: center;
+      gap: 0px;
+      width: 193px;
+      margin-left: 0px;
+    }
+
+    &__header {
+      text-overflow: ellipsis;
+    }
+
+    &__info-wrapper,
+    &__message {
+      display: none;
+    }
+  }
 }

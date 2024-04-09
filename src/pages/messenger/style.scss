@@ -1,0 +1,6 @@
+.main-messenger {
+  @media (width <= 878px) {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

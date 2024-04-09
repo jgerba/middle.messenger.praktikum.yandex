@@ -29,6 +29,7 @@ export default new ProfileForm({
     type: 'email',
     autocomplete: 'email',
     regExpString: '^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
   loginInput: createNewInput('login', {
@@ -36,6 +37,7 @@ export default new ProfileForm({
     text: 'Login',
     autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
   nameInput: createNewInput('first_name', {
@@ -43,6 +45,7 @@ export default new ProfileForm({
     text: 'Name',
     autocomplete: 'given-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
   surnameInput: createNewInput('second_name', {
@@ -50,6 +53,7 @@ export default new ProfileForm({
     text: 'Surname',
     autocomplete: 'family-name',
     regExpString: '^[A-ZА-Я][a-zа-я-]+$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
   displayNameInput: createNewInput('display_name', {
@@ -57,6 +61,7 @@ export default new ProfileForm({
     text: 'Username',
     autocomplete: 'username',
     regExpString: '^(?=.*[A-Za-z])[-_A-Za-z0-9]{3,20}$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
   phoneInput: createNewInput('phone', {
@@ -65,6 +70,7 @@ export default new ProfileForm({
     type: 'phone',
     autocomplete: 'tel',
     regExpString: '^\\+?\\d{10,15}$',
+    isShiftedToSides: true,
     attr: { class: 'input-wrapper' },
   }),
 
@@ -73,7 +79,7 @@ export default new ProfileForm({
     attr: { class: 'btn', type: 'submit' },
   }),
   attr: {
-    class: 'form form--profile form--profile-change hidden',
+    class: 'form form-settings form-settings-change hidden',
     title: 'Change profile',
   },
 });

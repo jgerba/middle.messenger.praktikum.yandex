@@ -1,0 +1,9 @@
+.modal-remove-chat {
+  .modal__form {
+    height: 190px;
+  }
+
+  .btn--warning:hover {
+    border: 1px solid $warning-color;
+  }
+}

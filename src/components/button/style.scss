@@ -4,27 +4,27 @@
   border-radius: 8px;
   color: $white-color;
   background-color: $highlight-color;
+  transition: all 0.3s ease, color 0.3s ease;
 
   &--extra {
     color: $highlight-color;
+    background-color: transparent;
   }
 
   &--warning {
     color: $warning-color;
+    background-color: transparent;
+    border: 1px solid transparent;
   }
 
   &:hover {
     color: $highlight-color;
     background-color: $back-el-color;
-  }
-}
 
-.btn--extra,
-.btn--warning {
-  background-color: transparent;
-
-  &:hover {
-    background-color: transparent;
-    color: $back-text-color;
+    &.btn--extra,
+    &.btn--warning {
+      background-color: transparent;
+      color: $back-text-color;
+    }
   }
 }

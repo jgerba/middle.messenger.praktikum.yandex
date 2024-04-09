@@ -22,7 +22,6 @@ export default new ConnectedChatHead('form', {
     name: 'message',
     text: 'Message',
     autocomplete: 'off',
-    centeredInput: true,
     attr: { class: 'input-wrapper message-form__input' },
   }),
 

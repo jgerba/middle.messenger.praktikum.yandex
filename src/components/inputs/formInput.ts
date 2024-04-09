@@ -12,7 +12,7 @@ export default class FormInput extends ValidationInput {
     });
   }
 
-  toggleLabel() {
+  private toggleLabel() {
     const labelEl = this.element!.querySelector('label') as HTMLLabelElement;
 
     labelEl.classList.toggle('label--small');

@@ -8,20 +8,20 @@ import UserListItem from '../../userListItem/userListItem.js';
 import { ChildrenType, PropsType } from '../../../core/types.js';
 
 export default class RemoveUserModal extends Modal {
-  chatId: number | null;
+  private _chatId: number | null;
 
-  usersList: HTMLElement;
+  private _usersList: HTMLElement;
 
   constructor(props: PropsType | ChildrenType) {
     super(props);
 
-    this.chatId = null;
-    this.usersList = this.element!.querySelector('.modal__users')!;
+    this._chatId = null;
+    this._usersList = this.element!.querySelector('.modal__users')!;
 
     this.getUsers();
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     // remove events & attr data from props
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const propsToRender = (({ events, attr, ...rest }) => rest)(this.props);
@@ -29,15 +29,15 @@ export default class RemoveUserModal extends Modal {
     return this.compile(tpl, propsToRender);
   }
 
-  async getUsers() {
+  private async getUsers() {
     const state = store.getState();
-    this.chatId = (state.currentChat as { [key: string]: number })?.id;
-    if (!this.chatId) {
+    this._chatId = (state.currentChat as { [key: string]: number })?.id;
+    if (!this._chatId) {
       return;
     }
 
     const chatUsers = (await chatsController.getChatUsers({
-      data: { chatId: this.chatId },
+      data: { chatId: this._chatId },
     })) as PropsType[] | undefined;
 
     if (!chatUsers) {
@@ -54,20 +54,18 @@ export default class RemoveUserModal extends Modal {
     this.renderUsers(chatUsers);
   }
 
-  renderUsers(users: PropsType[] | undefined) {
-    console.log(users);
-
+  private renderUsers(users: PropsType[] | undefined) {
     if (!users || users.length === 0) {
-      this.usersList.innerHTML = 'No users...';
+      this._usersList.innerHTML = 'No users...';
       return;
     }
 
     users.forEach((user) => {
-      this.usersList.append(this.userItemConstructor(user));
+      this._usersList.append(this.userItemConstructor(user));
     });
   }
 
-  userItemConstructor(user: PropsType) {
+  private userItemConstructor(user: PropsType) {
     return new UserListItem({
       text: user.login,
       attr: { class: 'remove-user', 'data-id': user.id as number },
@@ -75,32 +73,31 @@ export default class RemoveUserModal extends Modal {
     }).getContent() as HTMLElement;
   }
 
-  async userHandler(id: number) {
-    if (!id || !this.chatId) {
+  private async userHandler(id: number) {
+    if (!id || !this._chatId) {
       return;
     }
 
     const dataToSend = {
       data: {
         users: [id],
-        chatId: this.chatId,
+        chatId: this._chatId,
       },
     };
 
     const status = await chatsController.removeUsers(dataToSend);
-    status === 200 ? this.removeUser(id) : this.handleError();
-  }
 
-  removeUser(id: number) {
-    const liToRemove = this.usersList.querySelector(`li[data-id="${id}"]`);
-    liToRemove?.remove();
-
-    if (!this.usersList.querySelector('li[data-id]')) {
-      this.usersList.innerHTML = 'No users...';
+    if (status === 200) {
+      this.removeUser(id);
     }
   }
 
-  handleError() {
-    console.log('Error handling...');
+  private removeUser(id: number) {
+    const liToRemove = this._usersList.querySelector(`li[data-id="${id}"]`);
+    liToRemove?.remove();
+
+    if (!this._usersList.querySelector('li[data-id]')) {
+      this._usersList.innerHTML = 'No users...';
+    }
   }
 }
