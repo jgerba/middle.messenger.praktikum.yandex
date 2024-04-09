@@ -79,7 +79,7 @@ export default new ProfileForm({
     attr: { class: 'btn', type: 'submit' },
   }),
   attr: {
-    class: 'form form--settings form--settings-change hidden',
+    class: 'form form-settings form-settings-change hidden',
     title: 'Change profile',
   },
 });
