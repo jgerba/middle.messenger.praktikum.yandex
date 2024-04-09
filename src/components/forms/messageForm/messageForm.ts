@@ -24,7 +24,9 @@ export default class MessageForm extends ValidationForm {
     event.preventDefault();
 
     const data = this.submitForm();
-    WSController.sendMessage(data as { [key: string]: string });
+    if (data) {
+      WSController.sendMessage(data as { [key: string]: string });
+    }
 
     (this.element! as HTMLFormElement).reset();
   }
